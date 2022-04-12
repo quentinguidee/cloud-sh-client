@@ -1,0 +1,14 @@
+{
+    "compilerOptions": {
+        "outDir": "./out/",
+        "module": "ES2015",
+        "target": "ES6",
+        "allowJs": false,
+        "jsx": "react",
+        "sourceMap": true,
+        "allowSyntheticDefaultImports": true,
+    },
+    "include": [
+        "src/**/*"
+    ],
+}
