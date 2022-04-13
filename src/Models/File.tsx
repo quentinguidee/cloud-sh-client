@@ -17,7 +17,7 @@ export function getIcon(file: File): string {
 export function getColor(file: File) {
     switch (file.type) {
         case "file":
-            return "#41628c";
+            return "#3e6a99";
         default:
             return "var(--text-secondary)";
     }
