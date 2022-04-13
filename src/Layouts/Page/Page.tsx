@@ -10,7 +10,7 @@ function Page(props: Props) {
     const { className, children, ...others } = props;
     return (
         <div {...others} className={classNames(styles.page, className)}>
-            <Layout vertical stretch gap={12}>
+            <Layout vertical stretch gap={20}>
                 {children}
             </Layout>
         </div>

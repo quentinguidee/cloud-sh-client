@@ -7,12 +7,12 @@ type Props = React.HTMLProps<HTMLDivElement> & {
 };
 
 function Icon(props: Props) {
-    const { symbol, className, size, ...others } = props;
+    const { symbol, className, style, size, ...others } = props;
     return (
         <span
             {...others}
             className={classNames("material-icons-round", className)}
-            style={{ fontSize: `${size ?? 20}px` }}
+            style={{ fontSize: `${size ?? 20}px`, ...style }}
         >
             {symbol}
         </span>

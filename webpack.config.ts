@@ -34,6 +34,7 @@ const config: Configuration = {
             Assets: resolve(__dirname, "src/Assets/"),
             Components: resolve(__dirname, "src/Components/"),
             Layouts: resolve(__dirname, "src/Layouts/"),
+            Models: resolve(__dirname, "src/Models/"),
             Pages: resolve(__dirname, "src/Pages/"),
         },
     },

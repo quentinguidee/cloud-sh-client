@@ -1,0 +1,12 @@
+@use "Assets/colors"
+@use "Assets/dimensions"
+@use "Assets/transitions"
+
+.item
+    background-color: colors.$background-secondary
+    border-radius: dimensions.$border-radius-large
+    padding: 14px 20px
+    transition: transitions.$default
+
+    &:hover
+        background-color: colors.$background-tertiary
