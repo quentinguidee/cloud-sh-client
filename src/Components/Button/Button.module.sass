@@ -1,0 +1,15 @@
+@use "Assets/colors"
+@use "Assets/dimensions"
+@use "Assets/transitions"
+
+.button
+    display: inline-block
+    color: colors.$text-inverted
+    background-color: colors.$accent
+    padding: 10px 16px
+    border-radius: dimensions.$border-radius-large
+    cursor: pointer
+    transition: transitions.$default
+
+    &:hover
+        background-color: colors.$accent-hover
