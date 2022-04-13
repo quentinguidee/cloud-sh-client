@@ -21,7 +21,7 @@ function FileListItem(props: Props) {
     return (
         <div {...others} className={classNames(styles.item, className)}>
             <Layout horizontal center gap={16}>
-                <Icon symbol={symbol} style={{ color }} />
+                <Icon symbol={symbol} style={{ color }} size={24} />
                 <Text>{filename}</Text>
             </Layout>
         </div>
