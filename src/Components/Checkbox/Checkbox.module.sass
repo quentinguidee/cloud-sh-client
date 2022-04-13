@@ -1,0 +1,50 @@
+@use "Assets/colors"
+@use "Assets/dimensions"
+@use "Assets/transitions"
+
+.wrapper
+    position: relative
+    width: 22px
+    height: 22px
+
+.input
+    position: absolute
+    opacity: 0
+    width: 0
+    height: 0
+
+.icon
+    position: absolute
+    top: 50%
+    left: 50%
+    color: transparent
+    user-select: none
+    transition: transitions.$default
+    transform: translate(-50%, -50%) scale(0)
+
+.checkbox
+    position: absolute
+    top: 0
+    left: 0
+    bottom: 0
+    right: 0
+    border-radius: dimensions.$border-radius
+    background-color: transparent
+    border: 1px solid colors.$background-tertiary
+    transition: transitions.$default
+    cursor: pointer
+    text-align: center
+
+    &:hover
+        background-color: colors.$background-tertiary
+
+    &Checked
+        background-color: colors.$accent
+        border-color: colors.$accent
+
+        &:hover
+            background-color: colors.$accent-hover
+
+        & .icon
+            color: colors.$text-inverted
+            transform: translate(-50%, -50%) scale(1)
