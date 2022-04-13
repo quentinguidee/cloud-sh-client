@@ -11,7 +11,7 @@ import Layout from "Components/Layout/Layout";
 function Drive() {
     return (
         <Page>
-            <Title>Drive</Title>
+            <Title>Storage</Title>
             <Layout horizontal center gap={12}>
                 <Button>
                     <Icon symbol="add" />
