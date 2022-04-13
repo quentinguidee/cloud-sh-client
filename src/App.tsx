@@ -8,8 +8,15 @@ import "Assets/App.sass";
 function App() {
     const darkTheme = window.matchMedia("(prefers-color-scheme: dark)");
 
+    // TODO: It should be possible to turn off darkTheme on demand(for the user, for testing purpose...)
+
     return (
-        <div className={classNames(darkTheme.matches ? "dark" : "light")}>
+        <div
+            className={classNames(
+                // FIXME: Re-enable this
+                darkTheme.matches ? /* dark */ "light" : "light",
+            )}
+        >
             <Router />
         </div>
     );
