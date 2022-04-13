@@ -1,0 +1,12 @@
+@use "Assets/colors"
+@use "Assets/dimensions"
+@use "Assets/transitions"
+
+.navbar
+    width: dimensions.$nav-bar-width
+    height: 100vh
+    background-color: colors.$background-secondary
+    transition: transitions.$default
+
+    &:hover
+        background-color: colors.$background-tertiary
