@@ -1,6 +1,6 @@
-import NavBar from "Components/NavBar/NavBar";
-import Drive from "Pages/Drive/Drive";
 import React, { Fragment } from "react";
+import NavigationBar from "Layouts/NavigationBar/NavigationBar";
+import Drive from "Pages/Drive/Drive";
 import { Route, Routes } from "react-router-dom";
 
 function Dashboard() {
@@ -11,7 +11,7 @@ function Dashboard() {
             </Routes>
 
             <div>
-                <NavBar />
+                <NavigationBar />
             </div>
         </Fragment>
     );

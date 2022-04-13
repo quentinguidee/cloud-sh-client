@@ -33,6 +33,7 @@ const config: Configuration = {
         alias: {
             Assets: resolve(__dirname, "src/Assets/"),
             Components: resolve(__dirname, "src/Components/"),
+            Layouts: resolve(__dirname, "src/Layouts/"),
             Pages: resolve(__dirname, "src/Pages/"),
         },
     },
