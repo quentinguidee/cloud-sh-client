@@ -1,0 +1,20 @@
+@use "Assets/colors"
+@use "Assets/dimensions"
+@use "Assets/transitions"
+
+.wrapper
+    text-decoration: none
+
+.item
+    color: colors.$text-primary
+    padding: 7px 12px
+    border-radius: dimensions.$border-radius-large
+    min-height: 28px
+    transition: transitions.$default
+
+    &:hover
+        background-color: colors.$background-tertiary
+        padding-left: 16px
+
+.icon
+    color: colors.$text-secondary

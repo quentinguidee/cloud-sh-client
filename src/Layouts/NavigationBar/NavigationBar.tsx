@@ -1,11 +1,26 @@
 import React from "react";
 import NavBar from "Components/NavBar/NavBar";
 import Logo from "Layouts/Logo/Logo";
+import NavBarItem from "Components/NavBarItem/NavBarItem";
+
+import styles from "./NavigationBar.module.sass";
+import Layout from "Components/Layout/Layout";
 
 function NavigationBar() {
     return (
         <NavBar>
-            <Logo />
+            <Logo className={styles.logo} />
+            <Layout vertical stretch>
+                <NavBarItem to="/drive" icon="storage">
+                    Drive
+                </NavBarItem>
+                <NavBarItem to="/contacts" icon="contacts">
+                    Contacts
+                </NavBarItem>
+                <NavBarItem to="/mail" icon="email">
+                    E-mail
+                </NavBarItem>
+            </Layout>
         </NavBar>
     );
 }
