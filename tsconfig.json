@@ -7,8 +7,14 @@
         "jsx": "react",
         "sourceMap": true,
         "allowSyntheticDefaultImports": true,
+        "moduleResolution": "Node",
+        "baseUrl": "./",
+        "noUnusedLocals": true,
+        "paths": {
+            "*": ["./src/*"]
+        }
     },
     "include": [
-        "src/**/*"
+        "src/**/*",
     ],
 }

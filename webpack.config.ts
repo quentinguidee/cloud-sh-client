@@ -20,6 +20,10 @@ const config: Configuration = {
     },
     resolve: {
         extensions: [".tsx", ".ts", ".jsx", ".js"],
+        alias: {
+            Components: resolve(__dirname, "src/Components/"),
+            Pages: resolve(__dirname, "src/Pages/"),
+        },
     },
     plugins: [
         new HtmlWebpackPlugin({
