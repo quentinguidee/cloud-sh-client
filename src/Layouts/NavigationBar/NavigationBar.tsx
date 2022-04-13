@@ -11,14 +11,14 @@ function NavigationBar() {
         <NavBar>
             <Logo className={styles.logo} />
             <Layout vertical stretch>
-                <NavBarItem to="/drive" icon="storage">
-                    Drive
+                <NavBarItem to="/storage" icon="storage">
+                    Storage
                 </NavBarItem>
                 <NavBarItem to="/contacts" icon="contacts">
                     Contacts
                 </NavBarItem>
-                <NavBarItem to="/mail" icon="email">
-                    E-mail
+                <NavBarItem to="/mails" icon="email">
+                    Mails
                 </NavBarItem>
             </Layout>
         </NavBar>

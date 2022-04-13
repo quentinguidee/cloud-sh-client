@@ -1,6 +1,6 @@
 import React from "react";
 import NavigationBar from "Layouts/NavigationBar/NavigationBar";
-import Drive from "Pages/Drive/Drive";
+import Storage from "Pages/Storage/Storage";
 import { Route, Routes } from "react-router-dom";
 import Layout from "Components/Layout/Layout";
 
@@ -15,7 +15,7 @@ function Dashboard() {
 
             <div className={styles.content}>
                 <Routes>
-                    <Route path="drive" element={<Drive />} />
+                    <Route path="storage" element={<Storage />} />
                 </Routes>
             </div>
         </Layout>
