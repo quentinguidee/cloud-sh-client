@@ -14,8 +14,8 @@ function Drive() {
             <Title>Storage</Title>
             <Layout horizontal center gap={12}>
                 <Button>
-                    <Icon symbol="add" />
-                    <Text>Add</Text>
+                    <Icon symbol="create_new_folder" />
+                    <Text>New folder</Text>
                 </Button>
             </Layout>
             <List>
