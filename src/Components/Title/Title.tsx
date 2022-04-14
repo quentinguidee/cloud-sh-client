@@ -12,7 +12,9 @@ function Title(props: Props) {
 
 function Subtitle(props: Props) {
     const { className, ...others } = props;
-    return <h2 {...others} className={classNames(styles.title, className)} />;
+    return (
+        <h2 {...others} className={classNames(styles.subtitle, className)} />
+    );
 }
 
 export { Title, Subtitle };
