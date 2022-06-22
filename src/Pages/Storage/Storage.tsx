@@ -1,5 +1,4 @@
 import React from "react";
-import { Title } from "Components/Title/Title";
 import Page from "Layouts/Page/Page";
 import List from "Components/List/List";
 import FileListItem from "Layouts/FileListItem/FileListItem";
@@ -7,11 +6,12 @@ import Button from "Components/Button/Button";
 import Symbol from "Components/Icon/Symbol";
 import Text from "Components/Text/Text";
 import Layout from "Components/Layout/Layout";
+import TitleBar from "Layouts/TitleBar/TitleBar";
 
 function Drive() {
     return (
         <Page>
-            <Title>Storage</Title>
+            <TitleBar title="Storage" />
             <Layout horizontal center gap={12}>
                 <Button>
                     <Symbol symbol="create_new_folder" />
