@@ -1,12 +1,11 @@
-import { join, resolve } from "path";
-import { Configuration } from "webpack";
+const path = require("path");
 
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 
-const config: Configuration = {
+module.exports = {
     entry: "./src/index.tsx",
     output: {
-        path: resolve(__dirname, "out"),
+        path: path.resolve(__dirname, "out"),
         filename: "bundle.[hash].js",
     },
     module: {
@@ -29,22 +28,20 @@ const config: Configuration = {
         ],
     },
     resolve: {
-        extensions: [".tsx", ".ts", ".jsx", ".js"],
+        extensions: [".tsx", ".ts", ".jsx", ".js", ".sass"],
         alias: {
-            Assets: resolve(__dirname, "src/Assets/"),
-            Backend: resolve(__dirname, "src/Backend/"),
-            Components: resolve(__dirname, "src/Components/"),
-            Layouts: resolve(__dirname, "src/Layouts/"),
-            Models: resolve(__dirname, "src/Models/"),
-            Pages: resolve(__dirname, "src/Pages/"),
+            Assets: path.resolve(__dirname, "src/Assets/"),
+            Backend: path.resolve(__dirname, "src/Backend/"),
+            Components: path.resolve(__dirname, "src/Components/"),
+            Layouts: path.resolve(__dirname, "src/Layouts/"),
+            Models: path.resolve(__dirname, "src/Models/"),
+            Pages: path.resolve(__dirname, "src/Pages/"),
         },
     },
     plugins: [
         new HtmlWebpackPlugin({
-            template: join(__dirname, "public", "index.html"),
+            template: path.join(__dirname, "public", "index.html"),
             filename: "index.html",
         }),
     ],
 };
-
-export default config;
