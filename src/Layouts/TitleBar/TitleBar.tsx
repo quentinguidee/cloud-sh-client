@@ -1,5 +1,7 @@
 import React from "react";
 
+import styles from "./TitleBar.module.sass";
+
 import Layout from "Components/Layout/Layout";
 import { Title } from "Components/Title/Title";
 import Spacer from "Components/Spacer/Spacer";
@@ -13,7 +15,7 @@ function TitleBar(props: Props) {
     const { title } = props;
     return (
         <Layout horizontal>
-            <Title>{title}</Title>
+            <Title className={styles.title}>{title}</Title>
             <Spacer />
             <Account />
         </Layout>
