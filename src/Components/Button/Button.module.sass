@@ -1,15 +1,21 @@
 @use "../../Assets/colors"
 @use "../../Assets/dimensions"
+@use "../../Assets/fonts"
 @use "../../Assets/transitions"
 
 .button
+    position: relative
     display: inline-block
     color: colors.$text-inverted
     background-color: colors.$accent
-    padding: 10px 16px
-    border-radius: dimensions.$border-radius-large
+    padding: 8px 16px
+    border-radius: dimensions.$border-radius
     cursor: pointer
     transition: transitions.$default
+    user-select: none
+    font-size: fonts.$size-normal
+    box-shadow: rgba(0, 0, 0, 0.10) 0 3px 8px
 
     &:hover
         background-color: colors.$accent-hover
+        box-shadow: rgba(0, 0, 0, 0.15) 0 5px 12px
