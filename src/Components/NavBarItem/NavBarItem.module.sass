@@ -2,20 +2,22 @@
 @use "../../Assets/dimensions"
 @use "../../Assets/transitions"
 
-.wrapper
+.item
     text-decoration: none
     padding: 0
 
-.item
+.content
     color: colors.$text-primary
-    padding: 7px 12px
-    border-radius: dimensions.$border-radius-large
+    padding: 5px 12px
+    border-radius: dimensions.$border-radius
     min-height: 28px
     transition: transitions.$default
 
+    .itemSelected &
+        background-color: colors.$background-secondary
+
     &:hover
         background-color: colors.$background-hover
-        padding-left: 16px
 
 .icon
     color: colors.$text-secondary

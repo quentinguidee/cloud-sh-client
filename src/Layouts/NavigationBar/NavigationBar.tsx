@@ -10,7 +10,7 @@ function NavigationBar() {
     return (
         <NavBar>
             <Logo className={styles.logo} />
-            <Layout vertical stretch>
+            <Layout vertical stretch gap={4}>
                 <NavBarItem to="/storage" icon="storage">
                     Storage
                 </NavBarItem>

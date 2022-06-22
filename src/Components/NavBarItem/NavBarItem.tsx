@@ -17,12 +17,20 @@ function NavBarItem(props: Props) {
     const icon = <Symbol className={styles.icon} symbol={symbol} />;
 
     return (
-        <NavLink to={to} className={styles.wrapper}>
+        <NavLink
+            to={to}
+            className={({ isActive }) =>
+                classNames({
+                    [styles.item]: true,
+                    [styles.itemSelected]: isActive,
+                })
+            }
+        >
             <Layout
                 horizontal
                 center
                 gap={12}
-                className={classNames(styles.item, className)}
+                className={classNames(styles.content, className)}
                 {...others}
             >
                 {icon}
