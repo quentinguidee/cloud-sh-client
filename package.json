@@ -5,8 +5,8 @@
     "author": "Quentin Guidée <quentin.guidee@gmail.com>",
     "license": "UNLICENSED",
     "scripts": {
-        "start": "webpack-dev-server --config webpack.dev.ts",
-        "build": "webpack --config webpack.prod.ts",
+        "start": "webpack-dev-server --config webpack.dev.js",
+        "build": "webpack --config webpack.prod.js",
         "test": "jest"
     },
     "dependencies": {
