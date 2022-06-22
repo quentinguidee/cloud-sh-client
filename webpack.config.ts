@@ -32,6 +32,7 @@ const config: Configuration = {
         extensions: [".tsx", ".ts", ".jsx", ".js"],
         alias: {
             Assets: resolve(__dirname, "src/Assets/"),
+            Backend: resolve(__dirname, "src/Backend/"),
             Components: resolve(__dirname, "src/Components/"),
             Layouts: resolve(__dirname, "src/Layouts/"),
             Models: resolve(__dirname, "src/Models/"),
