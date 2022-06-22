@@ -14,6 +14,7 @@ sh.Cloud (self-hosted cloud) is a lightweight self-hosted cloud for your home la
 ## Start coding
 
 ```bash
+yarn install
 yarn start
 ```
 
