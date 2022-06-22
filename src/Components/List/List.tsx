@@ -10,7 +10,7 @@ function List(props: Props) {
     const { className, children, ...others } = props;
     return (
         <div {...others} className={classNames(styles.list, className)}>
-            <Layout vertical stretch gap={4}>
+            <Layout vertical stretch gap={6}>
                 {children}
             </Layout>
         </div>
