@@ -1,5 +1,5 @@
 import classNames from "classnames";
-import Icon from "Components/Icon/Icon";
+import Symbol from "Components/Icon/Symbol";
 import Layout from "Components/Layout/Layout";
 import Text from "Components/Text/Text";
 import { File, getColor, getIcon } from "Models/File";
@@ -21,7 +21,7 @@ function FileListItem(props: Props) {
     return (
         <div {...others} className={classNames(styles.item, className)}>
             <Layout horizontal center gap={16}>
-                <Icon symbol={symbol} style={{ color }} size={24} />
+                <Symbol symbol={symbol} style={{ color }} size={24} />
                 <Text>{filename}</Text>
             </Layout>
         </div>

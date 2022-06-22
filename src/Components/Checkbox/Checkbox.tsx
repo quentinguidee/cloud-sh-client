@@ -1,5 +1,5 @@
 import classNames from "classnames";
-import Icon from "Components/Icon/Icon";
+import Symbol from "Components/Icon/Symbol";
 import React, { useState } from "react";
 
 import styles from "./Checkbox.module.sass";
@@ -30,7 +30,7 @@ function Checkbox(props: Props) {
                 })}
                 onClick={onClick}
             >
-                <Icon
+                <Symbol
                     className={classNames(styles.icon)}
                     symbol="done"
                     size={16}

@@ -2,10 +2,10 @@ import React from "react";
 import { render } from "@testing-library/react";
 import "@testing-library/jest-dom";
 
-import Icon from "./Icon";
+import Symbol from "./Symbol";
 
 it("renders", async () => {
     const symbol = "done";
-    const { getByText } = render(<Icon symbol={symbol} />);
+    const { getByText } = render(<Symbol symbol={symbol} />);
     expect(getByText(symbol)).toBeInTheDocument();
 });

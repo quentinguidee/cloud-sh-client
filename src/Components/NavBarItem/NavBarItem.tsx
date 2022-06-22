@@ -1,5 +1,5 @@
 import classNames from "classnames";
-import Icon from "Components/Icon/Icon";
+import Symbol from "Components/Icon/Symbol";
 import Layout from "Components/Layout/Layout";
 import React from "react";
 import { NavLink, To } from "react-router-dom";
@@ -14,7 +14,7 @@ type Props = React.HTMLProps<HTMLDivElement> & {
 function NavBarItem(props: Props) {
     const { to, className, children, icon: symbol, ...others } = props;
 
-    const icon = <Icon className={styles.icon} symbol={symbol} />;
+    const icon = <Symbol className={styles.icon} symbol={symbol} />;
 
     return (
         <NavLink to={to} className={styles.wrapper}>

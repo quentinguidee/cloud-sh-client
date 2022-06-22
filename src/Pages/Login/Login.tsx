@@ -1,7 +1,7 @@
 import React from "react";
 
 import Button from "Components/Button/Button";
-import Icon from "Components/Icon/Icon";
+import Symbol from "Components/Icon/Symbol";
 import Layout from "Components/Layout/Layout";
 import { Title } from "Components/Title/Title";
 
@@ -22,7 +22,7 @@ function Login() {
             <Layout vertical className={styles.login} gap={24}>
                 <Title>Login</Title>
                 <Button onClick={loginWithGithub} className={styles.github}>
-                    <Icon symbol="login" />
+                    <Symbol symbol="login" />
                     Login with GitHub
                 </Button>
             </Layout>
