@@ -25,8 +25,8 @@ function Login() {
         window.location = res.data.url;
     };
 
-    const authorizeGithub = async () => {
-        const [_, err] = await post("/auth/github/authorize", {
+    const callbackGithub = async () => {
+        const [_, err] = await post("/auth/github/callback", {
             code,
             state,
         });
@@ -44,7 +44,7 @@ function Login() {
 
     useEffect(() => {
         if (!code || !state) return;
-        authorizeGithub().then(console.log);
+        callbackGithub().then(console.log);
     }, [code, state]);
 
     return (
