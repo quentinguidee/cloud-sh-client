@@ -7,11 +7,17 @@ import Symbol from "Components/Icon/Symbol";
 import Text from "Components/Text/Text";
 import Layout from "Components/Layout/Layout";
 import TitleBar from "Layouts/TitleBar/TitleBar";
+import User from "Models/User";
 
-function Drive() {
+type Props = {
+    account?: User;
+};
+
+function Storage(props: Props) {
+    const { account } = props;
     return (
         <Page>
-            <TitleBar title="Storage" />
+            <TitleBar title="Storage" account={account} />
             <Layout horizontal center gap={12}>
                 <Button>
                     <Symbol symbol="create_new_folder" />
@@ -31,4 +37,4 @@ function Drive() {
     );
 }
 
-export default Drive;
+export default Storage;
