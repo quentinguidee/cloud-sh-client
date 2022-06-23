@@ -12,6 +12,10 @@ type Props = React.HTMLProps<HTMLDivElement> & {
     right?: boolean;
     stretch?: boolean;
 
+    justify?: boolean;
+
+    maximize?: boolean;
+
     gap?: number;
 };
 
@@ -23,6 +27,8 @@ function Layout(props: Props) {
         center,
         right,
         stretch,
+        justify,
+        maximize,
         className,
         style,
         gap,
@@ -40,6 +46,8 @@ function Layout(props: Props) {
                 [styles.layoutCenter]: center,
                 [styles.layoutRight]: right,
                 [styles.layoutStretch]: stretch,
+                [styles.layoutJustify]: justify,
+                [styles.layoutMaximize]: maximize,
                 [className]: true,
             })}
             style={{ gap, ...styles }}
