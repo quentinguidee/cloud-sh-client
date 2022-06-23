@@ -111,7 +111,9 @@ class CommandPrompt extends React.Component<Props, State> {
         let index = -1
         return (
             this.state.matchedCommands.map((command) => {
-                const matchedPartIndex = command.name.indexOf(this.state.typed)
+                const lowerCommand = command.name.toLowerCase()
+                const lowerTyped = this.state.typed.toLowerCase()
+                const matchedPartIndex = lowerCommand.indexOf(lowerTyped)
 
                 const beforeMatchedPart = command.name.substring(0, matchedPartIndex )
                 const matchedPart = command.name.substring(matchedPartIndex, matchedPartIndex + this.state.typed.length)

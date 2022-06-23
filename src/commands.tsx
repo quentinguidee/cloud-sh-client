@@ -8,7 +8,7 @@ export const COMMAND_LIST: Command[] = [
         icon: "chat",
         id: makeId(),
         callback: () => alert("Hello world"),
-        name: "Say hello",
+        name: "Say Hello",
         tooltip: "Display a popup with an hello message",
     },
     {
