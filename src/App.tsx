@@ -7,7 +7,6 @@ import "Assets/App.sass";
 import { Provider } from "react-redux";
 import store, { persistor } from "Store/Store";
 import { PersistGate } from "redux-persist/integration/react";
-import Overlay from "Components/Overlay/Overlay";
 
 function App() {
     const darkTheme = window.matchMedia("(prefers-color-scheme: dark)");
@@ -17,7 +16,6 @@ function App() {
     return (
         <Provider store={store}>
             <PersistGate persistor={persistor}>
-                <Overlay show={false} />
                 <div
                     className={classNames(
                         // FIXME: Re-enable this

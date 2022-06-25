@@ -1,12 +1,22 @@
 @use "Assets/colors.sass"
+@use "Assets/transitions.sass"
 
 .account
-    border-radius: 50%
-    background-color: colors.$background-tertiary
-    height: 32px
-    width: 32px
-    overflow: hidden
+    text-align: right
+    position: relative
+    z-index: 10
 
 .picture
-    width: 100%
-    height: 100%
+    background-color: colors.$background-tertiary
+    border-radius: 50%
+    height: 32px
+    width: 32px
+    cursor: pointer
+    border: 2px solid colors.$background-primary
+    transition: transitions.$default
+
+    &:hover
+        border: 2px solid colors.$background-hover
+
+.logout
+    color: colors.$text-red !important
