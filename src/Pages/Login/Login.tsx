@@ -21,10 +21,13 @@ function Login() {
     const [state, setState] = useState<string | undefined>();
 
     const [error, setError] = useState<string | undefined>();
+    const [loading, setLoading] = useState<boolean>(false);
 
     const navigate = useNavigate();
 
     const loginWithGithub = () => {
+        setLoading(true);
+        setError(undefined);
         get("/auth/github/login")
             .then((res) => {
                 window.location = res.data.url;
@@ -32,12 +35,16 @@ function Login() {
             .catch((err) => {
                 console.error(err);
                 setError(
-                    err?.response?.message ?? err.message ?? err.toString(),
+                    err?.response?.data?.message ??
+                        err.message ??
+                        err.toString(),
                 );
+                setLoading(false);
             });
     };
 
     const callbackGithub = async () => {
+        setLoading(true);
         post("/auth/github/callback", {
             code,
             state,
@@ -50,8 +57,13 @@ function Login() {
                 navigate("/");
             })
             .catch((err) => {
-                setError(err);
-                console.error(err);
+                console.error(err.response);
+                setError(
+                    err?.response?.data?.message ??
+                        err.message ??
+                        err.toString(),
+                );
+                setLoading(false);
             });
     };
 
@@ -67,19 +79,22 @@ function Login() {
 
     return (
         <div className={styles.content}>
-            <Layout vertical gap={24}>
-                <Box>
-                    <Layout vertical className={styles.login} gap={24}>
-                        <Title>Login</Title>
-                        <Button
-                            onClick={loginWithGithub}
-                            className={styles.github}
-                        >
-                            <Symbol symbol="login" />
-                            Login with GitHub
-                        </Button>
-                    </Layout>
-                </Box>
+            <Layout vertical className={styles.login} gap={24}>
+                {!loading && (
+                    <Box>
+                        <Layout vertical gap={24}>
+                            <Title>Login</Title>
+                            <Button
+                                onClick={loginWithGithub}
+                                className={styles.github}
+                            >
+                                <Symbol symbol="login" />
+                                Login with GitHub
+                            </Button>
+                        </Layout>
+                    </Box>
+                )}
+                {loading && <Box type="info">Authenticating...</Box>}
                 {error && (
                     <Box type="error">
                         <Layout vertical gap={12}>
