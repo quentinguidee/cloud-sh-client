@@ -4,5 +4,5 @@ import { useMemo } from "react";
 
 export const useSession = () => {
     const session = useSelector(getSession);
-    return useMemo(() => ({ session }), [session]);
+    return useMemo(() => session, [session]);
 };
