@@ -4,6 +4,8 @@ import classNames from "classnames";
 
 import "Assets/Reset.sass";
 import "Assets/App.sass";
+import { Provider } from "react-redux";
+import store from "Store/Store";
 
 function App() {
     const darkTheme = window.matchMedia("(prefers-color-scheme: dark)");
@@ -11,14 +13,16 @@ function App() {
     // TODO: It should be possible to turn off darkTheme on demand(for the user, for testing purpose...)
 
     return (
-        <div
-            className={classNames(
-                // FIXME: Re-enable this
-                darkTheme.matches ? /* dark */ "light" : "light",
-            )}
-        >
-            <Router />
-        </div>
+        <Provider store={store}>
+            <div
+                className={classNames(
+                    // FIXME: Re-enable this
+                    darkTheme.matches ? /* dark */ "light" : "light",
+                )}
+            >
+                <Router />
+            </div>
+        </Provider>
     );
 }
 

@@ -10,11 +10,14 @@
         "test": "jest"
     },
     "dependencies": {
+        "@reduxjs/toolkit": "^1.8.2",
         "axios": "^0.26.1",
         "classnames": "^2.3.1",
         "react": "^18.0.0",
         "react-dom": "^18.0.0",
-        "react-router-dom": "^6.3.0"
+        "react-redux": "^8.0.2",
+        "react-router-dom": "^6.3.0",
+        "redux": "^4.2.0"
     },
     "devDependencies": {
         "@babel/core": "^7.17.9",

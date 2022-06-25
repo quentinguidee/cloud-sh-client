@@ -36,6 +36,7 @@ module.exports = {
             Layouts: path.resolve(__dirname, "src/Layouts/"),
             Models: path.resolve(__dirname, "src/Models/"),
             Pages: path.resolve(__dirname, "src/Pages/"),
+            Store: path.resolve(__dirname, "src/Store/"),
         },
     },
     plugins: [

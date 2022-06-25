@@ -8,9 +8,13 @@ import { Title } from "Components/Title/Title";
 import styles from "./Login.module.sass";
 import { get, post } from "Backend/api";
 import { useNavigate, useSearchParams } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { setSession, setUser } from "Store/Slices/AuthSlice";
 
 function Login() {
     const [params] = useSearchParams();
+
+    const dispatch = useDispatch();
 
     const [code, setCode] = useState<string | undefined>();
     const [state, setState] = useState<string | undefined>();
@@ -26,7 +30,7 @@ function Login() {
     };
 
     const callbackGithub = async () => {
-        const [_, err] = await post("/auth/github/callback", {
+        const [res, err] = await post("/auth/github/callback", {
             code,
             state,
         });
@@ -34,6 +38,11 @@ function Login() {
             console.error(err);
             return;
         }
+
+        dispatch(setUser(res.data.user));
+        dispatch(setSession(res.data.session));
+
+        console.log("Logged in successfully");
         navigate("/");
     };
 

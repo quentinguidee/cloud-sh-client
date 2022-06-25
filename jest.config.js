@@ -8,5 +8,6 @@ module.exports = {
         "^Layouts(.*)$": "<rootDir>/src/Layouts$1",
         "^Models(.*)$": "<rootDir>/src/Models$1",
         "^Pages(.*)$": "<rootDir>/src/Pages$1",
+        "^Store(.*)$": "<rootDir>/src/Store$1",
     },
 };
