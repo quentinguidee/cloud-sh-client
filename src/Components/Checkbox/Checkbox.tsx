@@ -1,5 +1,5 @@
 import classNames from "classnames";
-import Symbol from "Components/Icon/Symbol";
+import Symbol from "Components/Symbol/Symbol";
 import React, { useState } from "react";
 
 import styles from "./Checkbox.module.sass";

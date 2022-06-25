@@ -1,5 +1,5 @@
 import classNames from "classnames";
-import Symbol from "Components/Icon/Symbol";
+import Symbol from "Components/Symbol/Symbol";
 import Layout from "Components/Layout/Layout";
 import React from "react";
 import { NavLink, To } from "react-router-dom";

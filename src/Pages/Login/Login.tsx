@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 
 import Button from "Components/Button/Button";
-import Symbol from "Components/Icon/Symbol";
+import Symbol from "Components/Symbol/Symbol";
 import Layout from "Components/Layout/Layout";
 import { Subtitle, Title } from "Components/Title/Title";
 

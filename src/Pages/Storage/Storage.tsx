@@ -3,7 +3,7 @@ import Page from "Layouts/Page/Page";
 import List from "Components/List/List";
 import FileListItem from "Layouts/FileListItem/FileListItem";
 import Button from "Components/Button/Button";
-import Symbol from "Components/Icon/Symbol";
+import Symbol from "Components/Symbol/Symbol";
 import Text from "Components/Text/Text";
 import Layout from "Components/Layout/Layout";
 import TitleBar from "Layouts/TitleBar/TitleBar";

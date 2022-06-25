@@ -2,7 +2,7 @@ import React from "react";
 import PopoverItem, {
     PopoverItemProps,
 } from "Components/PopoverItem/PopoverItem";
-import Symbol from "Components/Icon/Symbol";
+import Symbol from "Components/Symbol/Symbol";
 import Layout from "Components/Layout/Layout";
 import Spacer from "Components/Spacer/Spacer";
 
