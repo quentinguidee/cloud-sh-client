@@ -21,12 +21,12 @@ function Login() {
     const [state, setState] = useState<string | undefined>();
 
     const [error, setError] = useState<string | undefined>();
-    const [loading, setLoading] = useState<boolean>(false);
+    const [loading, setLoading] = useState<string | undefined>();
 
     const navigate = useNavigate();
 
     const loginWithGithub = () => {
-        setLoading(true);
+        setLoading("Redirecting to Github...");
         setError(undefined);
         get("/auth/github/login")
             .then((res) => {
@@ -39,12 +39,12 @@ function Login() {
                         err.message ??
                         err.toString(),
                 );
-                setLoading(false);
+                setLoading(undefined);
             });
     };
 
     const callbackGithub = async () => {
-        setLoading(true);
+        setLoading("Authenticating...");
         post("/auth/github/callback", {
             code,
             state,
@@ -63,7 +63,7 @@ function Login() {
                         err.message ??
                         err.toString(),
                 );
-                setLoading(false);
+                setLoading(undefined);
             });
     };
 
@@ -94,7 +94,7 @@ function Login() {
                         </Layout>
                     </Box>
                 )}
-                {loading && <Box type="info">Authenticating...</Box>}
+                {loading && <Box type="info">{loading}</Box>}
                 {error && (
                     <Box type="error">
                         <Layout vertical gap={12}>
