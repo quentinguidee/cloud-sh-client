@@ -8,8 +8,8 @@ type Props = {
 };
 
 function Account(props: Props) {
-    const { user } = props;
-    return <div className={styles.account}>{user?.username}</div>;
+    // const { user } = props;
+    return <div className={styles.account}></div>;
 }
 
 export default Account;
