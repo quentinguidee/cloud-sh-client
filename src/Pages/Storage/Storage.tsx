@@ -1,12 +1,11 @@
 import React from "react";
 import Page from "Layouts/Page/Page";
-import List from "Components/List/List";
-import FileListItem from "Layouts/FileListItem/FileListItem";
 import Button from "Components/Button/Button";
 import Symbol from "Components/Symbol/Symbol";
 import Text from "Components/Text/Text";
 import Layout from "Components/Layout/Layout";
 import TitleBar from "Layouts/TitleBar/TitleBar";
+import FileExplorer from "Layouts/FileExplorer/FileExplorer";
 
 function Storage() {
     return (
@@ -18,15 +17,7 @@ function Storage() {
                     <Text>New folder</Text>
                 </Button>
             </Layout>
-            <List>
-                <FileListItem file={{ type: "file", filename: "File.txt" }} />
-                <FileListItem
-                    file={{ type: "directory", filename: "Directory" }}
-                />
-                <FileListItem
-                    file={{ type: "file", filename: "Another document" }}
-                />
-            </List>
+            <FileExplorer />
         </Page>
     );
 }
