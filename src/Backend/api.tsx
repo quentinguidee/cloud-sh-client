@@ -13,3 +13,10 @@ export async function post(
 ): Promise<AxiosResponse<any>> {
     return axios.post(`${API_URL}${route}`, data);
 }
+
+export async function put(
+    route: string,
+    data: object,
+): Promise<AxiosResponse<any>> {
+    return axios.put(`${API_URL}${route}`, data);
+}
