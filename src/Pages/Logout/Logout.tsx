@@ -9,14 +9,9 @@ function Logout() {
     const session = useSession();
 
     const logout = async () => {
-        console.log(session);
-        const [_, err] = await post("/auth/logout", {
-            ...session,
-        });
-        if (err) {
-            return console.error(err);
-        }
-        navigate("/login");
+        post("/auth/logout", { ...session })
+            .then(() => navigate("/login"))
+            .catch(console.error);
     };
 
     useEffect(() => {
