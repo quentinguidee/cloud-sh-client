@@ -5,7 +5,8 @@ import classNames from "classnames";
 import "Assets/Reset.sass";
 import "Assets/App.sass";
 import { Provider } from "react-redux";
-import store from "Store/Store";
+import store, { persistor } from "Store/Store";
+import { PersistGate } from "redux-persist/integration/react";
 
 function App() {
     const darkTheme = window.matchMedia("(prefers-color-scheme: dark)");
@@ -14,14 +15,16 @@ function App() {
 
     return (
         <Provider store={store}>
-            <div
-                className={classNames(
-                    // FIXME: Re-enable this
-                    darkTheme.matches ? /* dark */ "light" : "light",
-                )}
-            >
-                <Router />
-            </div>
+            <PersistGate persistor={persistor}>
+                <div
+                    className={classNames(
+                        // FIXME: Re-enable this
+                        darkTheme.matches ? /* dark */ "light" : "light",
+                    )}
+                >
+                    <Router />
+                </div>
+            </PersistGate>
         </Provider>
     );
 }
