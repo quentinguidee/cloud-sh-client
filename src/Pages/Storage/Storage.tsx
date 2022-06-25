@@ -7,17 +7,11 @@ import Symbol from "Components/Icon/Symbol";
 import Text from "Components/Text/Text";
 import Layout from "Components/Layout/Layout";
 import TitleBar from "Layouts/TitleBar/TitleBar";
-import User from "Models/User";
 
-type Props = {
-    account?: User;
-};
-
-function Storage(props: Props) {
-    const { account } = props;
+function Storage() {
     return (
         <Page>
-            <TitleBar title="Storage" account={account} />
+            <TitleBar title="Storage" />
             <Layout horizontal center gap={12}>
                 <Button>
                     <Symbol symbol="create_new_folder" />

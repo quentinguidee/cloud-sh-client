@@ -6,20 +6,22 @@ import Layout from "Components/Layout/Layout";
 import { Title } from "Components/Title/Title";
 import Spacer from "Components/Spacer/Spacer";
 import Account from "Layouts/Account/Account";
-import User from "Models/User";
+import { useUser } from "Store/Hooks/useUser";
 
 type Props = {
     title: string;
-    account?: User;
 };
 
 function TitleBar(props: Props) {
-    const { title, account } = props;
+    const { title } = props;
+
+    const user = useUser();
+
     return (
         <Layout horizontal>
             <Title className={styles.title}>{title}</Title>
             <Spacer />
-            <Account account={account} />
+            <Account user={user} />
         </Layout>
     );
 }

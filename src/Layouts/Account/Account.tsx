@@ -4,11 +4,12 @@ import styles from "./Account.module.sass";
 import User from "Models/User";
 
 type Props = {
-    account?: User;
+    user?: User;
 };
 
 function Account(props: Props) {
-    return <div className={styles.account}></div>;
+    const { user } = props;
+    return <div className={styles.account}>{user?.username}</div>;
 }
 
 export default Account;
