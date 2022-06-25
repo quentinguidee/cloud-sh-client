@@ -4,7 +4,7 @@ import styles from "./Account.module.sass";
 import User from "Models/User";
 import Popover from "Components/Popover/Popover";
 import Layout from "Components/Layout/Layout";
-import PopoverItemLink from "Components/PopoverItemLink/PopoverItemLink";
+import PopoverItemWithSymbol from "Components/PopoverItemWithSymbol/PopoverItemWithSymbol";
 
 type Props = {
     user?: User;
@@ -39,13 +39,13 @@ function Account(props: Props) {
                 onClose={() => setShow(false)}
             >
                 <Layout vertical>
-                    <PopoverItemLink
+                    <PopoverItemWithSymbol
                         to="/logout"
                         symbol="logout"
                         className={styles.logout}
                     >
                         Logout
-                    </PopoverItemLink>
+                    </PopoverItemWithSymbol>
                 </Layout>
             </Popover>
         </div>
