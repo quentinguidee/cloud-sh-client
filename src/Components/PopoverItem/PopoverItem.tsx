@@ -6,7 +6,7 @@ import { Link, To } from "react-router-dom";
 
 export type PopoverItemProps = React.PropsWithChildren<{
     to?: To;
-    className: string;
+    className?: string;
 }>;
 
 function PopoverItem(props: PopoverItemProps) {
