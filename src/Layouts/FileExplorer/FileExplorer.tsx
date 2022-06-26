@@ -28,7 +28,7 @@ function FileExplorer(props: Props) {
             },
         })
             .then((res) => {
-                console.log(res.data);
+                console.table(res.data.files);
                 setFiles(res.data.files);
             })
             .catch(console.error);
