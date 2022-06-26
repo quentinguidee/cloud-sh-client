@@ -45,6 +45,6 @@ module.exports = {
             template: path.join(__dirname, "public", "index.html"),
             filename: "index.html",
         }),
-        new Dotenv({path: '.env'}),
+        new Dotenv({ path: ".env" }),
     ],
 };
