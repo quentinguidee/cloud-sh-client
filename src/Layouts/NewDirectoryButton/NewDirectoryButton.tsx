@@ -22,6 +22,12 @@ function NewDirectoryButton(props: Props) {
         setValue(e.target.value);
     };
 
+    const onInputKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+        if (e.key === "Enter") {
+            submit();
+        }
+    };
+
     const openDialog = () => {
         setShowDialog(true);
     };
@@ -31,7 +37,7 @@ function NewDirectoryButton(props: Props) {
         setValue("");
     };
 
-    const create = () => {
+    const submit = () => {
         createDirectory(value);
         closeDialog();
     };
@@ -53,9 +59,10 @@ function NewDirectoryButton(props: Props) {
                         name="filename"
                         value={value}
                         onChange={onValueChange}
+                        onKeyDown={onInputKeyDown}
                     />
                 </PopoverItem>
-                <PopoverItem onClick={create}>Create</PopoverItem>
+                <PopoverItem onClick={submit}>Create</PopoverItem>
             </Popover>
             <Button onClick={openDialog}>
                 <Symbol symbol="create_new_folder" />
