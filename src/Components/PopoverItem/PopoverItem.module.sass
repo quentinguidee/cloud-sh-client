@@ -9,8 +9,11 @@
     user-select: none
     white-space: nowrap
 
-    &Selectable:hover
-        background-color: colors.$background-hover
+    &Selectable
+        cursor: pointer
+
+        &:hover
+            background-color: colors.$background-hover
 
     &NoPadding
         padding: 0
