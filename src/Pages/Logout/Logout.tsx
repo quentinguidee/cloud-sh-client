@@ -18,7 +18,6 @@ function Logout() {
             .post(route("/auth/logout"), { ...session })
             .then(() => navigate("/login"))
             .catch(console.error);
-        
     };
 
     useEffect(() => {
