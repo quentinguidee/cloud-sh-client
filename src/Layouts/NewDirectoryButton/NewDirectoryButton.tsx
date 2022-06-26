@@ -76,7 +76,10 @@ function NewDirectoryButton(props: Props) {
                             onKeyDown={onInputKeyDown}
                         />
                     </PopoverItem>
-                    <PopoverItem onClick={submit}>
+                    <PopoverItem
+                        onClick={submit}
+                        disabled={value.trim() === ""}
+                    >
                         <Layout horizontal center gap={6}>
                             <Text>Create</Text>
                             <Symbol symbol="arrow_forward" />

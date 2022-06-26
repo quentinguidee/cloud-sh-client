@@ -1,5 +1,6 @@
 @use "Assets/colors.sass"
 @use "Assets/dimensions.sass"
+@use "Assets/transitions.sass"
 
 .item
     border-radius: dimensions.$border-radius
@@ -8,6 +9,7 @@
     color: inherit
     user-select: none
     white-space: nowrap
+    transition: color transitions.$speed-default ease-in-out
 
     &Selectable
         cursor: pointer
@@ -20,3 +22,10 @@
 
     &Red
         color: colors.$text-red !important
+
+    &Disabled
+        color: colors.$text-disabled
+        cursor: not-allowed
+
+        &:hover
+            background-color: inherit

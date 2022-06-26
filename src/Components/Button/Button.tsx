@@ -7,10 +7,17 @@ import styles from "./Button.module.sass";
 type Props = React.HTMLProps<HTMLDivElement>;
 
 function Button(props: Props) {
-    const { children, className, ...others } = props;
+    const { children, className, disabled, ...others } = props;
 
     return (
-        <div {...others} className={classNames(styles.button, className)}>
+        <div
+            {...others}
+            className={classNames({
+                [styles.button]: true,
+                [styles.buttonDisabled]: disabled,
+                [className]: true,
+            })}
+        >
             <Layout horizontal center gap={6}>
                 {children}
             </Layout>

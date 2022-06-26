@@ -10,10 +10,12 @@ export type PopoverItemProps = React.PropsWithChildren<{
     className?: string;
     noPadding?: boolean;
     red?: boolean;
+    disabled?: boolean;
 }>;
 
 function PopoverItem(props: PopoverItemProps) {
-    const { className, to, onClick, noPadding, red, ...others } = props;
+    const { className, to, onClick, noPadding, red, disabled, ...others } =
+        props;
 
     const itemProps = {
         className: classNames({
@@ -21,9 +23,13 @@ function PopoverItem(props: PopoverItemProps) {
             [styles.itemSelectable]: to || onClick,
             [styles.itemNoPadding]: noPadding,
             [styles.itemRed]: red,
+            [styles.itemDisabled]: disabled,
             [className]: true,
         }),
-        onClick,
+        onClick: () => {
+            if (disabled) return;
+            if (onClick) onClick();
+        },
         ...others,
     };
 
