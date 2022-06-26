@@ -26,13 +26,14 @@ function NewDirectoryButton(props: Props) {
         setShowDialog(true);
     };
 
-    const onDialogClose = () => {
+    const closeDialog = () => {
         setShowDialog(false);
         setValue("");
     };
 
     const create = () => {
         createDirectory(value);
+        closeDialog();
     };
 
     const popoverStyle: CSSProperties = {
@@ -44,7 +45,7 @@ function NewDirectoryButton(props: Props) {
             <Popover
                 show={showDialog}
                 style={popoverStyle}
-                onClose={onDialogClose}
+                onClose={closeDialog}
             >
                 <PopoverItem>
                     <Input
