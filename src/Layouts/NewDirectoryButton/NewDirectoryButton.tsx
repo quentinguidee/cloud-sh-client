@@ -39,7 +39,7 @@ function NewDirectoryButton(props: Props) {
         if (!showDialog) return;
         setTimeout(() => {
             ref.current?.focus();
-        }, 10);
+        }, 30);
     }, [showDialog]);
 
     const closeDialog = () => {
