@@ -7,6 +7,7 @@ import Popover from "Components/Popover/Popover";
 import styles from "./NewDirectoryButton.module.sass";
 import PopoverItem from "Components/PopoverItem/PopoverItem";
 import Input from "Components/Input/Input";
+import Layout from "Components/Layout/Layout";
 
 type Props = {
     createDirectory: (name: string) => void;
@@ -62,17 +63,25 @@ function NewDirectoryButton(props: Props) {
                 style={popoverStyle}
                 onClose={closeDialog}
             >
-                <PopoverItem>
-                    <Input
-                        ref={ref}
-                        type="text"
-                        name="filename"
-                        value={value}
-                        onChange={onValueChange}
-                        onKeyDown={onInputKeyDown}
-                    />
-                </PopoverItem>
-                <PopoverItem onClick={submit}>Create</PopoverItem>
+                <Layout vertical right gap={4}>
+                    <PopoverItem noPadding>
+                        <Input
+                            ref={ref}
+                            type="text"
+                            name="directory_name"
+                            placeholder="Folder name"
+                            value={value}
+                            onChange={onValueChange}
+                            onKeyDown={onInputKeyDown}
+                        />
+                    </PopoverItem>
+                    <PopoverItem onClick={submit}>
+                        <Layout horizontal center gap={6}>
+                            <Text>Create</Text>
+                            <Symbol symbol="arrow_forward" />
+                        </Layout>
+                    </PopoverItem>
+                </Layout>
             </Popover>
             <Button onClick={openDialog}>
                 <Symbol symbol="create_new_folder" />
