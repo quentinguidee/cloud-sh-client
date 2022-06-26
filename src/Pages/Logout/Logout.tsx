@@ -28,7 +28,7 @@ function Logout() {
         <div className={styles.content}>
             <Layout vertical className={styles.logout}>
                 <Box>
-                    <Subtitle>Disconnecting ...</Subtitle>
+                    <Subtitle>Disconnecting...</Subtitle>
                 </Box>
             </Layout>
         </div>
