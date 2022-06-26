@@ -10,6 +10,12 @@ type Props = {
 
 function Overlay(props: Props) {
     const { show, onClick } = props;
+
+    const onContextMenu = (e) => {
+        e.preventDefault();
+        if (onClick) onClick();
+    };
+
     return (
         <div
             className={classNames({
@@ -17,6 +23,7 @@ function Overlay(props: Props) {
                 [styles.overlayShow]: show,
             })}
             onClick={onClick}
+            onContextMenu={onContextMenu}
         />
     );
 }
