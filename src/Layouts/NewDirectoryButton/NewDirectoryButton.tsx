@@ -1,4 +1,4 @@
-import React, { CSSProperties, useState } from "react";
+import React, { CSSProperties, useEffect, useRef, useState } from "react";
 import Button from "Components/Button/Button";
 import Symbol from "Components/Symbol/Symbol";
 import Text from "Components/Text/Text";
@@ -14,6 +14,8 @@ type Props = {
 
 function NewDirectoryButton(props: Props) {
     const { createDirectory } = props;
+
+    const ref = useRef(null);
 
     const [showDialog, setShowDialog] = useState<boolean>(false);
     const [value, setValue] = useState<string>("");
@@ -31,6 +33,13 @@ function NewDirectoryButton(props: Props) {
     const openDialog = () => {
         setShowDialog(true);
     };
+
+    useEffect(() => {
+        if (!showDialog) return;
+        setTimeout(() => {
+            ref.current?.focus();
+        }, 10);
+    }, [showDialog]);
 
     const closeDialog = () => {
         setShowDialog(false);
@@ -55,6 +64,7 @@ function NewDirectoryButton(props: Props) {
             >
                 <PopoverItem>
                     <Input
+                        ref={ref}
                         type="text"
                         name="filename"
                         value={value}
