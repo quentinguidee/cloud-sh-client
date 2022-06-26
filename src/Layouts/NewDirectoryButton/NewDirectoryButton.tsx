@@ -6,6 +6,7 @@ import Popover from "Components/Popover/Popover";
 
 import styles from "./NewDirectoryButton.module.sass";
 import PopoverItem from "Components/PopoverItem/PopoverItem";
+import Input from "Components/Input/Input";
 
 type Props = {
     createDirectory: (name: string) => void;
@@ -46,7 +47,7 @@ function NewDirectoryButton(props: Props) {
                 onClose={onDialogClose}
             >
                 <PopoverItem>
-                    <input
+                    <Input
                         type="text"
                         name="filename"
                         value={value}
