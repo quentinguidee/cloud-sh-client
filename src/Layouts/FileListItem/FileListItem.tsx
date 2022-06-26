@@ -65,7 +65,11 @@ function FileListItem(props: Props) {
             <div
                 onContextMenu={openContextMenu}
                 {...others}
-                className={classNames(styles.item, className)}
+                className={classNames({
+                    [styles.item]: true,
+                    [styles.itemSelected]: showContextMenu,
+                    [className]: true,
+                })}
             >
                 <Layout horizontal center gap={16}>
                     <Symbol symbol={symbol} style={{ color }} size={24} />
