@@ -14,7 +14,11 @@ function PopoverItem(props: PopoverItemProps) {
     const { className, to, onClick, ...others } = props;
 
     const itemProps = {
-        className: classNames(styles.item, className),
+        className: classNames({
+            [styles.item]: true,
+            [styles.itemSelectable]: to || onClick,
+            [className]: true,
+        }),
         onClick,
         ...others,
     };
