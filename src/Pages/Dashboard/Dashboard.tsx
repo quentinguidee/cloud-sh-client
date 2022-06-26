@@ -15,7 +15,7 @@ function Dashboard() {
 
             <div className={styles.content}>
                 <Routes>
-                    <Route path="storage" element={<Storage />} />
+                    <Route path="storage/*" element={<Storage />} />
                 </Routes>
             </div>
         </Layout>

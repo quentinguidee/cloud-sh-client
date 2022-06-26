@@ -9,13 +9,16 @@ import Layout from "Components/Layout/Layout";
 import Button from "Components/Button/Button";
 import Symbol from "Components/Symbol/Symbol";
 import Text from "Components/Text/Text";
+import { useNavigate, useParams } from "react-router-dom";
 
 type Props = {};
 
 function FileExplorer(props: Props) {
     const session = useSession();
 
-    const [path, setPath] = useState<string>("");
+    const { "*": path } = useParams();
+    const navigate = useNavigate();
+
     const [files, setFiles] = useState<File[]>([]);
 
     const loadFiles = () => {
@@ -28,7 +31,6 @@ function FileExplorer(props: Props) {
         })
             .then((res) => {
                 console.log(res.data);
-                console.log(res.data.files);
                 setFiles(res.data.files);
             })
             .catch(console.error);
@@ -55,9 +57,9 @@ function FileExplorer(props: Props) {
         if (file.filetype !== "directory") {
             return;
         }
-        const destination = `${path}/${file.filename}`;
-        console.log(destination);
-        setPath(destination);
+        let destination = `${path ?? ""}/${file.filename}`;
+        if (destination[0] !== "/") destination = `/${destination}`;
+        navigate(`/storage${destination}`);
     };
 
     useEffect(() => {
