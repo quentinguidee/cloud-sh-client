@@ -21,8 +21,17 @@ function Popover(props: Props) {
         if (onClose) onClose();
     };
 
+    const onKeyDown = (e) => {
+        if (e.key === "Escape") {
+            dismiss();
+        }
+    };
+
     useEffect(() => {
         setShow(props.show);
+        props.show
+            ? document.addEventListener("keydown", onKeyDown)
+            : document.removeEventListener("keydown", onKeyDown);
     }, [props.show]);
 
     return (
