@@ -1,14 +1,38 @@
 @use "Assets/dimensions.sass"
 @use "Assets/colors.sass"
+@use "Assets/transitions.sass"
+
+$animate-from: 80%
+$animate-to: 100%
 
 .popover
     position: absolute
-    display: none
+    opacity: 0
+    visibility: hidden
     background-color: colors.$background-primary
     border-radius: dimensions.$border-radius-large
-    padding: 6px
+    padding: 8px
     z-index: 30
     box-shadow: rgba(0, 0, 0, 0.10) 0 3px 8px
+    // Transition and animation are redundant.
+    // It's because:
+    // - Transition is used when the menu was already here but hidden ;
+    // - Animation is used when the menu is created in the same time as the &Show class is added.
+    transition: all transitions.$speed-default ease-in-out
+    animation: open transitions.$speed-default ease-in-out
+    transform: scale($animate-from, $animate-from)
 
     &Show
-        display: block
+        opacity: 1
+        visibility: visible
+        transform: scale($animate-to, $animate-to)
+
+@keyframes open
+    0%
+        opacity: 0
+        transform: scale($animate-from, $animate-from)
+
+    100%
+        opacity: 1
+        transform: scale($animate-to, $animate-to)
+

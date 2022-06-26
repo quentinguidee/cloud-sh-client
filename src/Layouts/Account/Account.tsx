@@ -37,13 +37,13 @@ function Account(props: Props) {
                 className={styles.popover}
                 style={popoverStyle}
                 onClose={() => setShow(false)}
+                animateFrom="top right"
             >
-                <Layout vertical>
-                    <PopoverItemWithSymbol
-                        to="/logout"
-                        symbol="logout"
-                        className={styles.logout}
-                    >
+                <Layout vertical gap={4}>
+                    <PopoverItemWithSymbol symbol="person">
+                        {user?.name}
+                    </PopoverItemWithSymbol>
+                    <PopoverItemWithSymbol to="/logout" symbol="logout" red>
                         Logout
                     </PopoverItemWithSymbol>
                 </Layout>
