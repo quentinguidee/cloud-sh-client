@@ -1,23 +1,87 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import List from "Components/List/List";
 import FileListItem from "Layouts/FileListItem/FileListItem";
 import { File } from "Models/File";
+import { route } from "Backend/api";
+import { useSession } from "Store/Hooks/useSession";
+import axios from "axios";
+import Layout from "Components/Layout/Layout";
+import Button from "Components/Button/Button";
+import Symbol from "Components/Symbol/Symbol";
+import Text from "Components/Text/Text";
 
 type Props = {};
 
 function FileExplorer(props: Props) {
-    const files: File[] = [
-        { type: "file", filename: "File.txt" },
-        { type: "directory", filename: "Directory" },
-        { type: "file", filename: "Another document" },
-    ];
+    const session = useSession();
+
+    const [path, setPath] = useState<string>("");
+    const [files, setFiles] = useState<File[]>([]);
+
+    const loadFiles = () => {
+        axios({
+            url: route("/storage"),
+            params: { path },
+            headers: {
+                Authorization: session.token,
+            },
+        })
+            .then((res) => {
+                console.log(res.data);
+                console.log(res.data.files);
+                setFiles(res.data.files);
+            })
+            .catch(console.error);
+    };
+
+    const createFolder = () => {
+        axios({
+            method: "PUT",
+            url: route("/storage"),
+            data: {
+                type: "directory",
+                name: "New directory",
+            },
+            params: { path },
+            headers: {
+                Authorization: session.token,
+            },
+        })
+            .then(() => loadFiles())
+            .catch(console.error);
+    };
+
+    const openDirectory = (file: File) => {
+        if (file.filetype !== "directory") {
+            return;
+        }
+        const destination = `${path}/${file.filename}`;
+        console.log(destination);
+        setPath(destination);
+    };
+
+    useEffect(() => {
+        loadFiles();
+    }, [path]);
 
     return (
-        <List>
-            {files.map((file) => (
-                <FileListItem file={file} />
-            ))}
-        </List>
+        <React.Fragment>
+            <Layout horizontal center gap={12}>
+                <Button onClick={createFolder}>
+                    <Symbol symbol="create_new_folder" />
+                    <Text>New folder</Text>
+                </Button>
+            </Layout>
+            <List>
+                {files?.map((file) => (
+                    <FileListItem
+                        key={file.filename}
+                        file={file}
+                        onClick={() => openDirectory(file)}
+                    />
+                ))}
+            </List>
+        </React.Fragment>
     );
 }
 

@@ -1,7 +1,8 @@
 import React, { useEffect } from "react";
-import { post } from "Backend/api";
 import { useNavigate } from "react-router-dom";
 import { useSession } from "Store/Hooks/useSession";
+import axios from "axios";
+import { route } from "Backend/api";
 
 function Logout() {
     const navigate = useNavigate();
@@ -9,7 +10,8 @@ function Logout() {
     const session = useSession();
 
     const logout = async () => {
-        post("/auth/logout", { ...session })
+        axios
+            .post(route("/auth/logout"), { ...session })
             .then(() => navigate("/login"))
             .catch(console.error);
     };

@@ -6,11 +6,12 @@ import Layout from "Components/Layout/Layout";
 import { Subtitle, Title } from "Components/Title/Title";
 
 import styles from "./Login.module.sass";
-import { get, post } from "Backend/api";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { setSession, setUser } from "Store/Slices/AuthSlice";
 import Box from "Components/Box/Box";
+import axios from "axios";
+import { route } from "Backend/api";
 
 function Login() {
     const [params] = useSearchParams();
@@ -28,7 +29,9 @@ function Login() {
     const loginWithGithub = () => {
         setLoading("Redirecting to Github...");
         setError(undefined);
-        get("/auth/github/login")
+
+        axios
+            .get(route("/auth/github/login"))
             .then((res) => {
                 window.location = res.data.url;
             })
@@ -45,10 +48,9 @@ function Login() {
 
     const callbackGithub = async () => {
         setLoading("Authenticating...");
-        post("/auth/github/callback", {
-            code,
-            state,
-        })
+
+        axios
+            .post(route("/auth/github/callback"), { code, state })
             .then((res) => {
                 dispatch(setUser(res.data.user));
                 dispatch(setSession(res.data.session));

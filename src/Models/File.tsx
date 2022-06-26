@@ -2,11 +2,11 @@ export type FileType = "directory" | "file";
 
 export type File = {
     filename: string;
-    type: FileType;
+    filetype: FileType;
 };
 
 export function getIcon(file: File): string {
-    switch (file.type) {
+    switch (file.filetype) {
         case "directory":
             return "folder";
         default:
@@ -15,7 +15,7 @@ export function getIcon(file: File): string {
 }
 
 export function getColor(file: File) {
-    switch (file.type) {
+    switch (file.filetype) {
         case "file":
             return "#3e6a99";
         default:

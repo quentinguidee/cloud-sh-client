@@ -8,7 +8,7 @@ import { File } from "Models/File";
 it("renders", async () => {
     const file: File = {
         filename: "Fichier.txt",
-        type: "file",
+        filetype: "file",
     };
 
     const { getByText } = render(<FileListItem file={file} />);
