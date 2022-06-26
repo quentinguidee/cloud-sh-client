@@ -28,6 +28,7 @@ function FileExplorer(props: Props) {
             },
         })
             .then((res) => {
+                console.log(res.data.files);
                 console.table(res.data.files);
                 setFiles(res.data.files);
             })
@@ -35,7 +36,6 @@ function FileExplorer(props: Props) {
     };
 
     const createDirectory = (name: string) => {
-        console.log("Y E S " + name);
         axios({
             method: "PUT",
             url: route("/storage"),
@@ -71,9 +71,9 @@ function FileExplorer(props: Props) {
                 <NewDirectoryButton createDirectory={createDirectory} />
             </Layout>
             <List>
-                {files?.map((file) => (
+                {files?.map((file, i) => (
                     <FileListItem
-                        key={file.filename}
+                        key={i}
                         file={file}
                         onClick={() => openDirectory(file)}
                     />
