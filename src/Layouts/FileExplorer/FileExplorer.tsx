@@ -6,10 +6,8 @@ import { route } from "Backend/api";
 import { useSession } from "Store/Hooks/useSession";
 import axios from "axios";
 import Layout from "Components/Layout/Layout";
-import Button from "Components/Button/Button";
-import Symbol from "Components/Symbol/Symbol";
-import Text from "Components/Text/Text";
 import { useNavigate, useParams } from "react-router-dom";
+import NewDirectoryButton from "Layouts/NewDirectoryButton/NewDirectoryButton";
 
 type Props = {};
 
@@ -36,13 +34,14 @@ function FileExplorer(props: Props) {
             .catch(console.error);
     };
 
-    const createFolder = () => {
+    const createDirectory = (name: string) => {
+        console.log("Y E S " + name);
         axios({
             method: "PUT",
             url: route("/storage"),
             data: {
                 type: "directory",
-                name: "New directory",
+                name,
             },
             params: { path },
             headers: {
@@ -69,10 +68,7 @@ function FileExplorer(props: Props) {
     return (
         <React.Fragment>
             <Layout horizontal center gap={12}>
-                <Button onClick={createFolder}>
-                    <Symbol symbol="create_new_folder" />
-                    <Text>New folder</Text>
-                </Button>
+                <NewDirectoryButton createDirectory={createDirectory} />
             </Layout>
             <List>
                 {files?.map((file) => (
