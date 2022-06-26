@@ -50,6 +50,7 @@ function FileListItem(props: Props) {
                 show={showContextMenu}
                 onClose={closeContextMenu}
                 style={popoverStyle}
+                animateFrom="top left"
             >
                 <PopoverItemWithSymbol symbol="delete" onClick={() => {}} red>
                     Delete

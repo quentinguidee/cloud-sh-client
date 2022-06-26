@@ -62,6 +62,7 @@ function NewDirectoryButton(props: Props) {
                 show={showDialog}
                 style={popoverStyle}
                 onClose={closeDialog}
+                animateFrom="top left"
             >
                 <Layout vertical right gap={4}>
                     <PopoverItem noPadding>

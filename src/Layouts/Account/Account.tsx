@@ -37,6 +37,7 @@ function Account(props: Props) {
                 className={styles.popover}
                 style={popoverStyle}
                 onClose={() => setShow(false)}
+                animateFrom="top right"
             >
                 <Layout vertical gap={4}>
                     <PopoverItemWithSymbol symbol="person">
