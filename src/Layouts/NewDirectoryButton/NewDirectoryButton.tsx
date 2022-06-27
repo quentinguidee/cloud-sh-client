@@ -26,7 +26,6 @@ function NewDirectoryButton(props: Props) {
     };
 
     const onKeyDown = (e) => {
-        console.log(e);
         if ((e.ctrlKey || e.metaKey) && e.shiftKey && e.key === "N") {
             openDialog();
             e.preventDefault();
