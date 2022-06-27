@@ -10,12 +10,15 @@ import Close from "Components/Close/Close";
 import { useDispatch } from "react-redux";
 import { removeMessage } from "Store/Slices/MessagesSlice";
 import Spacer from "Components/Spacer/Spacer";
+import classNames from "classnames";
 
 type Props = {
     message: Message;
+    className?: string;
 };
 
 function MessageBox(props: Props) {
+    const { className } = props;
     const { message, type } = props.message;
 
     const dispatch = useDispatch();
@@ -25,7 +28,7 @@ function MessageBox(props: Props) {
     };
 
     return (
-        <Box className={styles.box} type={type}>
+        <Box className={classNames(styles.box, className)} type={type}>
             <Layout horizontal center gap={12}>
                 <Symbol size={24} symbol={type} />
                 <Text>{message}</Text>

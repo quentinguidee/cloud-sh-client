@@ -1,4 +1,23 @@
+@use "Assets/transitions.sass"
+
 .stack
     position: absolute
     bottom: 24px
     right: 24px
+
+.box
+    animation: appear transitions.$speed-default ease-in-out
+    transform-origin: bottom right
+    overflow: hidden
+
+@keyframes appear
+    0%
+        opacity: 0.5
+        transform: scale(50%, 50%)
+        padding: 0
+        max-height: 0
+
+    100%
+        opacity: 1
+        transform: scale(100%, 100%)
+        max-height: 150px
