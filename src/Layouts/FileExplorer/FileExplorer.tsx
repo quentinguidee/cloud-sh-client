@@ -9,9 +9,7 @@ import Layout from "Components/Layout/Layout";
 import { useNavigate, useParams } from "react-router-dom";
 import NewDirectoryButton from "Layouts/NewDirectoryButton/NewDirectoryButton";
 
-type Props = {};
-
-function FileExplorer(props: Props) {
+function FileExplorer() {
     const session = useSession();
 
     const { "*": path } = useParams();
