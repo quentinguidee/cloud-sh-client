@@ -6,5 +6,5 @@ import Logo from "./Logo";
 
 it("renders", async () => {
     const { getByText } = render(<Logo />);
-    expect(getByText("sh.Cloud")).toBeInTheDocument();
+    expect(getByText("cloud.sh")).toBeInTheDocument();
 });
