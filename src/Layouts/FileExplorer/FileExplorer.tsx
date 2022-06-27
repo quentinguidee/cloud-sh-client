@@ -85,6 +85,30 @@ function FileExplorer(props: Props) {
         navigate(`/storage${destination}`);
     };
 
+    const onDelete = (file: File) => {
+        const filepath = `${path ?? ""}/${file.filename}`;
+        axios({
+            method: "DELETE",
+            url: route("/storage"),
+            params: { path: filepath },
+            headers: {
+                Authorization: session.token,
+            },
+        })
+            .then(() => loadFiles())
+            .catch((err) => {
+                const message: Message = {
+                    type: "error",
+                    message:
+                        err?.response?.data?.message ??
+                        err.message ??
+                        err.toString(),
+                };
+                dispatch(pushMessage(message));
+                console.error(err);
+            });
+    };
+
     useEffect(() => {
         loadFiles();
     }, [path]);
@@ -100,6 +124,7 @@ function FileExplorer(props: Props) {
                         key={i}
                         file={file}
                         onClick={() => openDirectory(file)}
+                        onDelete={() => onDelete(file)}
                     />
                 ))}
             </List>

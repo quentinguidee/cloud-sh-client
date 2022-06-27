@@ -11,10 +11,11 @@ import PopoverItemWithSymbol from "Components/PopoverItemWithSymbol/PopoverItemW
 
 type Props = React.HTMLProps<HTMLDivElement> & {
     file: File;
+    onDelete: () => void;
 };
 
 function FileListItem(props: Props) {
-    const { className, children, file, ...others } = props;
+    const { className, children, file, onDelete, ...others } = props;
     const { filename } = file;
 
     let symbol = getIcon(file);
@@ -51,7 +52,7 @@ function FileListItem(props: Props) {
                 style={popoverStyle}
                 animateFrom="top left"
             >
-                <PopoverItemWithSymbol symbol="delete" onClick={() => {}} red>
+                <PopoverItemWithSymbol symbol="delete" onClick={onDelete} red>
                     Delete
                 </PopoverItemWithSymbol>
             </Popover>
