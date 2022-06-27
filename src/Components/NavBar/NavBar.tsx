@@ -10,7 +10,7 @@ function NavBar(props: Props) {
     const { className, children, ...others } = props;
     return (
         <div className={classNames(styles.navbar, className)} {...others}>
-            <Layout vertical stretch gap={12}>
+            <Layout vertical stretch gap={13}>
                 {children}
             </Layout>
         </div>
