@@ -1,0 +1,16 @@
+@use "Assets/colors.sass"
+@use "Assets/transitions.sass"
+
+$size: 28px
+
+.close
+    height: $size
+    min-width: $size
+    max-width: $size
+    border-radius: 50%
+    background-color: rgba(0, 0, 0, 0.1)
+    cursor: pointer
+    transition: transitions.$default
+
+    &:hover
+        background-color: rgba(0, 0, 0, 0.2)

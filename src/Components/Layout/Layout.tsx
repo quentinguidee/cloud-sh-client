@@ -12,6 +12,10 @@ type Props = React.HTMLProps<HTMLDivElement> & {
     right?: boolean;
     stretch?: boolean;
 
+    top?: boolean;
+    middle?: boolean;
+    bottom?: boolean;
+
     gap?: number;
 };
 
@@ -26,6 +30,9 @@ function Layout(props: Props) {
         className,
         style,
         gap,
+        top,
+        middle,
+        bottom,
         ...others
     } = props;
 
@@ -40,6 +47,9 @@ function Layout(props: Props) {
                 [styles.layoutCenter]: center,
                 [styles.layoutRight]: right,
                 [styles.layoutStretch]: stretch,
+                [styles.layoutTop]: top,
+                [styles.layoutMiddle]: middle,
+                [styles.layoutBottom]: bottom,
                 [className]: true,
             })}
             style={{ gap, ...styles }}

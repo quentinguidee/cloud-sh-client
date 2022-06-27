@@ -2,13 +2,15 @@ import React from "react";
 
 import styles from "./Box.module.sass";
 import classNames from "classnames";
+import { MessageType } from "Models/Message";
 
 type Props = React.PropsWithChildren<{
-    type?: "normal" | "info" | "warning" | "error";
+    type?: MessageType;
+    className?: string;
 }>;
 
 function Box(props: Props) {
-    const { children, type } = props;
+    const { children, className, type } = props;
     return (
         <div
             className={classNames({
@@ -16,6 +18,7 @@ function Box(props: Props) {
                 [styles.boxInfo]: type === "info",
                 [styles.boxWarning]: type === "warning",
                 [styles.boxError]: type === "error",
+                [className]: true,
             })}
         >
             {children}

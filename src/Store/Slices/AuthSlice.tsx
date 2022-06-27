@@ -19,7 +19,7 @@ type AuthState = {
 };
 
 const authSlice = createSlice({
-    name: "user",
+    name: "auth",
     initialState: {} as AuthState,
     reducers: {
         setUser: setUserReducer,

@@ -2,16 +2,23 @@ import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import { persistReducer, persistStore } from "redux-persist";
 import authSlice from "Store/Slices/AuthSlice";
 import storage from "redux-persist/lib/storage";
+import messagesSlice from "Store/Slices/MessagesSlice";
+import { PersistConfig } from "redux-persist/es/types";
 
 const reducers = combineReducers({
     auth: authSlice,
+    messages: messagesSlice,
 });
 
-const reducer = persistReducer({ key: "root", storage }, reducers);
+const persistConfig: PersistConfig<any> = {
+    key: "root",
+    storage,
+    blacklist: ["messages"],
+};
 
-const store = configureStore({
-    reducer: reducer,
-});
+const reducer = persistReducer(persistConfig, reducers);
+
+const store = configureStore({ reducer });
 
 export const persistor = persistStore(store);
 

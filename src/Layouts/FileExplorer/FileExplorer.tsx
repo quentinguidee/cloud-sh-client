@@ -8,11 +8,16 @@ import axios from "axios";
 import Layout from "Components/Layout/Layout";
 import { useNavigate, useParams } from "react-router-dom";
 import NewDirectoryButton from "Layouts/NewDirectoryButton/NewDirectoryButton";
+import { pushMessage } from "Store/Slices/MessagesSlice";
+import { Message } from "Models/Message";
+import { useDispatch } from "react-redux";
 
 type Props = {};
 
 function FileExplorer(props: Props) {
     const session = useSession();
+
+    const dispatch = useDispatch();
 
     const { "*": path } = useParams();
     const navigate = useNavigate();
@@ -32,7 +37,18 @@ function FileExplorer(props: Props) {
                 console.table(res.data.files);
                 setFiles(res.data.files);
             })
-            .catch(console.error);
+            .catch((err) => {
+                const message: Message = {
+                    type: "error",
+                    message:
+                        err?.response?.data?.message ??
+                        err.message ??
+                        err.toString(),
+                };
+                console.log(message);
+                dispatch(pushMessage(message));
+                console.error(err);
+            });
     };
 
     const createDirectory = (name: string) => {
@@ -49,7 +65,18 @@ function FileExplorer(props: Props) {
             },
         })
             .then(() => loadFiles())
-            .catch(console.error);
+            .catch((err) => {
+                const message: Message = {
+                    type: "error",
+                    message:
+                        err?.response?.data?.message ??
+                        err.message ??
+                        err.toString(),
+                };
+                console.log(message);
+                dispatch(pushMessage(message));
+                console.error(err);
+            });
     };
 
     const openDirectory = (file: File) => {
