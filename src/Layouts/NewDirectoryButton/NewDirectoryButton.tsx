@@ -16,7 +16,7 @@ type Props = {
 function NewDirectoryButton(props: Props) {
     const { createDirectory } = props;
 
-    const ref = useRef(null);
+    const ref = useRef<HTMLInputElement>(null);
 
     const [showDialog, setShowDialog] = useState<boolean>(false);
     const [value, setValue] = useState<string>("");
@@ -47,6 +47,7 @@ function NewDirectoryButton(props: Props) {
     }, [showDialog]);
 
     const closeDialog = () => {
+        ref.current?.blur();
         setShowDialog(false);
         setValue("");
     };
