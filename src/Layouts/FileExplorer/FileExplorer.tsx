@@ -2,22 +2,17 @@ import React, { useEffect, useState } from "react";
 import List from "Components/List/List";
 import FileListItem from "Layouts/FileListItem/FileListItem";
 import { File } from "Models/File";
-import { route } from "Backend/api";
+import { api, route } from "Backend/api";
 import { useSession } from "Store/Hooks/useSession";
 import axios from "axios";
 import Layout from "Components/Layout/Layout";
 import { useNavigate, useParams } from "react-router-dom";
 import NewDirectoryButton from "Layouts/NewDirectoryButton/NewDirectoryButton";
-import { pushMessage } from "Store/Slices/MessagesSlice";
-import { Message } from "Models/Message";
-import { useDispatch } from "react-redux";
 
 type Props = {};
 
 function FileExplorer(props: Props) {
     const session = useSession();
-
-    const dispatch = useDispatch();
 
     const { "*": path } = useParams();
     const navigate = useNavigate();
@@ -36,17 +31,7 @@ function FileExplorer(props: Props) {
                 console.table(res.data.files);
                 setFiles(res.data.files);
             })
-            .catch((err) => {
-                const message: Message = {
-                    type: "error",
-                    message:
-                        err?.response?.data?.message ??
-                        err.message ??
-                        err.toString(),
-                };
-                dispatch(pushMessage(message));
-                console.error(err);
-            });
+            .catch(api.error);
     };
 
     const createDirectory = (name: string) => {
@@ -63,17 +48,7 @@ function FileExplorer(props: Props) {
             },
         })
             .then(() => loadFiles())
-            .catch((err) => {
-                const message: Message = {
-                    type: "error",
-                    message:
-                        err?.response?.data?.message ??
-                        err.message ??
-                        err.toString(),
-                };
-                dispatch(pushMessage(message));
-                console.error(err);
-            });
+            .catch(api.error);
     };
 
     const openDirectory = (file: File) => {
@@ -96,17 +71,7 @@ function FileExplorer(props: Props) {
             },
         })
             .then(() => loadFiles())
-            .catch((err) => {
-                const message: Message = {
-                    type: "error",
-                    message:
-                        err?.response?.data?.message ??
-                        err.message ??
-                        err.toString(),
-                };
-                dispatch(pushMessage(message));
-                console.error(err);
-            });
+            .catch(api.error);
     };
 
     useEffect(() => {
