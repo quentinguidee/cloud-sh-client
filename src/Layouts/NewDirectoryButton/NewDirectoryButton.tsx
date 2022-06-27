@@ -25,6 +25,14 @@ function NewDirectoryButton(props: Props) {
         setValue(e.target.value);
     };
 
+    const onKeyDown = (e) => {
+        console.log(e);
+        if ((e.ctrlKey || e.metaKey) && e.shiftKey && e.key === "N") {
+            openDialog();
+            e.preventDefault();
+        }
+    };
+
     const onInputKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
         if (e.key === "Enter" && valid()) {
             submit();
@@ -40,10 +48,19 @@ function NewDirectoryButton(props: Props) {
     };
 
     useEffect(() => {
-        if (!showDialog) return;
-        setTimeout(() => {
-            ref.current?.focus();
-        }, 80);
+        showDialog
+            ? document.removeEventListener("keydown", onKeyDown)
+            : document.addEventListener("keydown", onKeyDown);
+
+        if (showDialog) {
+            setTimeout(() => {
+                ref.current?.focus();
+            }, 80);
+        }
+
+        return () => {
+            document.removeEventListener("keydown", onKeyDown);
+        };
     }, [showDialog]);
 
     const closeDialog = () => {
