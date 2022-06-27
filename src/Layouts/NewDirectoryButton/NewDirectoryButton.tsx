@@ -26,9 +26,13 @@ function NewDirectoryButton(props: Props) {
     };
 
     const onInputKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-        if (e.key === "Enter") {
+        if (e.key === "Enter" && valid()) {
             submit();
         }
+    };
+
+    const valid = () => {
+        return value.trim() !== "";
     };
 
     const openDialog = () => {
@@ -76,10 +80,7 @@ function NewDirectoryButton(props: Props) {
                             onKeyDown={onInputKeyDown}
                         />
                     </PopoverItem>
-                    <PopoverItem
-                        onClick={submit}
-                        disabled={value.trim() === ""}
-                    >
+                    <PopoverItem onClick={submit} disabled={!valid()}>
                         <Layout horizontal center gap={6}>
                             <Text>Create</Text>
                             <Symbol symbol="arrow_forward" />
