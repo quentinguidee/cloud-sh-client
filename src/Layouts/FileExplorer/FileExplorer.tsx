@@ -33,7 +33,6 @@ function FileExplorer(props: Props) {
             },
         })
             .then((res) => {
-                console.log(res.data.files);
                 console.table(res.data.files);
                 setFiles(res.data.files);
             })
@@ -45,7 +44,6 @@ function FileExplorer(props: Props) {
                         err.message ??
                         err.toString(),
                 };
-                console.log(message);
                 dispatch(pushMessage(message));
                 console.error(err);
             });
@@ -73,7 +71,6 @@ function FileExplorer(props: Props) {
                         err.message ??
                         err.toString(),
                 };
-                console.log(message);
                 dispatch(pushMessage(message));
                 console.error(err);
             });

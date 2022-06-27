@@ -25,7 +25,6 @@ function FileListItem(props: Props) {
     const [contextMenuY, setContextMenuY] = useState<number | undefined>();
 
     const openContextMenu = (e) => {
-        console.log(e.pageX, e.pageY);
         setShowContextMenu(true);
         setContextMenuX(e.pageX);
         setContextMenuY(e.pageY);
