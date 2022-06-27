@@ -96,7 +96,7 @@ function Login() {
                         </Layout>
                     </Box>
                 )}
-                {loading && <Box type="info">{loading}</Box>}
+                {loading && <Box>{loading}</Box>}
                 {error && (
                     <Box type="error">
                         <Layout vertical gap={12}>
