@@ -15,10 +15,10 @@ function PopoverItemWithSymbol(props: Props) {
 
     return (
         <PopoverItem {...others}>
-            <Layout horizontal center>
+            <Layout horizontal center gap={6}>
                 <Symbol symbol={symbol} />
-                <Spacer width={6} />
                 {children}
+                <Spacer width={2} />
             </Layout>
         </PopoverItem>
     );

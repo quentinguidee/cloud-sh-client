@@ -52,6 +52,12 @@ function FileListItem(props: Props) {
                 style={popoverStyle}
                 animateFrom="top left"
             >
+                <PopoverItemWithSymbol symbol="edit" onClick={() => {}}>
+                    Rename
+                </PopoverItemWithSymbol>
+                <PopoverItemWithSymbol symbol="download" onClick={() => {}}>
+                    Download
+                </PopoverItemWithSymbol>
                 <PopoverItemWithSymbol symbol="delete" onClick={onDelete} red>
                     Delete
                 </PopoverItemWithSymbol>
