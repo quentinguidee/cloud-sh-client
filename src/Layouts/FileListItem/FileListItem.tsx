@@ -8,6 +8,9 @@ import React, { CSSProperties, useState } from "react";
 import styles from "./FileListItem.module.sass";
 import Popover from "Components/Popover/Popover";
 import PopoverItemWithSymbol from "Components/PopoverItemWithSymbol/PopoverItemWithSymbol";
+import { useDispatch } from "react-redux";
+import { Message } from "Models/Message";
+import { pushMessage } from "Store/Slices/MessagesSlice";
 
 type Props = React.HTMLProps<HTMLDivElement> & {
     file: File;
@@ -20,6 +23,8 @@ function FileListItem(props: Props) {
 
     let symbol = getIcon(file);
     let color = getColor(file);
+
+    const dispatch = useDispatch();
 
     const [showContextMenu, setShowContextMenu] = useState<boolean>(false);
     const [contextMenuX, setContextMenuX] = useState<number | undefined>();
@@ -45,6 +50,26 @@ function FileListItem(props: Props) {
 
     let contextMenu;
     if (showContextMenu) {
+        const notImplementedMessage: Message = {
+            message: "This feature is not implemented.",
+            type: "error",
+        };
+
+        const onRename = () => {
+            dispatch(pushMessage(notImplementedMessage));
+            closeContextMenu();
+        };
+
+        const onDownload = () => {
+            dispatch(pushMessage(notImplementedMessage));
+            closeContextMenu();
+        };
+
+        const onDelete = () => {
+            if (props.onDelete) props.onDelete();
+            closeContextMenu();
+        };
+
         contextMenu = (
             <Popover
                 show={showContextMenu}
@@ -52,10 +77,10 @@ function FileListItem(props: Props) {
                 style={popoverStyle}
                 animateFrom="top left"
             >
-                <PopoverItemWithSymbol symbol="edit" onClick={() => {}}>
+                <PopoverItemWithSymbol symbol="edit" onClick={onRename}>
                     Rename
                 </PopoverItemWithSymbol>
-                <PopoverItemWithSymbol symbol="download" onClick={() => {}}>
+                <PopoverItemWithSymbol symbol="download" onClick={onDownload}>
                     Download
                 </PopoverItemWithSymbol>
                 <PopoverItemWithSymbol symbol="delete" onClick={onDelete} red>
