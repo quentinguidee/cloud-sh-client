@@ -9,11 +9,14 @@ type Props = React.HTMLProps<HTMLDivElement>;
 function Page(props: Props) {
     const { className, children, ...others } = props;
     return (
-        <div {...others} className={classNames(styles.page, className)}>
-            <Layout vertical stretch gap={20}>
-                {children}
-            </Layout>
-        </div>
+        <Layout
+            vertical
+            stretch
+            className={classNames(styles.page, className)}
+            {...others}
+        >
+            {children}
+        </Layout>
     );
 }
 

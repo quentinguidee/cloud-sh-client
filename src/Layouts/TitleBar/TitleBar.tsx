@@ -18,7 +18,7 @@ function TitleBar(props: Props) {
     const user = useUser();
 
     return (
-        <Layout horizontal center>
+        <Layout horizontal center className={styles.bar}>
             <Title className={styles.title}>{title}</Title>
             <Spacer />
             <Account user={user} />
