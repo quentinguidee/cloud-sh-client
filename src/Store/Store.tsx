@@ -16,7 +16,7 @@ const persistConfig: PersistConfig<any> = {
     blacklist: ["messages"],
 };
 
-const reducer = persistReducer(persistConfig, reducers);
+export const reducer = persistReducer(persistConfig, reducers);
 
 const store = configureStore({
     reducer,
