@@ -7,6 +7,7 @@ import Layout from "Components/Layout/Layout";
 import styles from "./Dashboard.module.sass";
 import { useMessages } from "Store/Hooks/useMessages";
 import MessageBoxStack from "Components/MessageBoxStack/MessageBoxStack";
+import CommandPrompt from "Components/CommandPrompt/CommandPrompt";
 
 function Dashboard() {
     const messages = useMessages();
@@ -24,6 +25,7 @@ function Dashboard() {
                 </div>
             </Layout>
             <MessageBoxStack messages={messages} />
+            <CommandPrompt />
         </React.Fragment>
     );
 }
