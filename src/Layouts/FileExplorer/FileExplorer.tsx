@@ -10,6 +10,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import NewDirectoryButton from "Layouts/NewDirectoryButton/NewDirectoryButton";
 
 import styles from "./FileExplorer.module.sass";
+import NewButton from "Layouts/NewButton/NewButton";
 
 function FileExplorer() {
     const session = useSession();
@@ -81,6 +82,7 @@ function FileExplorer() {
     return (
         <React.Fragment>
             <Layout horizontal center gap={12}>
+                <NewButton></NewButton>
                 <NewDirectoryButton createDirectory={createDirectory} />
             </Layout>
             <List className={styles.explorer}>

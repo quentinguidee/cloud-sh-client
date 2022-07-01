@@ -4,16 +4,20 @@ import React from "react";
 
 import styles from "./Button.module.sass";
 
-type Props = React.HTMLProps<HTMLDivElement>;
+type Props = React.HTMLProps<HTMLDivElement> & {
+    primary?: boolean;
+    secondary?: boolean;
+};
 
 function Button(props: Props) {
-    const { children, className, disabled, ...others } = props;
+    const { children, className, disabled, secondary, ...others } = props;
 
     return (
         <div
             {...others}
             className={classNames({
                 [styles.button]: true,
+                [styles.buttonSecondary]: secondary,
                 [styles.buttonDisabled]: disabled,
                 [className]: true,
             })}

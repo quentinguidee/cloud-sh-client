@@ -105,9 +105,8 @@ function NewDirectoryButton(props: Props) {
                     </PopoverItem>
                 </Layout>
             </Popover>
-            <Button onClick={openDialog}>
+            <Button onClick={openDialog} secondary>
                 <Symbol symbol="create_new_folder" />
-                <Text>New folder</Text>
             </Button>
         </div>
     );
