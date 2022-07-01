@@ -4,8 +4,6 @@
 @use "../../Assets/shadows"
 @use "../../Assets/fonts"
 
-$lineSize: 28px
-$sideMargin: 16px
 $promptMargin: 40px
 
 .commandPrompt
@@ -31,47 +29,16 @@ $promptMargin: 40px
         transform: scale(1, 1)
 
     .inputBar
-        padding: $sideMargin
+        padding: 16px
         border-bottom: solid 1px colors.$background-tertiary
 
         .inputField
             border: none
             margin-left: 8px
             width: 100%
-            height: $lineSize
-            font-size: calc(#{$lineSize} * 2 / 3)
+            height: 28px
+            font-size: calc(28px * 2 / 3)
             background-color: colors.$background-primary
 
             &:focus
                 outline: none
-
-    .commandElement
-        padding: 0 $sideMargin
-        height: calc($lineSize + 2 * $sideMargin)
-        font-size: calc(#{$lineSize} * 2 / 3)
-
-        &.selectedCommand
-            background-color: colors.$accent
-            color: colors.$background-primary
-
-            .matchedCommandPart
-                color: colors.$background-secondary !important
-                border-bottom: solid 2px colors.$background-secondary
-
-        &:hover:not(.selectedCommand)
-            background-color: colors.$background-secondary
-
-        .commandInfos
-            display: block
-            margin-left: 12px
-
-            .commandName
-                display: inline-block
-
-                .matchedCommandPart
-                    color: colors.$accent
-                    font-weight: fonts.$weight-bold
-
-            .commandTooltip
-                font-size: calc(#{$lineSize} * 1 / 2)
-                text-overflow: ellipsis

@@ -4,9 +4,10 @@ import React, { useEffect, useRef, useState } from "react";
 import styles from "./CommandPrompt.module.sass";
 import Layout from "Components/Layout/Layout";
 import Symbol from "Components/Symbol/Symbol";
+import Overlay from "Components/Overlay/Overlay";
+import CommandItem from "Components/CommandItem/CommandItem";
 import { COMMAND_LIST } from "../../commands";
 import { Command } from "Models/Command";
-import Overlay from "Components/Overlay/Overlay";
 
 function CommandPrompt() {
     const inputField = React.createRef<HTMLInputElement>();
@@ -86,7 +87,7 @@ function CommandPrompt() {
     const handleInputKeyDown = (event) => {
         if (event.key == "Enter") {
             runSelectedCommand(
-                matchedCommands.length != 0 ? selectedCommandIndex : null,
+                matchedCommands.length != 0 ? selectedCommandIndex : undefined,
             );
         }
     };
@@ -101,22 +102,6 @@ function CommandPrompt() {
     const renderMatchedCommands = () => {
         let index = -1;
         return matchedCommands.map((command) => {
-            const lowerCommand = command.name.toLowerCase();
-            const lowerTyped = typed.toLowerCase();
-            const matchedPartIndex = lowerCommand.indexOf(lowerTyped);
-
-            const beforeMatchedPart = command.name.substring(
-                0,
-                matchedPartIndex,
-            );
-            const matchedPart = command.name.substring(
-                matchedPartIndex,
-                matchedPartIndex + typed.length,
-            );
-            const afterMatchedPart = command.name.substring(
-                matchedPartIndex + typed.length,
-            );
-
             index++;
             const commandIndex = index;
 
@@ -126,32 +111,12 @@ function CommandPrompt() {
             };
 
             return (
-                <li
-                    className={classNames({
-                        [styles.commandElement]: true,
-                        [styles.selectedCommand]:
-                            commandIndex == selectedCommandIndex,
-                    })}
-                    key={command.id}
+                <CommandItem
                     onClick={clickCallback}
-                >
-                    <Layout horizontal left center maximize>
-                        <Symbol symbol={command.icon} size={24} />
-                        <div className={styles.commandInfos}>
-                            <span className={styles.commandName}>
-                                <span>{beforeMatchedPart}</span>
-                                <span className={styles.matchedCommandPart}>
-                                    {matchedPart}
-                                </span>
-                                <span>{afterMatchedPart}</span>
-                            </span>
-                            <br />
-                            <span className={styles.commandTooltip}>
-                                {command.tooltip}
-                            </span>
-                        </div>
-                    </Layout>
-                </li>
+                    command={command}
+                    typed={typed}
+                    selected={selectedCommandIndex == commandIndex}
+                />
             );
         });
     };
