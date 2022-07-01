@@ -1,7 +1,7 @@
 import { Command } from "Models/Command";
 
-let actualCommandId = 0
-const makeId = () => actualCommandId++
+let actualCommandId = 0;
+const makeId = () => actualCommandId++;
 
 export const COMMAND_LIST: Command[] = [
     {
@@ -17,7 +17,7 @@ export const COMMAND_LIST: Command[] = [
         callback: () => alert("Goodbye"),
         name: "Say goodbye",
         tooltip: "Display a popup with a goodbye message",
-    }
-]
+    },
+];
 
 // TODO: Write a test to ensure that all commands are trimmed

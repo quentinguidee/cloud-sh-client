@@ -39,15 +39,16 @@ $promptMargin: 40px
             margin-left: 8px
             width: 100%
             height: $lineSize
-            font-size: calc(#{$lineSize} * 2/3)
+            font-size: calc(#{$lineSize} * 2 / 3)
             background-color: colors.$background-primary
+
             &:focus
                 outline: none
 
     .commandElement
         padding: 0 $sideMargin
         height: calc($lineSize + 2 * $sideMargin)
-        font-size: calc(#{$lineSize} * 2/3)
+        font-size: calc(#{$lineSize} * 2 / 3)
 
         &.selectedCommand
             background-color: colors.$accent
@@ -72,5 +73,5 @@ $promptMargin: 40px
                     font-weight: fonts.$weight-bold
 
             .commandTooltip
-                font-size: calc(#{$lineSize} * 1/2)
+                font-size: calc(#{$lineSize} * 1 / 2)
                 text-overflow: ellipsis

@@ -17,15 +17,16 @@ function CommandPrompt() {
     const [matchedCommands, setMatchedCommands] = useState(COMMAND_LIST);
     const commandToRun = useRef<Command>(null);
 
-
     useEffect(() => {
-        setMatchedCommands(COMMAND_LIST.filter((command) => {
-            const lowerCommand = command.name.toLowerCase();
-            const lowerTyped = typed.toLowerCase();
-            return lowerCommand.includes(lowerTyped);
-        }))
+        setMatchedCommands(
+            COMMAND_LIST.filter((command) => {
+                const lowerCommand = command.name.toLowerCase();
+                const lowerTyped = typed.toLowerCase();
+                return lowerCommand.includes(lowerTyped);
+            }),
+        );
         setSelectedCommandIndex(matchedCommands.length >= 0 ? 0 : -1);
-    }, [typed])
+    }, [typed]);
 
     useEffect(() => {
         if (shown) {
@@ -39,19 +40,23 @@ function CommandPrompt() {
                 commandToRun.current = null;
             }
         }
-    }, [shown])
+    }, [shown]);
 
     useEffect(() => {
-        document.addEventListener('keydown', handleKeyDownInDocument, { capture: false });
+        document.addEventListener("keydown", handleKeyDownInDocument, {
+            capture: false,
+        });
 
-        return function cleanup () {
-            document.removeEventListener('keydown', handleKeyDownInDocument, { capture: false });
-        }
-    }, [shown, selectedCommandIndex])
+        return function cleanup() {
+            document.removeEventListener("keydown", handleKeyDownInDocument, {
+                capture: false,
+            });
+        };
+    }, [shown, selectedCommandIndex]);
 
     const handleKeyDownInDocument = (event) => {
         // TODO: Shortcut in a settings pane ?
-        if (event.ctrlKey && event.key == 'k') {
+        if (event.ctrlKey && event.key == "k") {
             setShown(() => !shown);
             event.preventDefault();
         }
@@ -64,92 +69,102 @@ function CommandPrompt() {
         // Selected item is cyclic
         switch (event.key) {
             case "ArrowUp":
-                setSelectedCommandIndex((selectedCommandIndex + 1) % matchedCommands.length);
+                setSelectedCommandIndex(
+                    (selectedCommandIndex + 1) % matchedCommands.length,
+                );
                 event.preventDefault();
-                break
+                break;
             case "ArrowDown":
-                setSelectedCommandIndex((selectedCommandIndex - 1 + matchedCommands.length) % matchedCommands.length);
+                setSelectedCommandIndex(
+                    (selectedCommandIndex - 1 + matchedCommands.length) %
+                        matchedCommands.length,
+                );
                 event.preventDefault();
-                break
+                break;
         }
-    }
+    };
 
     const handleValueChangeInInput = (event) => setTyped(event.target.value);
 
     const handleInputKeyDown = (event) => {
         if (event.key == "Enter") {
-            runSelectedCommand(matchedCommands.length != 0 ? selectedCommandIndex : null);
+            runSelectedCommand(
+                matchedCommands.length != 0 ? selectedCommandIndex : null,
+            );
         }
-    }
+    };
 
     const runSelectedCommand = (index: number | null) => {
         if (index != null) {
             commandToRun.current = matchedCommands[index];
             setShown(false);
         }
-    }
+    };
 
     const renderMatchedCommands = () => {
-        let index = -1
-        return (
-            matchedCommands.map((command) => {
-                const lowerCommand = command.name.toLowerCase();
-                const lowerTyped = typed.toLowerCase();
-                const matchedPartIndex = lowerCommand.indexOf(lowerTyped);
+        let index = -1;
+        return matchedCommands.map((command) => {
+            const lowerCommand = command.name.toLowerCase();
+            const lowerTyped = typed.toLowerCase();
+            const matchedPartIndex = lowerCommand.indexOf(lowerTyped);
 
-                const beforeMatchedPart = command.name.substring(0, matchedPartIndex );
-                const matchedPart = command.name.substring(matchedPartIndex, matchedPartIndex + typed.length);
-                const afterMatchedPart = command.name.substring(matchedPartIndex + typed.length);
+            const beforeMatchedPart = command.name.substring(
+                0,
+                matchedPartIndex,
+            );
+            const matchedPart = command.name.substring(
+                matchedPartIndex,
+                matchedPartIndex + typed.length,
+            );
+            const afterMatchedPart = command.name.substring(
+                matchedPartIndex + typed.length,
+            );
 
-                index += 1;
-                const commandIndex = index;
+            index += 1;
+            const commandIndex = index;
 
-                const clickCallback = () => {
-                    setSelectedCommandIndex(commandIndex);
-                    runSelectedCommand(commandIndex);
-                }
+            const clickCallback = () => {
+                setSelectedCommandIndex(commandIndex);
+                runSelectedCommand(commandIndex);
+            };
 
-                return (
-                    <li
-                        className={classNames({
-                            [styles.commandElement]: true,
-                            [styles.selectedCommand]: commandIndex == selectedCommandIndex
-                        })}
-                        key={command.id}
-                        onClick={clickCallback}
-                    >
-                        <Layout horizontal left center maximize>
-                            <Symbol symbol={command.icon} size={24} />
-                            <div className={styles.commandInfos}>
-                                <span className={styles.commandName}>
-                                    <span>
-                                        { beforeMatchedPart }
-                                    </span>
-                                    <span className={styles.matchedCommandPart}>
-                                        { matchedPart }
-                                    </span>
-                                    <span>
-                                        { afterMatchedPart }
-                                    </span>
+            return (
+                <li
+                    className={classNames({
+                        [styles.commandElement]: true,
+                        [styles.selectedCommand]:
+                            commandIndex == selectedCommandIndex,
+                    })}
+                    key={command.id}
+                    onClick={clickCallback}
+                >
+                    <Layout horizontal left center maximize>
+                        <Symbol symbol={command.icon} size={24} />
+                        <div className={styles.commandInfos}>
+                            <span className={styles.commandName}>
+                                <span>{beforeMatchedPart}</span>
+                                <span className={styles.matchedCommandPart}>
+                                    {matchedPart}
                                 </span>
-                                <br/>
-                                <span className={styles.commandTooltip}>
-                                    { command.tooltip }
-                                </span>
-                            </div>
-                        </Layout>
-                    </li>
-                )
-            })
-        )
-    }
+                                <span>{afterMatchedPart}</span>
+                            </span>
+                            <br />
+                            <span className={styles.commandTooltip}>
+                                {command.tooltip}
+                            </span>
+                        </div>
+                    </Layout>
+                </li>
+            );
+        });
+    };
 
     return (
         <React.Fragment>
             <div
                 className={classNames({
                     [styles.commandPrompt]: true,
-                    [styles.shown]: shown
+                    [styles.shown]: shown,
                 })}
             >
                 <Layout left center className={classNames(styles.inputBar)}>
@@ -164,10 +179,10 @@ function CommandPrompt() {
                     />
                 </Layout>
                 <ul className={classNames(styles.commandList)}>
-                    { renderMatchedCommands() }
+                    {renderMatchedCommands()}
                 </ul>
             </div>
-            <Overlay show={shown} onClick={() => setShown(false)}/>
+            <Overlay show={shown} onClick={() => setShown(false)} />
         </React.Fragment>
     );
 }
