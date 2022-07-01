@@ -21,6 +21,8 @@ function FileExplorer() {
     const [files, setFiles] = useState<File[]>([]);
     const [newFile, setNewFile] = useState<File | undefined>();
 
+    const [renamingFile, setRenamingFile] = useState<File>();
+
     const loadFiles = () => {
         axios({
             url: route("/storage"),
@@ -61,7 +63,7 @@ function FileExplorer() {
             .catch(api.error);
     };
 
-    const downloadFileCallback = (file: File) => {
+    const downloadFile = (file: File) => {
         const filepath = `${path ?? ""}/${file.filename}`;
         axios({
             method: "GET",
@@ -74,6 +76,28 @@ function FileExplorer() {
             },
         })
             .then((res) => api.download(res, file.filename))
+            .catch(api.error);
+    };
+
+    const renameFile = (file: File) => {
+        setRenamingFile(file);
+    };
+
+    const renameFileCallback = (file: File, newFile: File) => {
+        const filepath = `${path ?? ""}/${file.filename}`;
+        setRenamingFile(undefined);
+        axios({
+            method: "PATCH",
+            url: route("/storage"),
+            params: {
+                path: filepath,
+                new_filename: newFile.filename,
+            },
+            headers: {
+                Authorization: session.token,
+            },
+        })
+            .then(() => loadFiles())
             .catch(api.error);
     };
 
@@ -128,8 +152,13 @@ function FileExplorer() {
                     <FileListItem
                         key={i}
                         file={file}
+                        editing={renamingFile === file}
                         onClick={() => openDirectory(file)}
-                        onDownload={() => downloadFileCallback(file)}
+                        onDownload={() => downloadFile(file)}
+                        onRename={() => renameFile(file)}
+                        onValidation={(newFile) =>
+                            renameFileCallback(file, newFile)
+                        }
                         onDelete={() => onDelete(file)}
                     />
                 ))}

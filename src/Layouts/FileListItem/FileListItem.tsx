@@ -17,6 +17,7 @@ type Props = React.HTMLProps<HTMLDivElement> & {
     editing?: boolean;
     onDelete?: () => void;
     onDownload?: () => void;
+    onRename?: () => void;
     onValidation?: (file?: File) => void;
 };
 
@@ -25,7 +26,7 @@ function FileListItem(props: Props) {
         className,
         children,
         file,
-        editing,
+        onRename,
         onDelete,
         onDownload,
         onValidation,
@@ -35,7 +36,8 @@ function FileListItem(props: Props) {
 
     const input = useRef<HTMLInputElement>(null);
 
-    const [inputValue, setInputValue] = useState<string>();
+    const [inputValue, setInputValue] = useState<string>(file.filename);
+    const [editing, setEditing] = useState<boolean>();
 
     let symbol = getIcon(file);
     let color = getColor(file);
@@ -66,6 +68,7 @@ function FileListItem(props: Props) {
     let contextMenu;
     if (showContextMenu) {
         const onRename = () => {
+            if (props.onRename) props.onRename();
             closeContextMenu();
         };
 
@@ -111,6 +114,10 @@ function FileListItem(props: Props) {
             }, 80);
         }
     }, [props.editing, file]);
+
+    useEffect(() => {
+        setEditing(props.editing);
+    }, [props.editing]);
 
     const cancel = () => onValidation();
     const submit = () => {
