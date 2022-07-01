@@ -124,6 +124,22 @@ function FileListItem(props: Props) {
         }
     };
 
+    const onKeyDown = (e) => {
+        if (e.key === "Escape") {
+            cancel();
+        }
+    };
+
+    useEffect(() => {
+        if (editing) {
+            props.editing
+                ? document.addEventListener("keydown", onKeyDown)
+                : document.removeEventListener("keydown", onKeyDown);
+        }
+
+        return () => document.removeEventListener("keydown", onKeyDown);
+    }, [editing]);
+
     const inputValid = () => {
         return inputValue.trim() !== "";
     };
