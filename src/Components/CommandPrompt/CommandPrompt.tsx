@@ -94,10 +94,8 @@ function CommandPrompt() {
     const runSelectedCommand = (index?: number) => {
         if (index === undefined) return;
 
-        if (index != null) {
-            commandToRun.current = matchedCommands[index];
-            setShown(false);
-        }
+        commandToRun.current = matchedCommands[index];
+        setShown(false);
     };
 
     const renderMatchedCommands = () => {
