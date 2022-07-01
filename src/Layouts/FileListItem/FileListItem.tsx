@@ -3,20 +3,37 @@ import Symbol from "Components/Symbol/Symbol";
 import Layout from "Components/Layout/Layout";
 import Text from "Components/Text/Text";
 import { File, getColor, getIcon } from "Models/File";
-import React, { CSSProperties, useState } from "react";
+import React, { CSSProperties, useEffect, useRef, useState } from "react";
 
 import styles from "./FileListItem.module.sass";
 import Popover from "Components/Popover/Popover";
 import PopoverItemWithSymbol from "Components/PopoverItemWithSymbol/PopoverItemWithSymbol";
+import Input from "Components/Input/Input";
+import Spacer from "Components/Spacer/Spacer";
+import Button from "Components/Button/Button";
 
 type Props = React.HTMLProps<HTMLDivElement> & {
     file: File;
+    editing?: boolean;
     onDelete: () => void;
+    onValidation?: (file?: File) => void;
 };
 
 function FileListItem(props: Props) {
-    const { className, children, file, onDelete, ...others } = props;
-    const { filename } = file;
+    const {
+        className,
+        children,
+        file,
+        editing,
+        onDelete,
+        onValidation,
+        onClick,
+        ...others
+    } = props;
+
+    const input = useRef<HTMLInputElement>(null);
+
+    const [inputValue, setInputValue] = useState<string>();
 
     let symbol = getIcon(file);
     let color = getColor(file);
@@ -26,6 +43,7 @@ function FileListItem(props: Props) {
     const [contextMenuY, setContextMenuY] = useState<number | undefined>();
 
     const openContextMenu = (e) => {
+        if (editing) return;
         setShowContextMenu(true);
         setContextMenuX(e.pageX);
         setContextMenuY(e.pageY);
@@ -78,21 +96,93 @@ function FileListItem(props: Props) {
         );
     }
 
+    useEffect(() => {
+        if (props.editing) {
+            setTimeout(() => {
+                input.current?.focus();
+            }, 80);
+        }
+    }, [props.editing, file]);
+
+    const cancel = () => onValidation();
+    const submit = () => {
+        if (onValidation) {
+            onValidation({
+                filename: inputValue,
+                filetype: file.filetype,
+            });
+        }
+    };
+
+    const onInputValueChange = (e) => {
+        setInputValue(e.target.value);
+    };
+
+    const onInputKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+        if (e.key === "Enter" && inputValid()) {
+            submit();
+        }
+    };
+
+    const inputValid = () => {
+        return inputValue.trim() !== "";
+    };
+
+    const onItemClick = (e) => {
+        if (onClick) onClick(e);
+        if (editing) input.current.focus();
+    };
+
+    let filename;
+    if (editing) {
+        filename = (
+            <React.Fragment>
+                <Spacer width={8} />
+                <Input
+                    ref={input}
+                    placeholder="Name"
+                    value={inputValue}
+                    onChange={onInputValueChange}
+                    onKeyDown={onInputKeyDown}
+                    small
+                />
+                <Spacer width={8} />
+                <Spacer />
+                <Button onlySymbol onClick={cancel}>
+                    <Symbol symbol="close" />
+                </Button>
+                <Button secondary onClick={submit}>
+                    <Text>Create</Text>
+                    <Symbol symbol="arrow_forward" />
+                </Button>
+            </React.Fragment>
+        );
+    } else {
+        filename = (
+            <React.Fragment>
+                <Spacer width={16} />
+                <Text>{file.filename}</Text>
+            </React.Fragment>
+        );
+    }
+
     return (
         <div>
             {contextMenu}
             <div
                 onContextMenu={openContextMenu}
+                onClick={onItemClick}
                 {...others}
                 className={classNames({
                     [styles.item]: true,
                     [styles.itemSelected]: showContextMenu,
+                    [styles.itemEditing]: editing,
                     [className]: true,
                 })}
             >
-                <Layout horizontal center gap={16}>
+                <Layout horizontal center gap={0}>
                     <Symbol symbol={symbol} style={{ color }} size={24} />
-                    <Text>{filename}</Text>
+                    {filename}
                 </Layout>
             </div>
         </div>

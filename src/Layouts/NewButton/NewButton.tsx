@@ -6,18 +6,15 @@ import Symbol from "Components/Symbol/Symbol";
 import Text from "Components/Text/Text";
 
 import styles from "./NewButton.module.sass";
-import NewFilePopup from "Layouts/NewFilePopup/NewFilePopup";
-import { File } from "Models/File";
 
 type Props = {
-    onCreateFile: (file: File) => void;
+    createFile: () => void;
+    createFolder: () => void;
 };
 
 function NewButton(props: Props) {
-    const { onCreateFile } = props;
+    const { createFile, createFolder } = props;
     const [show, setShow] = useState<boolean>(false);
-
-    const [showCreateFile, setShowCreateFile] = useState<boolean>(false);
 
     const close = () => setShow(false);
     const toggle = () => setShow((show) => !show);
@@ -26,12 +23,12 @@ function NewButton(props: Props) {
         top: 48,
     };
 
-    const createFile = () => {
-        setShowCreateFile(true);
-        close();
+    const exec = (action?: () => void) => {
+        return () => {
+            if (action) action();
+            close();
+        };
     };
-
-    const createFileCallback = (file: File) => onCreateFile(file);
 
     return (
         <React.Fragment>
@@ -43,13 +40,13 @@ function NewButton(props: Props) {
                     onClose={close}
                 >
                     <PopoverItemWithSymbol
-                        onClick={createFile}
+                        onClick={exec(createFile)}
                         symbol="article"
                     >
                         File
                     </PopoverItemWithSymbol>
                     <PopoverItemWithSymbol
-                        onClick={createFile}
+                        onClick={exec(createFolder)}
                         symbol="create_new_folder"
                     >
                         Folder
@@ -60,11 +57,6 @@ function NewButton(props: Props) {
                     <Text>New</Text>
                 </Button>
             </div>
-            <NewFilePopup
-                show={showCreateFile}
-                onClose={() => setShowCreateFile(false)}
-                createFile={createFileCallback}
-            />
         </React.Fragment>
     );
 }

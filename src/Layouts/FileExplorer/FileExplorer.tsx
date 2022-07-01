@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import List from "Components/List/List";
 import FileListItem from "Layouts/FileListItem/FileListItem";
-import { File } from "Models/File";
+import { File, FileType } from "Models/File";
 import { api, route } from "Backend/api";
 import { useSession } from "Store/Hooks/useSession";
 import axios from "axios";
@@ -10,6 +10,7 @@ import { useNavigate, useParams } from "react-router-dom";
 
 import styles from "./FileExplorer.module.sass";
 import NewButton from "Layouts/NewButton/NewButton";
+import Spacer from "Components/Spacer/Spacer";
 
 function FileExplorer() {
     const session = useSession();
@@ -18,6 +19,7 @@ function FileExplorer() {
     const navigate = useNavigate();
 
     const [files, setFiles] = useState<File[]>([]);
+    const [newFile, setNewFile] = useState<File | undefined>();
 
     const loadFiles = () => {
         axios({
@@ -34,7 +36,15 @@ function FileExplorer() {
             .catch(api.error);
     };
 
-    const createFile = (file: File) => {
+    const createFile = (filetype: FileType) => {
+        setNewFile({ filename: "", filetype });
+    };
+
+    const createFileCallback = (file?: File) => {
+        setNewFile(undefined);
+
+        if (!file) return;
+
         axios({
             method: "PUT",
             url: route("/storage"),
@@ -81,9 +91,21 @@ function FileExplorer() {
     return (
         <React.Fragment>
             <Layout horizontal center gap={12}>
-                <NewButton onCreateFile={createFile} />
+                <NewButton
+                    createFile={() => createFile("file")}
+                    createFolder={() => createFile("directory")}
+                />
             </Layout>
             <List className={styles.explorer}>
+                {newFile && (
+                    <FileListItem
+                        editing
+                        file={newFile}
+                        onValidation={createFileCallback}
+                        onDelete={undefined}
+                    />
+                )}
+                <Spacer height={12} />
                 {files?.map((file, i) => (
                     <FileListItem
                         key={i}
