@@ -7,10 +7,20 @@ import styles from "./Button.module.sass";
 type Props = React.HTMLProps<HTMLDivElement> & {
     primary?: boolean;
     secondary?: boolean;
+    onlySymbol?: boolean;
+    sharp?: boolean;
 };
 
 function Button(props: Props) {
-    const { children, className, disabled, secondary, ...others } = props;
+    const {
+        children,
+        className,
+        disabled,
+        secondary,
+        onlySymbol,
+        sharp,
+        ...others
+    } = props;
 
     return (
         <div
@@ -18,7 +28,9 @@ function Button(props: Props) {
             className={classNames({
                 [styles.button]: true,
                 [styles.buttonSecondary]: secondary,
+                [styles.buttonOnlySymbol]: onlySymbol,
                 [styles.buttonDisabled]: disabled,
+                [styles.buttonSharp]: sharp,
                 [className]: true,
             })}
         >

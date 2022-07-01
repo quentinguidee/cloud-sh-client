@@ -22,7 +22,7 @@ type Props = React.PropsWithChildren<{
 }>;
 
 function Popover(props: Props) {
-    const { children, style, onClose, animateFrom } = props;
+    const { children, style, onClose, animateFrom, className } = props;
 
     const [show, setShow] = useState<boolean>(props.show);
 
@@ -51,6 +51,7 @@ function Popover(props: Props) {
                 className={classNames({
                     [styles.popover]: true,
                     [styles.popoverShow]: show,
+                    [className]: true,
                 })}
                 style={{
                     transformOrigin: animateFrom ?? "center center",

@@ -7,7 +7,6 @@ import { useSession } from "Store/Hooks/useSession";
 import axios from "axios";
 import Layout from "Components/Layout/Layout";
 import { useNavigate, useParams } from "react-router-dom";
-import NewDirectoryButton from "Layouts/NewDirectoryButton/NewDirectoryButton";
 
 import styles from "./FileExplorer.module.sass";
 import NewButton from "Layouts/NewButton/NewButton";
@@ -35,13 +34,13 @@ function FileExplorer() {
             .catch(api.error);
     };
 
-    const createDirectory = (name: string) => {
+    const createFile = (file: File) => {
         axios({
             method: "PUT",
             url: route("/storage"),
             data: {
-                type: "directory",
-                name,
+                type: file.filetype,
+                name: file.filename,
             },
             params: { path },
             headers: {
@@ -82,8 +81,7 @@ function FileExplorer() {
     return (
         <React.Fragment>
             <Layout horizontal center gap={12}>
-                <NewButton></NewButton>
-                <NewDirectoryButton createDirectory={createDirectory} />
+                <NewButton onCreateFile={createFile} />
             </Layout>
             <List className={styles.explorer}>
                 {files?.map((file, i) => (
