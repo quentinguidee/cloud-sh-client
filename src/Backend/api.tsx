@@ -20,4 +20,18 @@ export const api = {
 
         store.dispatch(pushMessage(message));
     },
+
+    createBlobURL: (res) => {
+        const blob = new Blob([res.data]);
+        return window.URL.createObjectURL(blob);
+    },
+
+    download: (res, filename: string) => {
+        const raw = api.createBlobURL(res);
+        const a = document.createElement("a");
+        a.style.display = "none";
+        a.href = raw;
+        a.download = filename;
+        a.click();
+    },
 };

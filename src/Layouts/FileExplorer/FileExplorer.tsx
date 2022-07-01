@@ -61,6 +61,22 @@ function FileExplorer() {
             .catch(api.error);
     };
 
+    const downloadFileCallback = (file: File) => {
+        const filepath = `${path ?? ""}/${file.filename}`;
+        axios({
+            method: "GET",
+            url: route("/storage/download"),
+            params: {
+                path: filepath,
+            },
+            headers: {
+                Authorization: session.token,
+            },
+        })
+            .then((res) => api.download(res, file.filename))
+            .catch(api.error);
+    };
+
     const openDirectory = (file: File) => {
         if (file.filetype !== "directory") {
             return;
@@ -102,8 +118,8 @@ function FileExplorer() {
                         <FileListItem
                             editing
                             file={newFile}
-                            onValidation={createFileCallback}
                             onDelete={undefined}
+                            onValidation={createFileCallback}
                         />
                         <Spacer height={12} />
                     </React.Fragment>
@@ -113,6 +129,7 @@ function FileExplorer() {
                         key={i}
                         file={file}
                         onClick={() => openDirectory(file)}
+                        onDownload={() => downloadFileCallback(file)}
                         onDelete={() => onDelete(file)}
                     />
                 ))}

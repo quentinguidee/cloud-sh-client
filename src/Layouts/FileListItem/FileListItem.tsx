@@ -15,7 +15,8 @@ import Button from "Components/Button/Button";
 type Props = React.HTMLProps<HTMLDivElement> & {
     file: File;
     editing?: boolean;
-    onDelete: () => void;
+    onDelete?: () => void;
+    onDownload?: () => void;
     onValidation?: (file?: File) => void;
 };
 
@@ -26,6 +27,7 @@ function FileListItem(props: Props) {
         file,
         editing,
         onDelete,
+        onDownload,
         onValidation,
         onClick,
         ...others
@@ -68,6 +70,7 @@ function FileListItem(props: Props) {
         };
 
         const onDownload = () => {
+            if (props.onDownload) props.onDownload();
             closeContextMenu();
         };
 
@@ -86,9 +89,14 @@ function FileListItem(props: Props) {
                 <PopoverItemWithSymbol symbol="edit" onClick={onRename}>
                     Rename
                 </PopoverItemWithSymbol>
-                <PopoverItemWithSymbol symbol="download" onClick={onDownload}>
-                    Download
-                </PopoverItemWithSymbol>
+                {file.filetype !== "directory" && (
+                    <PopoverItemWithSymbol
+                        symbol="download"
+                        onClick={onDownload}
+                    >
+                        Download
+                    </PopoverItemWithSymbol>
+                )}
                 <PopoverItemWithSymbol symbol="delete" onClick={onDelete} red>
                     Delete
                 </PopoverItemWithSymbol>

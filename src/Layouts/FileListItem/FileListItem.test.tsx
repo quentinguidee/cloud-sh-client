@@ -12,9 +12,7 @@ const file: File = {
 };
 
 it("renders", async () => {
-    const { getByText } = render(
-        <FileListItem file={file} onDelete={() => {}} />,
-    );
+    const { getByText } = render(<FileListItem file={file} />);
 
     expect(getByText(file.filename)).toBeInTheDocument();
 });
@@ -29,4 +27,16 @@ it("triggers delete action", async () => {
     fireEvent.click(getByText("Delete"));
 
     expect(onDelete).toHaveBeenCalled();
+});
+
+it("triggers download action", async () => {
+    const onDownload = fn();
+    const { getByText } = render(
+        <FileListItem file={file} onDownload={onDownload} />,
+    );
+
+    fireEvent.contextMenu(getByText("Fichier.txt"));
+    fireEvent.click(getByText("Download"));
+
+    expect(onDownload).toHaveBeenCalled();
 });
