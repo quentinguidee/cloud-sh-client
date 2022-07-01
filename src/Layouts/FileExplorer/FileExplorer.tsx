@@ -98,14 +98,16 @@ function FileExplorer() {
             </Layout>
             <List className={styles.explorer}>
                 {newFile && (
-                    <FileListItem
-                        editing
-                        file={newFile}
-                        onValidation={createFileCallback}
-                        onDelete={undefined}
-                    />
+                    <React.Fragment>
+                        <FileListItem
+                            editing
+                            file={newFile}
+                            onValidation={createFileCallback}
+                            onDelete={undefined}
+                        />
+                        <Spacer height={12} />
+                    </React.Fragment>
                 )}
-                <Spacer height={12} />
                 {files?.map((file, i) => (
                     <FileListItem
                         key={i}
