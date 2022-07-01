@@ -6,30 +6,33 @@ import Layout from "Components/Layout/Layout";
 import Symbol from "Components/Symbol/Symbol";
 import Overlay from "Components/Overlay/Overlay";
 import CommandItem from "Components/CommandItem/CommandItem";
-import { COMMAND_LIST } from "../../commands";
 import { Command } from "Models/Command";
+import { useCommands } from "Store/Hooks/useCommands";
+import { useDispatch } from "react-redux";
 
 function CommandPrompt() {
     const inputField = React.createRef<HTMLInputElement>();
+
+    const dispatch = useDispatch();
+    const commands = useCommands();
 
     const [shown, setShown] = useState<boolean>(false);
     const [typed, setTyped] = useState<string>("");
     const [selectedCommandIndex, setSelectedCommandIndex] =
         useState<number>(null);
-    const [matchedCommands, setMatchedCommands] =
-        useState<Command[]>(COMMAND_LIST);
+    const [matchedCommands, setMatchedCommands] = useState<Command[]>(commands);
     const commandToRun = useRef<Command>(null);
 
     useEffect(() => {
         setMatchedCommands(
-            COMMAND_LIST.filter((command) => {
+            commands.filter((command) => {
                 const lowerCommand = command.name.toLowerCase();
                 const lowerTyped = typed.toLowerCase();
                 return lowerCommand.includes(lowerTyped);
             }),
         );
         setSelectedCommandIndex(matchedCommands.length >= 0 ? 0 : undefined);
-    }, [typed]);
+    }, [typed, commands, dispatch]);
 
     useEffect(() => {
         if (shown) {

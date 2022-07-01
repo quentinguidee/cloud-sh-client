@@ -11,9 +11,13 @@ import { useNavigate, useParams } from "react-router-dom";
 import styles from "./FileExplorer.module.sass";
 import NewButton from "Layouts/NewButton/NewButton";
 import Spacer from "Components/Spacer/Spacer";
+import { Command } from "Models/Command";
+import { pushCommand, removeCommand } from "Store/Slices/CommandsSlice";
+import { useDispatch } from "react-redux";
 
 function FileExplorer() {
     const session = useSession();
+    const dispatch = useDispatch();
 
     const { "*": path } = useParams();
     const navigate = useNavigate();
@@ -127,6 +131,28 @@ function FileExplorer() {
     useEffect(() => {
         loadFiles();
     }, [path]);
+
+    useEffect(() => {
+        const commands: Command[] = [
+            {
+                id: "create_file",
+                icon: "article",
+                name: "Create file",
+                callback: () => createFile("file"),
+                tooltip: "Create a blank file in the current directory",
+            },
+            {
+                id: "create_folder",
+                icon: "create_new_folder",
+                name: "Create folder",
+                callback: () => createFile("directory"),
+                tooltip: "Create a new folder in the current directory",
+            },
+        ];
+
+        commands.forEach((c) => dispatch(pushCommand(c)));
+        return () => commands.forEach((c) => dispatch(removeCommand(c)));
+    }, []);
 
     return (
         <React.Fragment>
