@@ -12,9 +12,11 @@ function CommandPrompt() {
     const inputField = React.createRef<HTMLInputElement>();
 
     const [shown, setShown] = useState<boolean>(false);
-    const [typed, setTyped] = useState("");
-    const [selectedCommandIndex, setSelectedCommandIndex] = useState(null);
-    const [matchedCommands, setMatchedCommands] = useState(COMMAND_LIST);
+    const [typed, setTyped] = useState<string>("");
+    const [selectedCommandIndex, setSelectedCommandIndex] =
+        useState<number>(null);
+    const [matchedCommands, setMatchedCommands] =
+        useState<Command[]>(COMMAND_LIST);
     const commandToRun = useRef<Command>(null);
 
     useEffect(() => {
@@ -25,7 +27,7 @@ function CommandPrompt() {
                 return lowerCommand.includes(lowerTyped);
             }),
         );
-        setSelectedCommandIndex(matchedCommands.length >= 0 ? 0 : -1);
+        setSelectedCommandIndex(matchedCommands.length >= 0 ? 0 : undefined);
     }, [typed]);
 
     useEffect(() => {
@@ -43,20 +45,15 @@ function CommandPrompt() {
     }, [shown]);
 
     useEffect(() => {
-        document.addEventListener("keydown", handleKeyDownInDocument, {
-            capture: false,
-        });
+        document.addEventListener("keydown", handleKeyDownInDocument);
 
-        return function cleanup() {
-            document.removeEventListener("keydown", handleKeyDownInDocument, {
-                capture: false,
-            });
-        };
+        return () =>
+            document.removeEventListener("keydown", handleKeyDownInDocument);
     }, [shown, selectedCommandIndex]);
 
     const handleKeyDownInDocument = (event) => {
         // TODO: Shortcut in a settings pane ?
-        if (event.ctrlKey && event.key == "k") {
+        if ((event.ctrlKey || event.metaKey) && event.key == "k") {
             setShown(() => !shown);
             event.preventDefault();
         }
@@ -94,7 +91,9 @@ function CommandPrompt() {
         }
     };
 
-    const runSelectedCommand = (index: number | null) => {
+    const runSelectedCommand = (index?: number) => {
+        if (index === undefined) return;
+
         if (index != null) {
             commandToRun.current = matchedCommands[index];
             setShown(false);
@@ -120,7 +119,7 @@ function CommandPrompt() {
                 matchedPartIndex + typed.length,
             );
 
-            index += 1;
+            index++;
             const commandIndex = index;
 
             const clickCallback = () => {
@@ -167,10 +166,10 @@ function CommandPrompt() {
                     [styles.shown]: shown,
                 })}
             >
-                <Layout left center className={classNames(styles.inputBar)}>
+                <Layout left center className={styles.inputBar}>
                     <Symbol symbol="search" size={24} />
                     <input
-                        className={classNames(styles.inputField)}
+                        className={styles.inputField}
                         placeholder="Type a command"
                         value={typed}
                         onChange={handleValueChangeInInput}
@@ -178,7 +177,7 @@ function CommandPrompt() {
                         onKeyDown={handleInputKeyDown}
                     />
                 </Layout>
-                <ul className={classNames(styles.commandList)}>
+                <ul className={styles.commandList}>
                     {renderMatchedCommands()}
                 </ul>
             </div>
