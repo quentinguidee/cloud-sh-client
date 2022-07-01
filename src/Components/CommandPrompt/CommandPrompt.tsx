@@ -100,9 +100,7 @@ function CommandPrompt() {
     };
 
     const renderMatchedCommands = () => {
-        let index = -1;
-        return matchedCommands.map((command) => {
-            index++;
+        return matchedCommands.map((command, index) => {
             const commandIndex = index;
 
             const clickCallback = () => {
