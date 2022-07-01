@@ -2,33 +2,30 @@
 @use "../../Assets/dimensions"
 @use "../../Assets/fonts"
 
-.commandElement
-    padding: 0 16px
-    height: calc(28px + 2 * 16px)
-    font-size: calc(28px * 2 / 3)
+.command
+    padding: 12px 16px
+    cursor: pointer
+    border-radius: dimensions.$border-radius
+    margin: 0 8px
 
-    &.selectedCommand
-        background-color: colors.$accent
-        color: colors.$background-primary
+    &Selected
+        background-color: colors.$background-secondary
+        // color: colors.$background-primary
 
         .matchedCommandPart
-            color: colors.$background-secondary !important
             border-bottom: solid 2px colors.$background-secondary
 
-    &:hover:not(.selectedCommand)
-        background-color: colors.$background-secondary
+    &:hover
+        background-color: colors.$background-hover
 
-    .commandInfos
-        display: block
-        margin-left: 12px
+.name
+    font-size: fonts.$size-normal
 
-        .commandName
-            display: inline-block
+    .matchedCommandPart
+        color: colors.$accent
+        font-weight: fonts.$weight-bold
 
-            .matchedCommandPart
-                color: colors.$accent
-                font-weight: fonts.$weight-bold
-
-        .commandTooltip
-            font-size: fonts.$size-note
-            text-overflow: ellipsis
+.tooltip
+    font-size: fonts.$size-note
+    color: colors.$text-tertiary
+    text-overflow: ellipsis

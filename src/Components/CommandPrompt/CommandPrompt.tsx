@@ -121,7 +121,8 @@ function CommandPrompt() {
 
     return (
         <React.Fragment>
-            <div
+            <Layout
+                vertical
                 className={classNames({
                     [styles.commandPrompt]: true,
                     [styles.shown]: shown,
@@ -141,7 +142,7 @@ function CommandPrompt() {
                 <ul className={styles.commandList}>
                     {renderMatchedCommands()}
                 </ul>
-            </div>
+            </Layout>
             <Overlay show={shown} onClick={() => setShown(false)} />
         </React.Fragment>
     );

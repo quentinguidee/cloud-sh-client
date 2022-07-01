@@ -31,27 +31,24 @@ function CommandItem(props: Props) {
     return (
         <li
             className={classNames({
-                [styles.commandElement]: true,
-                [styles.selectedCommand]: selected,
+                [styles.command]: true,
+                [styles.commandSelected]: selected,
             })}
             key={command.id}
             onClick={onClick}
         >
-            <Layout horizontal left center maximize>
+            <Layout horizontal left center maximize gap={12}>
                 <Symbol symbol={command.icon} size={24} />
-                <div className={styles.commandInfos}>
-                    <span className={styles.commandName}>
+                <Layout vertical gap={4}>
+                    <div className={styles.name}>
                         <span>{beforeMatchedPart}</span>
                         <span className={styles.matchedCommandPart}>
                             {matchedPart}
                         </span>
                         <span>{afterMatchedPart}</span>
-                    </span>
-                    <br />
-                    <span className={styles.commandTooltip}>
-                        {command.tooltip}
-                    </span>
-                </div>
+                    </div>
+                    <span className={styles.tooltip}>{command.tooltip}</span>
+                </Layout>
             </Layout>
         </li>
     );
