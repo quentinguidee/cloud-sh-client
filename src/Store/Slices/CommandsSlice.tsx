@@ -9,7 +9,7 @@ function pushCommandReducer(state, action: PayloadAction<Command>) {
 
 function removeCommandReducer(state, action: PayloadAction<Command>) {
     const { payload: command } = action;
-    state.splice(command, 1);
+    return state.filter((el) => el.id !== command.id);
 }
 
 const commandsSlice = createSlice({
