@@ -11,6 +11,7 @@ import PopoverItemWithSymbol from "Components/PopoverItemWithSymbol/PopoverItemW
 import Input from "Components/Input/Input";
 import Spacer from "Components/Spacer/Spacer";
 import Button from "Components/Button/Button";
+import PopoverSeparator from "Components/PopoverSeparator/PopoverSeparator";
 
 type Props = React.HTMLProps<HTMLDivElement> & {
     file: File;
@@ -100,6 +101,7 @@ function FileListItem(props: Props) {
                         Download
                     </PopoverItemWithSymbol>
                 )}
+                <PopoverSeparator />
                 <PopoverItemWithSymbol symbol="delete" onClick={onDelete} red>
                     Delete
                 </PopoverItemWithSymbol>
