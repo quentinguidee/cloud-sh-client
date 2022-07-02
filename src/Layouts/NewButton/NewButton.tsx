@@ -10,10 +10,11 @@ import styles from "./NewButton.module.sass";
 type Props = {
     createFile: () => void;
     createFolder: () => void;
+    importFile: () => void;
 };
 
 function NewButton(props: Props) {
-    const { createFile, createFolder } = props;
+    const { createFile, createFolder, importFile } = props;
     const [show, setShow] = useState<boolean>(false);
 
     const close = () => setShow(false);
@@ -50,6 +51,12 @@ function NewButton(props: Props) {
                         symbol="create_new_folder"
                     >
                         Folder
+                    </PopoverItemWithSymbol>
+                    <PopoverItemWithSymbol
+                        onClick={exec(importFile)}
+                        symbol="file_upload"
+                    >
+                        Import
                     </PopoverItemWithSymbol>
                 </Popover>
                 <Button onClick={toggle}>

@@ -14,6 +14,7 @@ import Spacer from "Components/Spacer/Spacer";
 import { Command } from "Models/Command";
 import { pushCommand, removeCommand } from "Store/Slices/CommandsSlice";
 import { useDispatch } from "react-redux";
+import { useFilePicker } from "use-file-picker";
 
 function FileExplorer() {
     const session = useSession();
@@ -26,6 +27,9 @@ function FileExplorer() {
     const [newFile, setNewFile] = useState<File | undefined>();
 
     const [renamingFile, setRenamingFile] = useState<File>();
+    const [openFileSelector, { filesContent }] = useFilePicker({
+        multiple: true,
+    });
 
     const loadFiles = () => {
         axios({
@@ -45,6 +49,40 @@ function FileExplorer() {
     const createFile = (filetype: FileType) => {
         setNewFile({ filename: "", filetype });
     };
+
+    const importFile = () => {
+        openFileSelector();
+    };
+
+    const uploadFile = (file: File, content: string) => {
+        axios({
+            method: "PUT",
+            url: route("/storage/upload"),
+            params: { path },
+            data: {
+                type: file.filetype,
+                name: file.filename,
+                content,
+            },
+            headers: {
+                Authorization: session.token,
+            },
+        })
+            .then(() => loadFiles())
+            .catch(api.error);
+    };
+
+    useEffect(() => {
+        filesContent.forEach((file) => {
+            uploadFile(
+                {
+                    filetype: "file",
+                    filename: file.name,
+                },
+                file.content,
+            );
+        });
+    }, [filesContent]);
 
     const createFileCallback = (file?: File) => {
         setNewFile(undefined);
@@ -139,14 +177,22 @@ function FileExplorer() {
                 icon: "article",
                 name: "Create file",
                 callback: () => createFile("file"),
-                tooltip: "Create a blank file in the current directory",
+                tooltip: "Create a blank file in the current directory.",
             },
             {
                 id: "create_folder",
                 icon: "create_new_folder",
                 name: "Create folder",
                 callback: () => createFile("directory"),
-                tooltip: "Create a new folder in the current directory",
+                tooltip: "Create a new folder in the current directory.",
+            },
+            {
+                id: "create_folder",
+                icon: "file_upload",
+                name: "Create folder",
+                callback: () => importFile(),
+                tooltip:
+                    "Import a new file or folder in the current directory.",
             },
         ];
 
@@ -160,6 +206,7 @@ function FileExplorer() {
                 <NewButton
                     createFile={() => createFile("file")}
                     createFolder={() => createFile("directory")}
+                    importFile={() => importFile()}
                 />
             </Layout>
             <List className={styles.explorer}>
