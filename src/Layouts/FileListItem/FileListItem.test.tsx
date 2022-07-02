@@ -3,24 +3,24 @@ import { fireEvent, render } from "@testing-library/react";
 import "@testing-library/jest-dom";
 
 import FileListItem from "./FileListItem";
-import { File } from "Models/File";
+import { Node } from "Models/Node";
 import fn = jest.fn;
 
-const file: File = {
-    filename: "Fichier.txt",
-    filetype: "file",
+const node: Node = {
+    name: "Fichier.txt",
+    type: "file",
 };
 
 it("renders", async () => {
-    const { getByText } = render(<FileListItem file={file} />);
+    const { getByText } = render(<FileListItem node={node} />);
 
-    expect(getByText(file.filename)).toBeInTheDocument();
+    expect(getByText(node.name)).toBeInTheDocument();
 });
 
 it("triggers delete action", async () => {
     const onDelete = fn();
     const { getByText } = render(
-        <FileListItem file={file} onDelete={onDelete} />,
+        <FileListItem node={node} onDelete={onDelete} />,
     );
 
     fireEvent.contextMenu(getByText("Fichier.txt"));
@@ -32,7 +32,7 @@ it("triggers delete action", async () => {
 it("triggers download action", async () => {
     const onDownload = fn();
     const { getByText } = render(
-        <FileListItem file={file} onDownload={onDownload} />,
+        <FileListItem node={node} onDownload={onDownload} />,
     );
 
     fireEvent.contextMenu(getByText("Fichier.txt"));

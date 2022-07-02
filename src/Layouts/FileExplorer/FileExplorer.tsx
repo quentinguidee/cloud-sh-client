@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import List from "Components/List/List";
 import FileListItem from "Layouts/FileListItem/FileListItem";
-import { File, FileType } from "Models/File";
+import { Node, NodeType } from "Models/Node";
 import { api, route } from "Backend/api";
 import { useSession } from "Store/Hooks/useSession";
 import axios from "axios";
@@ -23,10 +23,10 @@ function FileExplorer() {
     const { "*": path } = useParams();
     const navigate = useNavigate();
 
-    const [files, setFiles] = useState<File[]>([]);
-    const [newFile, setNewFile] = useState<File | undefined>();
+    const [nodes, setNodes] = useState<Node[]>([]);
+    const [newNode, setNewNode] = useState<Node | undefined>();
 
-    const [renamingFile, setRenamingFile] = useState<File>();
+    const [renamingNode, setRenamingNode] = useState<Node>();
     const [openFileSelector, { filesContent }] = useFilePicker({
         multiple: true,
     });
@@ -40,28 +40,28 @@ function FileExplorer() {
             },
         })
             .then((res) => {
-                console.table(res.data.files);
-                setFiles(res.data.files);
+                console.table(res.data.nodes);
+                setNodes(res.data.nodes);
             })
             .catch(api.error);
     };
 
-    const createFile = (filetype: FileType) => {
-        setNewFile({ filename: "", filetype });
+    const createFile = (type: NodeType) => {
+        setNewNode({ name: "", type });
     };
 
     const importFile = () => {
         openFileSelector();
     };
 
-    const uploadFile = (file: File, content: string) => {
+    const uploadFile = (node: Node, content: string) => {
         axios({
             method: "PUT",
             url: route("/storage/upload"),
             params: { path },
             data: {
-                type: file.filetype,
-                name: file.filename,
+                type: node.type,
+                name: node.name,
                 content,
             },
             headers: {
@@ -76,25 +76,25 @@ function FileExplorer() {
         filesContent.forEach((file) => {
             uploadFile(
                 {
-                    filetype: "file",
-                    filename: file.name,
+                    type: "file",
+                    name: file.name,
                 },
                 file.content,
             );
         });
     }, [filesContent]);
 
-    const createFileCallback = (file?: File) => {
-        setNewFile(undefined);
+    const createFileCallback = (node?: Node) => {
+        setNewNode(undefined);
 
-        if (!file) return;
+        if (!node) return;
 
         axios({
             method: "PUT",
             url: route("/storage"),
             data: {
-                type: file.filetype,
-                name: file.filename,
+                type: node.type,
+                name: node.name,
             },
             params: { path },
             headers: {
@@ -105,8 +105,8 @@ function FileExplorer() {
             .catch(api.error);
     };
 
-    const downloadFile = (file: File) => {
-        const filepath = `${path ?? ""}/${file.filename}`;
+    const downloadFile = (node: Node) => {
+        const filepath = `${path ?? ""}/${node.name}`;
         axios({
             method: "GET",
             url: route("/storage/download"),
@@ -117,23 +117,23 @@ function FileExplorer() {
                 Authorization: session.token,
             },
         })
-            .then((res) => api.download(res, file.filename))
+            .then((res) => api.download(res, node.name))
             .catch(api.error);
     };
 
-    const renameFile = (file: File) => {
-        setRenamingFile(file);
+    const renameFile = (node: Node) => {
+        setRenamingNode(node);
     };
 
-    const renameFileCallback = (file: File, newFile: File) => {
-        const filepath = `${path ?? ""}/${file.filename}`;
-        setRenamingFile(undefined);
+    const renameFileCallback = (node: Node, newNode: Node) => {
+        const filepath = `${path ?? ""}/${node.name}`;
+        setRenamingNode(undefined);
         axios({
             method: "PATCH",
             url: route("/storage"),
             params: {
                 path: filepath,
-                new_filename: newFile.filename,
+                new_name: newNode.name,
             },
             headers: {
                 Authorization: session.token,
@@ -143,17 +143,17 @@ function FileExplorer() {
             .catch(api.error);
     };
 
-    const openDirectory = (file: File) => {
-        if (file.filetype !== "directory") {
+    const openDirectory = (node: Node) => {
+        if (node.type !== "directory") {
             return;
         }
-        let destination = `${path ?? ""}/${file.filename}`;
+        let destination = `${path ?? ""}/${node.name}`;
         if (destination[0] !== "/") destination = `/${destination}`;
         navigate(`/storage${destination}`);
     };
 
-    const onDelete = (file: File) => {
-        const filepath = `${path ?? ""}/${file.filename}`;
+    const onDelete = (node: Node) => {
+        const filepath = `${path ?? ""}/${node.name}`;
         axios({
             method: "DELETE",
             url: route("/storage"),
@@ -210,22 +210,22 @@ function FileExplorer() {
                 />
             </Layout>
             <List className={styles.explorer}>
-                {newFile && (
+                {newNode && (
                     <React.Fragment>
                         <FileListItem
                             editing
-                            file={newFile}
+                            node={newNode}
                             onDelete={undefined}
                             onValidation={createFileCallback}
                         />
                         <Spacer height={12} />
                     </React.Fragment>
                 )}
-                {files?.map((file, i) => (
+                {nodes?.map((file, i) => (
                     <FileListItem
                         key={i}
-                        file={file}
-                        editing={renamingFile === file}
+                        node={file}
+                        editing={renamingNode === file}
                         onClick={() => openDirectory(file)}
                         onDownload={() => downloadFile(file)}
                         onRename={() => renameFile(file)}

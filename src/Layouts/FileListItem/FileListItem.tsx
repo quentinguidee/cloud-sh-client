@@ -2,7 +2,7 @@ import classNames from "classnames";
 import Symbol from "Components/Symbol/Symbol";
 import Layout from "Components/Layout/Layout";
 import Text from "Components/Text/Text";
-import { File, getColor, getIcon } from "Models/File";
+import { Node, getColor, getIcon } from "Models/Node";
 import React, { CSSProperties, useEffect, useRef, useState } from "react";
 
 import styles from "./FileListItem.module.sass";
@@ -14,19 +14,19 @@ import Button from "Components/Button/Button";
 import PopoverSeparator from "Components/PopoverSeparator/PopoverSeparator";
 
 type Props = React.HTMLProps<HTMLDivElement> & {
-    file: File;
+    node: Node;
     editing?: boolean;
     onDelete?: () => void;
     onDownload?: () => void;
     onRename?: () => void;
-    onValidation?: (file?: File) => void;
+    onValidation?: (node?: Node) => void;
 };
 
 function FileListItem(props: Props) {
     const {
         className,
         children,
-        file,
+        node,
         onRename,
         onDelete,
         onDownload,
@@ -37,11 +37,11 @@ function FileListItem(props: Props) {
 
     const input = useRef<HTMLInputElement>(null);
 
-    const [inputValue, setInputValue] = useState<string>(file.filename);
+    const [inputValue, setInputValue] = useState<string>(node.name);
     const [editing, setEditing] = useState<boolean>();
 
-    let symbol = getIcon(file);
-    let color = getColor(file);
+    let symbol = getIcon(node);
+    let color = getColor(node);
 
     const [showContextMenu, setShowContextMenu] = useState<boolean>(false);
     const [contextMenuX, setContextMenuX] = useState<number | undefined>();
@@ -93,7 +93,7 @@ function FileListItem(props: Props) {
                 <PopoverItemWithSymbol symbol="edit" onClick={onRename}>
                     Rename
                 </PopoverItemWithSymbol>
-                {file.filetype !== "directory" && (
+                {node.type !== "directory" && (
                     <PopoverItemWithSymbol
                         symbol="download"
                         onClick={onDownload}
@@ -115,7 +115,7 @@ function FileListItem(props: Props) {
                 input.current?.focus();
             }, 80);
         }
-    }, [props.editing, file]);
+    }, [props.editing, node]);
 
     useEffect(() => {
         setEditing(props.editing);
@@ -125,8 +125,8 @@ function FileListItem(props: Props) {
     const submit = () => {
         if (onValidation) {
             onValidation({
-                filename: inputValue,
-                filetype: file.filetype,
+                name: inputValue,
+                type: node.type,
             });
         }
     };
@@ -166,9 +166,9 @@ function FileListItem(props: Props) {
         if (editing) input.current.focus();
     };
 
-    let filename;
+    let nodeName;
     if (editing) {
-        filename = (
+        nodeName = (
             <React.Fragment>
                 <Spacer width={8} />
                 <Input
@@ -191,10 +191,10 @@ function FileListItem(props: Props) {
             </React.Fragment>
         );
     } else {
-        filename = (
+        nodeName = (
             <React.Fragment>
                 <Spacer width={16} />
-                <Text>{file.filename}</Text>
+                <Text>{node.name}</Text>
             </React.Fragment>
         );
     }
@@ -215,7 +215,7 @@ function FileListItem(props: Props) {
             >
                 <Layout horizontal center gap={0}>
                     <Symbol symbol={symbol} style={{ color }} size={24} />
-                    {filename}
+                    {nodeName}
                 </Layout>
             </div>
         </div>
