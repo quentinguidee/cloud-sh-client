@@ -71,14 +71,14 @@ function CommandPrompt() {
         switch (event.key) {
             case "ArrowUp":
                 setSelectedCommandIndex(
-                    (selectedCommandIndex + 1) % matchedCommands.length,
+                    (selectedCommandIndex - 1 + matchedCommands.length) %
+                        matchedCommands.length,
                 );
                 event.preventDefault();
                 break;
             case "ArrowDown":
                 setSelectedCommandIndex(
-                    (selectedCommandIndex - 1 + matchedCommands.length) %
-                        matchedCommands.length,
+                    (selectedCommandIndex + 1) % matchedCommands.length,
                 );
                 event.preventDefault();
                 break;
