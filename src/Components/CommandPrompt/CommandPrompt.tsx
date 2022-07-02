@@ -102,25 +102,22 @@ function CommandPrompt() {
         setShown(false);
     };
 
-    const renderMatchedCommands = () => {
-        return matchedCommands.map((command, index) => {
-            const commandIndex = index;
+    const commandItems = matchedCommands.map((command, index) => {
+        const clickCallback = () => {
+            setSelectedCommandIndex(index);
+            runSelectedCommand(index);
+        };
 
-            const clickCallback = () => {
-                setSelectedCommandIndex(commandIndex);
-                runSelectedCommand(commandIndex);
-            };
-
-            return (
-                <CommandItem
-                    onClick={clickCallback}
-                    command={command}
-                    typed={typed}
-                    selected={selectedCommandIndex == commandIndex}
-                />
-            );
-        });
-    };
+        return (
+            <CommandItem
+                key={command.id}
+                onClick={clickCallback}
+                command={command}
+                typed={typed}
+                selected={selectedCommandIndex == index}
+            />
+        );
+    });
 
     return (
         <React.Fragment>
@@ -142,9 +139,7 @@ function CommandPrompt() {
                         onKeyDown={handleInputKeyDown}
                     />
                 </Layout>
-                <ul className={styles.commandList}>
-                    {renderMatchedCommands()}
-                </ul>
+                <ul className={styles.commandList}>{commandItems}</ul>
             </Layout>
             <Overlay show={shown} onClick={() => setShown(false)} />
         </React.Fragment>
