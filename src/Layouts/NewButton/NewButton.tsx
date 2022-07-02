@@ -6,6 +6,7 @@ import Symbol from "Components/Symbol/Symbol";
 import Text from "Components/Text/Text";
 
 import styles from "./NewButton.module.sass";
+import PopoverSeparator from "Components/PopoverSeparator/PopoverSeparator";
 
 type Props = {
     createFile: () => void;
@@ -52,6 +53,7 @@ function NewButton(props: Props) {
                     >
                         Folder
                     </PopoverItemWithSymbol>
+                    <PopoverSeparator />
                     <PopoverItemWithSymbol
                         onClick={exec(importFile)}
                         symbol="file_upload"
