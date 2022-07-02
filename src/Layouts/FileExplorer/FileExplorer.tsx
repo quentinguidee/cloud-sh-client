@@ -187,9 +187,9 @@ function FileExplorer() {
                 tooltip: "Create a new folder in the current directory.",
             },
             {
-                id: "create_folder",
+                id: "import_files",
                 icon: "file_upload",
-                name: "Create folder",
+                name: "Import files",
                 callback: () => importFile(),
                 tooltip:
                     "Import a new file or folder in the current directory.",
