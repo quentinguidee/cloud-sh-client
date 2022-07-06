@@ -1,3 +1,4 @@
+@use "Assets/colors.sass"
 @use "Assets/dimensions.sass"
 
 .explorer
@@ -5,3 +6,23 @@
     margin-top: 20px
     flex-grow: 1
     overflow-y: auto
+    position: relative
+
+.dragAndDrop
+    &::after
+        content: ''
+        top: 0
+        left: 0
+        right: 0
+        bottom: 0
+        position: absolute
+        border: 3px solid colors.$background-blue
+        border-radius: dimensions.$border-radius
+        animation: drag-and-drop-feedback 0.3s ease-in-out infinite alternate-reverse
+
+@keyframes drag-and-drop-feedback
+    from
+        border-width: 2px
+
+    to
+        border-width: 5px

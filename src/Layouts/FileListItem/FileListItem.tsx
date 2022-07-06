@@ -64,6 +64,7 @@ function FileListItem(props: Props) {
     const popoverStyle: CSSProperties = {
         left: contextMenuX + "px",
         top: contextMenuY + "px",
+        position: "fixed",
     };
 
     let contextMenu;

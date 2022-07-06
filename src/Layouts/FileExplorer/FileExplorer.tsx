@@ -16,6 +16,7 @@ import { pushCommand, removeCommand } from "Store/Slices/CommandsSlice";
 import { useDispatch } from "react-redux";
 import { useFilePicker } from "use-file-picker";
 import { pushMessage } from "Store/Slices/MessagesSlice";
+import classNames from "classnames";
 
 function FileExplorer() {
     const session = useSession();
@@ -26,6 +27,7 @@ function FileExplorer() {
 
     const [nodes, setNodes] = useState<Node[]>([]);
     const [newNode, setNewNode] = useState<Node | undefined>();
+    const [dragAndDrop, setDragAndDrop] = useState<boolean>(false);
 
     const [renamingNode, setRenamingNode] = useState<Node>();
     const [openFileSelector, { filesContent }] = useFilePicker({
@@ -216,11 +218,19 @@ function FileExplorer() {
     const onDragOver = (e) => {
         e.preventDefault();
         e.stopPropagation();
+        setDragAndDrop(true);
+    };
+
+    const onDragExit = (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        setDragAndDrop(false);
     };
 
     const onDrop = (e: React.DragEvent<HTMLDivElement>) => {
         e.preventDefault();
         e.stopPropagation();
+        setDragAndDrop(false);
 
         const { files } = e.dataTransfer;
 
@@ -262,8 +272,12 @@ function FileExplorer() {
             </Layout>
             <List
                 onDragOver={onDragOver}
+                onDragExit={onDragExit}
                 onDrop={onDrop}
-                className={styles.explorer}
+                className={classNames({
+                    [styles.explorer]: true,
+                    [styles.dragAndDrop]: dragAndDrop,
+                })}
             >
                 {newNode && (
                     <React.Fragment>
