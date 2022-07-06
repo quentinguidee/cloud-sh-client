@@ -11,6 +11,7 @@ import CommandPrompt from "Components/CommandPrompt/CommandPrompt";
 import { useDispatch } from "react-redux";
 import { Command } from "Models/Command";
 import { pushCommand, removeCommand } from "Store/Slices/CommandsSlice";
+import { useSession } from "Store/Hooks/useSession";
 
 function Dashboard() {
     const navigate = useNavigate();
@@ -18,6 +19,7 @@ function Dashboard() {
     const dispatch = useDispatch();
 
     const messages = useMessages();
+    const session = useSession();
 
     useEffect(() => {
         const commands: Command[] = [
@@ -33,6 +35,13 @@ function Dashboard() {
         commands.forEach((c) => dispatch(pushCommand(c)));
         return () => commands.forEach((c) => dispatch(removeCommand(c)));
     }, []);
+
+    useEffect(() => {
+        if (!session) {
+            navigate("/login");
+            window.location.reload();
+        }
+    });
 
     return (
         <React.Fragment>
