@@ -121,7 +121,11 @@ function FileListItem(props: Props) {
         setEditing(props.editing);
     }, [props.editing]);
 
-    const cancel = () => onValidation();
+    const cancel = () => {
+        setInputValue(node.name);
+        if (onValidation) onValidation();
+    };
+
     const submit = () => {
         if (onValidation) {
             onValidation({
