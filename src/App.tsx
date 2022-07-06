@@ -7,25 +7,25 @@ import "Assets/App.sass";
 import { Provider } from "react-redux";
 import store, { persistor } from "Store/Store";
 import { PersistGate } from "redux-persist/integration/react";
+import { useTheme } from "Store/Hooks/useTheme";
 
 function App() {
-    const darkTheme = window.matchMedia("(prefers-color-scheme: dark)");
-
-    // TODO: It should be possible to turn off darkTheme on demand(for the user, for testing purpose...)
-
     return (
         <Provider store={store}>
             <PersistGate persistor={persistor}>
-                <div
-                    className={classNames(
-                        // FIXME: Re-enable this
-                        darkTheme.matches ? /* dark */ "light" : "light",
-                    )}
-                >
-                    <Router />
-                </div>
+                <Container />
             </PersistGate>
         </Provider>
+    );
+}
+
+function Container() {
+    const theme = useTheme();
+
+    return (
+        <div className={classNames(theme)}>
+            <Router />
+        </div>
     );
 }
 

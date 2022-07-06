@@ -5,11 +5,13 @@ import authSlice from "Store/Slices/AuthSlice";
 import messagesSlice from "Store/Slices/MessagesSlice";
 import commandsSlice from "Store/Slices/CommandsSlice";
 import { PersistConfig } from "redux-persist/es/types";
+import themeSlice from "Store/Slices/ThemeSlice";
 
 const reducers = combineReducers({
     auth: authSlice,
     commands: commandsSlice,
     messages: messagesSlice,
+    theme: themeSlice,
 });
 
 const persistConfig: PersistConfig<any> = {
