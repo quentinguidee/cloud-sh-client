@@ -32,6 +32,7 @@ function FileListItem(props: Props) {
         onDownload,
         onValidation,
         onClick,
+        editing: _,
         ...others
     } = props;
 
