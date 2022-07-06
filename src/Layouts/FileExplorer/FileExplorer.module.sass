@@ -1,5 +1,6 @@
 @use "Assets/colors.sass"
 @use "Assets/dimensions.sass"
+@use "Assets/transitions.sass"
 
 .explorer
     padding: 0 dimensions.$page-vertical-padding dimensions.$page-horizontal-padding
@@ -7,18 +8,28 @@
     flex-grow: 1
     overflow-y: auto
     position: relative
+    transition: padding-top transitions.$speed-default ease-in-out
+
+    &::after
+        pointer-events: none
+        content: ''
+        position: absolute
+        top: 0
+        left: 10px
+        right: 10px
+        bottom: 10px
+        opacity: 0
+        border: 0 solid colors.$background-blue
+        border-radius: dimensions.$border-radius
+        transition: opacity transitions.$speed-default ease-in-out
 
 .dragAndDrop
+    padding-top: 14px
+
     &::after
-        content: ''
-        top: 0
-        left: 0
-        right: 0
-        bottom: 0
-        position: absolute
-        border: 3px solid colors.$background-blue
-        border-radius: dimensions.$border-radius
-        animation: drag-and-drop-feedback 0.3s ease-in-out infinite alternate-reverse
+        border-width: 3px
+        opacity: 1
+        animation: drag-and-drop-feedback 0.3s ease-in-out infinite alternate
 
 @keyframes drag-and-drop-feedback
     from
