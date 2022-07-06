@@ -35,7 +35,9 @@ function TitleBar(props: Props) {
             <Title className={styles.title}>{title}</Title>
             <Spacer />
             <Button onlySymbol onClick={toggleTheme}>
-                <Symbol symbol="dark_mode" />
+                <Symbol
+                    symbol={theme === "dark" ? "dark_mode" : "light_mode"}
+                />
             </Button>
             <Spacer width={12} />
             <Account user={user} />
