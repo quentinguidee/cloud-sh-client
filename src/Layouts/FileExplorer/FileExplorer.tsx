@@ -15,6 +15,7 @@ import { Command } from "Models/Command";
 import { pushCommand, removeCommand } from "Store/Slices/CommandsSlice";
 import { useDispatch } from "react-redux";
 import { useFilePicker } from "use-file-picker";
+import { pushMessage } from "Store/Slices/MessagesSlice";
 
 function FileExplorer() {
     const session = useSession();
@@ -212,6 +213,44 @@ function FileExplorer() {
         return () => commands.forEach((c) => dispatch(removeCommand(c)));
     }, []);
 
+    const onDragOver = (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+    };
+
+    const onDrop = (e: React.DragEvent<HTMLDivElement>) => {
+        e.preventDefault();
+        e.stopPropagation();
+
+        const { files } = e.dataTransfer;
+
+        if (files) {
+            Array.from(files).forEach((file) => {
+                console.log(file);
+                const reader = new FileReader();
+                reader.readAsText(file);
+                reader.onload = () => {
+                    const content = reader.result;
+                    uploadFile(
+                        {
+                            type: "file",
+                            name: file.name,
+                        },
+                        content as string,
+                    );
+                };
+                reader.onerror = () => {
+                    dispatch(
+                        pushMessage({
+                            type: "error",
+                            message: reader.error.toString(),
+                        }),
+                    );
+                };
+            });
+        }
+    };
+
     return (
         <React.Fragment>
             <Layout horizontal center gap={12}>
@@ -221,7 +260,11 @@ function FileExplorer() {
                     importFile={() => importFile()}
                 />
             </Layout>
-            <List className={styles.explorer}>
+            <List
+                onDragOver={onDragOver}
+                onDrop={onDrop}
+                className={styles.explorer}
+            >
                 {newNode && (
                     <React.Fragment>
                         <FileListItem
