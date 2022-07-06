@@ -162,8 +162,11 @@ function FileListItem(props: Props) {
     };
 
     const onItemClick = (e) => {
+        if (editing) {
+            input.current.focus();
+            return;
+        }
         if (onClick) onClick(e);
-        if (editing) input.current.focus();
     };
 
     let nodeName;
