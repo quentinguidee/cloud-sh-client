@@ -1,5 +1,6 @@
 @use "Assets/colors.sass"
 @use "Assets/fonts.sass"
+@use "Assets/transitions.sass"
 
 body
     font-family: fonts.$family-normal
@@ -8,3 +9,4 @@ body
 .light, .dark
     background-color: colors.$background-primary
     color: colors.$text-primary
+    transition: background-color transitions.$speed-default ease-in-out, color transitions.$speed-default ease-in-out

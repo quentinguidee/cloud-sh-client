@@ -1,10 +1,12 @@
 @use "Assets/colors.sass"
 @use "Assets/dimensions.sass"
+@use "Assets/transitions.sass"
 
 .bar
     padding: dimensions.$page-vertical-padding dimensions.$page-horizontal-padding 20px
     background-color: colors.$background-primary
     z-index: 20
+    transition: background-color transitions.$speed-default ease-in-out, color transitions.$speed-default ease-in-out
 
 .title
     user-select: none
