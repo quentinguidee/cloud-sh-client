@@ -187,9 +187,8 @@ function FileListItem(props: Props) {
                 <Button onlySymbol onClick={cancel}>
                     <Symbol symbol="close" />
                 </Button>
-                <Button secondary onClick={submit}>
-                    <Text>Create</Text>
-                    <Symbol symbol="arrow_forward" />
+                <Button onlySymbol onClick={submit}>
+                    <Symbol symbol="check" />
                 </Button>
             </React.Fragment>
         );
