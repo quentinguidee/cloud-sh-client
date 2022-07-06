@@ -1,6 +1,7 @@
 export type NodeType = "directory" | "file";
 
 export type Node = {
+    uuid?: string;
     name: string;
     type: NodeType;
 };

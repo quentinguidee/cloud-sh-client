@@ -20,7 +20,7 @@ function FileExplorer() {
     const session = useSession();
     const dispatch = useDispatch();
 
-    const { "*": path } = useParams();
+    const { "*": uuid } = useParams();
     const navigate = useNavigate();
 
     const [nodes, setNodes] = useState<Node[]>([]);
@@ -34,7 +34,7 @@ function FileExplorer() {
     const loadFiles = () => {
         axios({
             url: route("/storage"),
-            params: { path },
+            params: { parent_uuid: uuid },
             headers: {
                 Authorization: session.token,
             },
@@ -58,7 +58,7 @@ function FileExplorer() {
         axios({
             method: "PUT",
             url: route("/storage/upload"),
-            params: { path },
+            params: { parent_uuid: uuid },
             data: {
                 type: node.type,
                 name: node.name,
@@ -96,7 +96,7 @@ function FileExplorer() {
                 type: node.type,
                 name: node.name,
             },
-            params: { path },
+            params: { parent_uuid: uuid },
             headers: {
                 Authorization: session.token,
             },
@@ -106,12 +106,11 @@ function FileExplorer() {
     };
 
     const downloadFile = (node: Node) => {
-        const filepath = `${path ?? ""}/${node.name}`;
         axios({
             method: "GET",
             url: route("/storage/download"),
             params: {
-                path: filepath,
+                node_uuid: node.uuid,
             },
             headers: {
                 Authorization: session.token,
@@ -126,13 +125,12 @@ function FileExplorer() {
     };
 
     const renameFileCallback = (node: Node, newNode: Node) => {
-        const filepath = `${path ?? ""}/${node.name}`;
         setRenamingNode(undefined);
         axios({
             method: "PATCH",
             url: route("/storage"),
             params: {
-                path: filepath,
+                node_uuid: node.uuid,
                 new_name: newNode.name,
             },
             headers: {
@@ -147,17 +145,14 @@ function FileExplorer() {
         if (node.type !== "directory") {
             return;
         }
-        let destination = `${path ?? ""}/${node.name}`;
-        if (destination[0] !== "/") destination = `/${destination}`;
-        navigate(`/storage${destination}`);
+        navigate(node.uuid);
     };
 
     const onDelete = (node: Node) => {
-        const filepath = `${path ?? ""}/${node.name}`;
         axios({
             method: "DELETE",
             url: route("/storage"),
-            params: { path: filepath },
+            params: { node_uuid: node.uuid },
             headers: {
                 Authorization: session.token,
             },
@@ -167,8 +162,25 @@ function FileExplorer() {
     };
 
     useEffect(() => {
-        loadFiles();
-    }, [path]);
+        if (uuid && uuid.length > 0) {
+            loadFiles();
+            return;
+        }
+
+        axios({
+            method: "GET",
+            url: route("/storage/bucket"),
+            headers: {
+                Authorization: session.token,
+            },
+        })
+            .then((res) => {
+                console.log(res);
+                const { root_node } = res.data;
+                navigate(root_node);
+            })
+            .catch(api.error);
+    }, [uuid]);
 
     useEffect(() => {
         const commands: Command[] = [
