@@ -1,0 +1,36 @@
+@use "Assets/colors.sass"
+@use "Assets/dimensions.sass"
+@use "Assets/shadows.sass"
+@use "Assets/transitions.sass"
+
+$height: 450px
+
+.uploads
+    position: fixed
+    bottom: 0
+    right: 24px
+    width: 400px
+    height: $height
+    padding: 8px
+    box-sizing: border-box
+    z-index: 20
+    border-radius: dimensions.$border-radius-large
+    background-color: colors.$background-primary
+    transition: width transitions.$speed-slow ease-in-out, transform transitions.$speed-slow ease-in-out 0.02s
+    @include shadows.default-shadow
+
+    &Collapsed
+        transform: translateY($height - 50px)
+        width: 200px
+        cursor: pointer
+        box-shadow: rgba(0, 0, 0, 0.22) 0 8px 15px
+        transition: width transitions.$speed-slow ease-in-out 0.02s, transform transitions.$speed-slow ease-in-out
+
+.topBar
+    cursor: pointer
+    transition: transitions.$default
+    border-radius: dimensions.$border-radius
+    padding: 8px 12px
+
+    &:hover
+        background-color: colors.$background-hover

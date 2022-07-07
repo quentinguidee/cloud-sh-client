@@ -1,2 +1,12 @@
 .symbol
     user-select: none
+
+.spinning
+    animation: spin 1s infinite linear
+
+@keyframes spin
+    from
+        transform: rotateZ(0)
+
+    to
+        transform: rotateZ(-360deg)

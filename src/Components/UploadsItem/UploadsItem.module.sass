@@ -1,0 +1,28 @@
+@use "Assets/colors.sass"
+@use "Assets/dimensions.sass"
+@use "Assets/transitions.sass"
+
+.item
+    border: 1px solid colors.$background-secondary
+    border-radius: dimensions.$border-radius
+    padding: 12px
+    transition: transitions.$default
+    position: relative
+
+.progress
+    position: absolute
+    top: 0
+    left: 0
+    bottom: 0
+    z-index: -1
+    background-color: colors.$background-secondary
+    border-radius: dimensions.$border-radius
+    transition: width 0.1s ease-in-out
+    animation: progress 0.5s infinite alternate ease-in-out
+
+@keyframes progress
+    from
+        opacity: 1
+
+    to
+        opacity: 0.8
