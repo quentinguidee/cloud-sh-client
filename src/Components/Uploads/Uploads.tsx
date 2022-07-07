@@ -9,11 +9,16 @@ import Spacer from "Components/Spacer/Spacer";
 import classNames from "classnames";
 import UploadsItem from "Components/UploadsItem/UploadsItem";
 import { useUploads } from "Store/Hooks/useUploads";
+import Button from "Components/Button/Button";
+import { useDispatch } from "react-redux";
+import { removeUploadsFinished } from "Store/Slices/UploadsSlice";
 
 type Props = React.HTMLProps<HTMLDivElement>;
 
 function Uploads(props: Props) {
     const {} = props;
+
+    const dispatch = useDispatch();
 
     const uploads = useUploads();
 
@@ -24,6 +29,13 @@ function Uploads(props: Props) {
     const expand = () => setCollapsed(false);
     const toggle = (e) => {
         setCollapsed((c) => !c);
+        e.stopPropagation();
+    };
+
+    const close = (e) => {
+        setCollapsed(true);
+        setHidden(true);
+        dispatch(removeUploadsFinished());
         e.stopPropagation();
     };
 
@@ -44,17 +56,23 @@ function Uploads(props: Props) {
                 })}
                 onClick={expand}
             >
-                <Layout
-                    horizontal
-                    center
-                    className={styles.topBar}
-                    onClick={toggle}
-                >
-                    <Subtitle>Uploads</Subtitle>
-                    <Spacer />
-                    <Symbol
-                        symbol={collapsed ? "expand_less" : "expand_more"}
-                    />
+                <Layout horizontal center>
+                    <Layout
+                        horizontal
+                        center
+                        className={styles.topBar}
+                        onClick={toggle}
+                        style={{ flexGrow: 1 }}
+                    >
+                        <Subtitle>Uploads</Subtitle>
+                        <Spacer />
+                        <Symbol
+                            symbol={collapsed ? "expand_less" : "expand_more"}
+                        />
+                    </Layout>
+                    <Button onClick={close} onlySymbol>
+                        <Symbol symbol="close" />
+                    </Button>
                 </Layout>
                 {uploads.map((node) => (
                     <UploadsItem node={node} />

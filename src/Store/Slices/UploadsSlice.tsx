@@ -26,6 +26,10 @@ function updateUploadReducer(state, action: PayloadAction<UpdateUpload>) {
     };
 }
 
+function removeUploadsFinishedReducer(state) {
+    return state.filter((u) => u.percentage !== 100);
+}
+
 const uploadsSlice = createSlice({
     name: "uploads",
     initialState: [] as NodeUpload[],
@@ -33,10 +37,12 @@ const uploadsSlice = createSlice({
         pushUpload: pushUploadReducer,
         removeUpload: removeUploadReducer,
         updateUpload: updateUploadReducer,
+        removeUploadsFinished: removeUploadsFinishedReducer,
     },
 });
 
-export const { pushUpload, removeUpload, updateUpload } = uploadsSlice.actions;
+export const { pushUpload, removeUpload, updateUpload, removeUploadsFinished } =
+    uploadsSlice.actions;
 
 export const getUploads = (state: StoreState) => state.uploads;
 
