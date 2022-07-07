@@ -1,8 +1,7 @@
 import classNames from "classnames";
 import Symbol from "Components/Symbol/Symbol";
-import Layout from "Components/Layout/Layout";
 import Text from "Components/Text/Text";
-import { Node, getColor, getIcon } from "Models/Node";
+import { Node } from "Models/Node";
 import React, { CSSProperties, useEffect, useRef, useState } from "react";
 
 import styles from "./FileListItem.module.sass";
@@ -12,6 +11,8 @@ import Input from "Components/Input/Input";
 import Spacer from "Components/Spacer/Spacer";
 import Button from "Components/Button/Button";
 import PopoverSeparator from "Components/PopoverSeparator/PopoverSeparator";
+import NodeSymbol from "Components/NodeSymbol/NodeSymbol";
+import Layout from "Components/Layout/Layout";
 
 type Props = React.HTMLProps<HTMLDivElement> & {
     node: Node;
@@ -40,9 +41,6 @@ function FileListItem(props: Props) {
 
     const [inputValue, setInputValue] = useState<string>(node.name);
     const [editing, setEditing] = useState<boolean>();
-
-    let symbol = getIcon(node);
-    let color = getColor(node);
 
     const [showContextMenu, setShowContextMenu] = useState<boolean>(false);
     const [contextMenuX, setContextMenuX] = useState<number | undefined>();
@@ -179,7 +177,7 @@ function FileListItem(props: Props) {
     if (editing) {
         nodeName = (
             <React.Fragment>
-                <Spacer width={8} />
+                <Spacer width={6} />
                 <Input
                     ref={input}
                     placeholder="Name"
@@ -201,7 +199,7 @@ function FileListItem(props: Props) {
     } else {
         nodeName = (
             <React.Fragment>
-                <Spacer width={16} />
+                <Spacer width={14} />
                 <Text>{node.name}</Text>
             </React.Fragment>
         );
@@ -221,8 +219,8 @@ function FileListItem(props: Props) {
                     [className]: true,
                 })}
             >
-                <Layout horizontal center gap={0}>
-                    <Symbol symbol={symbol} style={{ color }} size={24} />
+                <Layout horizontal center>
+                    <NodeSymbol node={node} />
                     {nodeName}
                 </Layout>
             </div>

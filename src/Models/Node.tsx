@@ -10,7 +10,7 @@ export type NodeUpload = Node & {
     percentage?: number;
 };
 
-export function getIcon(node: Node): string {
+export function getSymbol(node: Node): string {
     switch (node.type) {
         case "directory":
             return "folder";

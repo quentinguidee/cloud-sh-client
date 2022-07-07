@@ -2,10 +2,11 @@ import React, { CSSProperties } from "react";
 
 import styles from "./UploadsItem.module.sass";
 import Text from "Components/Text/Text";
-import { getIcon, NodeUpload } from "Models/Node";
+import { NodeUpload } from "Models/Node";
 import Symbol from "Components/Symbol/Symbol";
 import Layout from "Components/Layout/Layout";
 import Spacer from "Components/Spacer/Spacer";
+import NodeSymbol from "Components/NodeSymbol/NodeSymbol";
 
 type Props = React.HTMLProps<HTMLDivElement> & {
     node: NodeUpload;
@@ -22,9 +23,9 @@ function UploadsItem(props: Props) {
     const finished = percentage === 100;
 
     return (
-        <Layout horizontal center gap={8} className={styles.item}>
+        <Layout horizontal center gap={14} className={styles.item}>
             <div className={styles.progress} style={progressStyle} />
-            <Symbol symbol={getIcon(node)} />
+            <NodeSymbol node={node} />
             <Text>{node.name}</Text>
             <Spacer />
             {!finished && <Text>{percentage ?? 0}%</Text>}
