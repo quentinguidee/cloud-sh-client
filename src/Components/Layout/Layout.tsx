@@ -60,7 +60,7 @@ function Layout(props: Props) {
                 [styles.layoutMaximize]: maximize,
                 [className]: true,
             })}
-            style={{ gap, ...styles }}
+            style={{ gap, ...style }}
         />
     );
 }
