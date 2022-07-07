@@ -18,6 +18,7 @@ function Uploads(props: Props) {
     const uploads = useUploads();
 
     const [collapsed, setCollapsed] = useState<boolean>(true);
+    const [hidden, setHidden] = useState<boolean>(true);
 
     const collapse = () => setCollapsed(true);
     const expand = () => setCollapsed(false);
@@ -27,7 +28,7 @@ function Uploads(props: Props) {
     };
 
     useEffect(() => {
-        if (uploads.length > 0) setCollapsed(false);
+        if (uploads.length > 0) setHidden(false);
     }, [uploads]);
 
     return (
@@ -39,6 +40,7 @@ function Uploads(props: Props) {
                 className={classNames({
                     [styles.uploads]: true,
                     [styles.uploadsCollapsed]: collapsed,
+                    [styles.uploadsHidden]: hidden,
                 })}
                 onClick={expand}
             >

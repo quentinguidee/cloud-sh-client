@@ -26,6 +26,9 @@ $height: 450px
         box-shadow: rgba(0, 0, 0, 0.22) 0 8px 15px
         transition: width transitions.$speed-slow ease-in-out 0.02s, transform transitions.$speed-slow ease-in-out
 
+    &Hidden
+        transform: translateY($height)
+
 .topBar
     cursor: pointer
     transition: transitions.$default
