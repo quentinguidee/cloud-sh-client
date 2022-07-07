@@ -6,6 +6,10 @@ export type Node = {
     type: NodeType;
 };
 
+export type NodeUpload = Node & {
+    percentage?: number;
+};
+
 export function getIcon(node: Node): string {
     switch (node.type) {
         case "directory":

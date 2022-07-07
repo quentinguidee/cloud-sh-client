@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import List from "Components/List/List";
 import FileListItem from "Layouts/FileListItem/FileListItem";
-import { Node, NodeType } from "Models/Node";
+import { Node, NodeType, NodeUpload } from "Models/Node";
 import { api, route } from "Backend/api";
 import { useSession } from "Store/Hooks/useSession";
 import axios from "axios";
@@ -16,6 +16,7 @@ import { pushCommand, removeCommand } from "Store/Slices/CommandsSlice";
 import { useDispatch } from "react-redux";
 import { useFilePicker } from "use-file-picker";
 import classNames from "classnames";
+import { pushUpload, updateUpload } from "Store/Slices/UploadsSlice";
 
 function FileExplorer() {
     const session = useSession();
@@ -57,6 +58,14 @@ function FileExplorer() {
     };
 
     const uploadFile = (file: File) => {
+        const node: NodeUpload = {
+            name: file.name,
+            type: "file",
+            percentage: 0,
+        };
+
+        dispatch(pushUpload(node));
+
         const data = new FormData();
         data.append("file", file);
         axios({
@@ -69,8 +78,13 @@ function FileExplorer() {
                 "Content-Type": "multipart/form-data",
             },
         })
-            .then(() => loadFiles())
-            .catch(api.error);
+            .then(() => {
+                loadFiles();
+                dispatch(updateUpload({ node, changes: { percentage: 100 } }));
+            })
+            .catch((e) => {
+                api.error(e);
+            });
     };
 
     useEffect(() => {
@@ -168,7 +182,6 @@ function FileExplorer() {
             },
         })
             .then((res) => {
-                console.log(res);
                 const { root_node } = res.data;
                 navigate(root_node);
             })

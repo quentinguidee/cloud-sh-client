@@ -2,21 +2,21 @@ import React, { CSSProperties } from "react";
 
 import styles from "./UploadsItem.module.sass";
 import Text from "Components/Text/Text";
-import { getIcon, Node } from "Models/Node";
+import { getIcon, NodeUpload } from "Models/Node";
 import Symbol from "Components/Symbol/Symbol";
 import Layout from "Components/Layout/Layout";
 import Spacer from "Components/Spacer/Spacer";
 
 type Props = React.HTMLProps<HTMLDivElement> & {
-    node: Node;
-    percentage?: number;
+    node: NodeUpload;
 };
 
 function UploadsItem(props: Props) {
-    const { node, percentage } = props;
+    const { node } = props;
+    const { percentage } = node;
 
     const progressStyle: CSSProperties = {
-        width: percentage ?? `${percentage}%`,
+        width: percentage ? `${percentage}%` : undefined,
     };
 
     const finished = percentage === 100;
@@ -27,8 +27,13 @@ function UploadsItem(props: Props) {
             <Symbol symbol={getIcon(node)} />
             <Text>{node.name}</Text>
             <Spacer />
-            <Text>{percentage ?? 0}%</Text>
+            {!finished && <Text>{percentage ?? 0}%</Text>}
             <Symbol
+                style={{
+                    color: finished
+                        ? "var(--text-green)"
+                        : "var(--text-primary)",
+                }}
                 spinning={!finished}
                 symbol={finished ? "check_circle" : "sync"}
             />

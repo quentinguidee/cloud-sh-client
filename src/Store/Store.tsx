@@ -6,18 +6,20 @@ import messagesSlice from "Store/Slices/MessagesSlice";
 import commandsSlice from "Store/Slices/CommandsSlice";
 import { PersistConfig } from "redux-persist/es/types";
 import themeSlice from "Store/Slices/ThemeSlice";
+import uploadsSlice from "Store/Slices/UploadsSlice";
 
 const reducers = combineReducers({
     auth: authSlice,
     commands: commandsSlice,
     messages: messagesSlice,
     theme: themeSlice,
+    uploads: uploadsSlice,
 });
 
 const persistConfig: PersistConfig<any> = {
     key: "root",
     storage,
-    blacklist: ["messages", "commands"],
+    blacklist: ["messages", "commands", "uploads"],
 };
 
 export const reducer = persistReducer(persistConfig, reducers);

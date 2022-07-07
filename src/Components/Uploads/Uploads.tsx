@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import styles from "./Uploads.module.sass";
 import { Subtitle } from "Components/Title/Title";
@@ -7,13 +7,17 @@ import Overlay from "Components/Overlay/Overlay";
 import Symbol from "Components/Symbol/Symbol";
 import Spacer from "Components/Spacer/Spacer";
 import classNames from "classnames";
+import UploadsItem from "Components/UploadsItem/UploadsItem";
+import { useUploads } from "Store/Hooks/useUploads";
 
 type Props = React.HTMLProps<HTMLDivElement>;
 
 function Uploads(props: Props) {
-    const { children } = props;
+    const {} = props;
 
-    const [collapsed, setCollapsed] = useState<boolean>(false);
+    const uploads = useUploads();
+
+    const [collapsed, setCollapsed] = useState<boolean>(true);
 
     const collapse = () => setCollapsed(true);
     const expand = () => setCollapsed(false);
@@ -21,6 +25,10 @@ function Uploads(props: Props) {
         setCollapsed((c) => !c);
         e.stopPropagation();
     };
+
+    useEffect(() => {
+        if (uploads.length > 0) setCollapsed(false);
+    }, [uploads]);
 
     return (
         <React.Fragment>
@@ -46,7 +54,9 @@ function Uploads(props: Props) {
                         symbol={collapsed ? "expand_less" : "expand_more"}
                     />
                 </Layout>
-                {children}
+                {uploads.map((node) => (
+                    <UploadsItem node={node} />
+                ))}
             </Layout>
         </React.Fragment>
     );
