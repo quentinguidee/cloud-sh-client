@@ -8,6 +8,7 @@
     padding: 12px
     transition: transitions.$default
     position: relative
+    overflow: hidden
 
 .progress
     position: absolute
@@ -16,13 +17,4 @@
     bottom: 0
     z-index: -1
     background-color: colors.$background-secondary
-    border-radius: dimensions.$border-radius
     transition: width 0.1s ease-in-out
-    animation: progress 0.5s infinite alternate ease-in-out
-
-@keyframes progress
-    from
-        opacity: 1
-
-    to
-        opacity: 0.8
