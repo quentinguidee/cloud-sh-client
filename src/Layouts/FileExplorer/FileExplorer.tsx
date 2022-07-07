@@ -15,7 +15,6 @@ import { Command } from "Models/Command";
 import { pushCommand, removeCommand } from "Store/Slices/CommandsSlice";
 import { useDispatch } from "react-redux";
 import { useFilePicker } from "use-file-picker";
-import { pushMessage } from "Store/Slices/MessagesSlice";
 import classNames from "classnames";
 
 function FileExplorer() {
@@ -30,7 +29,7 @@ function FileExplorer() {
     const [dragAndDrop, setDragAndDrop] = useState<boolean>(false);
 
     const [renamingNode, setRenamingNode] = useState<Node>();
-    const [openFileSelector, { filesContent }] = useFilePicker({
+    const [openFileSelector, { plainFiles }] = useFilePicker({
         multiple: true,
     });
 
@@ -57,18 +56,17 @@ function FileExplorer() {
         openFileSelector();
     };
 
-    const uploadFile = (node: Node, content: string) => {
+    const uploadFile = (file: File) => {
+        const data = new FormData();
+        data.append("file", file);
         axios({
-            method: "PUT",
+            method: "POST",
             url: route("/storage/upload"),
             params: { parent_uuid: uuid },
-            data: {
-                type: node.type,
-                name: node.name,
-                content,
-            },
+            data: data,
             headers: {
                 Authorization: session.token,
+                "Content-Type": "multipart/form-data",
             },
         })
             .then(() => loadFiles())
@@ -76,16 +74,8 @@ function FileExplorer() {
     };
 
     useEffect(() => {
-        filesContent.forEach((file) => {
-            uploadFile(
-                {
-                    type: "file",
-                    name: file.name,
-                },
-                file.content,
-            );
-        });
-    }, [filesContent]);
+        plainFiles.forEach(uploadFile);
+    }, [plainFiles]);
 
     const createFileCallback = (node?: Node) => {
         setNewNode(undefined);
@@ -235,29 +225,7 @@ function FileExplorer() {
         const { files } = e.dataTransfer;
 
         if (files) {
-            Array.from(files).forEach((file) => {
-                console.log(file);
-                const reader = new FileReader();
-                reader.readAsText(file);
-                reader.onload = () => {
-                    const content = reader.result;
-                    uploadFile(
-                        {
-                            type: "file",
-                            name: file.name,
-                        },
-                        content as string,
-                    );
-                };
-                reader.onerror = () => {
-                    dispatch(
-                        pushMessage({
-                            type: "error",
-                            message: reader.error.toString(),
-                        }),
-                    );
-                };
-            });
+            Array.from(files).forEach(uploadFile);
         }
     };
 
