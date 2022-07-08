@@ -21,6 +21,7 @@ type Props = React.HTMLProps<HTMLDivElement> & {
     onDelete?: () => void;
     onDownload?: () => void;
     onRename?: () => void;
+    onShowInfo?: () => void;
     onValidation?: (node?: Node) => void;
 };
 
@@ -30,6 +31,7 @@ function FileListItem(props: Props) {
         children,
         node,
         onRename,
+        onShowInfo,
         onDelete,
         onDownload,
         onValidation,
@@ -79,6 +81,11 @@ function FileListItem(props: Props) {
             closeContextMenu();
         };
 
+        const onShowInfo = () => {
+            if (props.onShowInfo) props.onShowInfo();
+            closeContextMenu();
+        };
+
         const onDelete = () => {
             if (props.onDelete) props.onDelete();
             closeContextMenu();
@@ -103,6 +110,9 @@ function FileListItem(props: Props) {
                     </PopoverItemWithSymbol>
                 )}
                 <PopoverSeparator />
+                <PopoverItemWithSymbol symbol="info" onClick={onShowInfo}>
+                    Info
+                </PopoverItemWithSymbol>
                 <PopoverItemWithSymbol symbol="delete" onClick={onDelete} red>
                     Delete
                 </PopoverItemWithSymbol>

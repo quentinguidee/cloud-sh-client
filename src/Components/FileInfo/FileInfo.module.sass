@@ -1,0 +1,32 @@
+@use "Assets/colors.sass"
+@use "Assets/dimensions.sass"
+@use "Assets/transitions.sass"
+
+$margins: 24px
+$width: 300px
+
+.info
+    position: fixed
+    top: 64px
+    bottom: 64px
+    right: - $width - 32px
+    margin-left: 0
+    width: $width
+    padding: 16px
+    background-color: colors.$background-secondary
+    border-radius: dimensions.$border-radius-large
+    overflow-x: hidden
+    z-index: 30
+    transition: transitions.$default
+    box-shadow: rgba(0, 0, 0, 0.10) 0 3px 8px
+
+    &Shown
+        top: $margins
+        bottom: $margins
+        right: $margins
+
+.title
+    white-space: nowrap
+    max-width: $width - 100px
+    overflow: hidden
+    text-overflow: ellipsis

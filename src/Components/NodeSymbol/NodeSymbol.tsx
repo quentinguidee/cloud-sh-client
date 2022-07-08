@@ -17,6 +17,8 @@ type Props = {
 function NodeSymbol(props: Props) {
     const { node } = props;
 
+    if (!node) return null;
+
     // SimpleIcons
     const symbol: SimpleIcon = icons[node.type];
     if (symbol) {

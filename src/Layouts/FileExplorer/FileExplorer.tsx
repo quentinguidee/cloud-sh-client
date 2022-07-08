@@ -17,6 +17,7 @@ import { useDispatch } from "react-redux";
 import { useFilePicker } from "use-file-picker";
 import classNames from "classnames";
 import { pushUpload, updateUpload } from "Store/Slices/UploadsSlice";
+import FileInfo from "Components/FileInfo/FileInfo";
 
 function FileExplorer() {
     const session = useSession();
@@ -33,6 +34,8 @@ function FileExplorer() {
     const [openFileSelector, { plainFiles }] = useFilePicker({
         multiple: true,
     });
+
+    const [infoNode, setInfoNode] = useState<Node>(undefined);
 
     const loadFiles = () => {
         axios({
@@ -295,6 +298,7 @@ function FileExplorer() {
                         node={file}
                         editing={renamingNode === file}
                         onClick={() => openDirectory(file)}
+                        onShowInfo={() => setInfoNode(file)}
                         onDownload={() => downloadFile(file)}
                         onRename={() => renameFile(file)}
                         onValidation={(newFile) =>
@@ -304,6 +308,7 @@ function FileExplorer() {
                     />
                 ))}
             </List>
+            <FileInfo node={infoNode} onClose={() => setInfoNode(undefined)} />
         </React.Fragment>
     );
 }
