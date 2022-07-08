@@ -4,6 +4,7 @@ import Layout from "Components/Layout/Layout";
 import Symbol from "Components/Symbol/Symbol";
 import React from "react";
 import { Command } from "Models/Command";
+import { Caption } from "Components/Text/Text";
 
 type Props = {
     onClick: () => void;
@@ -47,7 +48,9 @@ function CommandItem(props: Props) {
                         </span>
                         <span>{afterMatchedPart}</span>
                     </div>
-                    <span className={styles.tooltip}>{command.tooltip}</span>
+                    <Caption className={styles.tooltip}>
+                        {command.tooltip}
+                    </Caption>
                 </Layout>
             </Layout>
         </li>

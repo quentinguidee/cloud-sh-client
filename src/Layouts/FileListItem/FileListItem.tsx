@@ -1,6 +1,6 @@
 import classNames from "classnames";
 import Symbol from "Components/Symbol/Symbol";
-import Text from "Components/Text/Text";
+import { Caption, Text } from "Components/Text/Text";
 import { Node } from "Models/Node";
 import React, { CSSProperties, useEffect, useRef, useState } from "react";
 
@@ -202,7 +202,7 @@ function FileListItem(props: Props) {
                 <Spacer width={14} />
                 <Text>{node.name}</Text>
                 <Spacer />
-                {node.size && <Text>{node.size} B</Text>}
+                {node.size && <Caption>{node.size} B</Caption>}
             </React.Fragment>
         );
     }

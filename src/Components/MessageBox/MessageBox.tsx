@@ -2,7 +2,7 @@ import React from "react";
 import Box from "Components/Box/Box";
 
 import styles from "./MessageBox.module.sass";
-import Text from "Components/Text/Text";
+import { Text } from "Components/Text/Text";
 import { Message } from "Models/Message";
 import Layout from "Components/Layout/Layout";
 import Symbol from "Components/Symbol/Symbol";

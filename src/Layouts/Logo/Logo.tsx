@@ -4,7 +4,7 @@ import React from "react";
 import LogoPNG from "Assets/Images/logo.png";
 
 import styles from "./Logo.module.sass";
-import Text from "Components/Text/Text";
+import { Text } from "Components/Text/Text";
 import Layout from "Components/Layout/Layout";
 
 type Props = React.HTMLProps<HTMLDivElement>;

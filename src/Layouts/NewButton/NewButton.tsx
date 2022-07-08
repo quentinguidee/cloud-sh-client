@@ -3,7 +3,7 @@ import Button from "Components/Button/Button";
 import Popover from "Components/Popover/Popover";
 import PopoverItemWithSymbol from "Components/PopoverItemWithSymbol/PopoverItemWithSymbol";
 import Symbol from "Components/Symbol/Symbol";
-import Text from "Components/Text/Text";
+import { Text } from "Components/Text/Text";
 
 import styles from "./NewButton.module.sass";
 import PopoverSeparator from "Components/PopoverSeparator/PopoverSeparator";

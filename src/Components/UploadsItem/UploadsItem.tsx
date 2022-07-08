@@ -1,7 +1,7 @@
 import React, { CSSProperties } from "react";
 
 import styles from "./UploadsItem.module.sass";
-import Text from "Components/Text/Text";
+import { Text } from "Components/Text/Text";
 import { NodeUpload } from "Models/Node";
 import Symbol from "Components/Symbol/Symbol";
 import Layout from "Components/Layout/Layout";
