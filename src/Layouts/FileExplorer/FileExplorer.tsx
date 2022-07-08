@@ -134,7 +134,7 @@ function FileExplorer() {
             .catch(api.error);
     };
 
-    const downloadFile = (node: Node) => {
+    const downloadNode = (node: Node) => {
         axios({
             method: "GET",
             url: route("/storage/download"),
@@ -150,11 +150,11 @@ function FileExplorer() {
             .catch(api.error);
     };
 
-    const renameFile = (node: Node) => {
+    const renameNode = (node: Node) => {
         setRenamingNode(node);
     };
 
-    const renameFileCallback = (node: Node, newNode: Node) => {
+    const renameNodeCallback = (node: Node, newNode: Node) => {
         setRenamingNode(undefined);
         axios({
             method: "PATCH",
@@ -294,20 +294,20 @@ function FileExplorer() {
                         <Spacer height={12} />
                     </React.Fragment>
                 )}
-                {nodes?.map((file, i) => (
+                {nodes?.map((node, i) => (
                     <FileListItem
                         key={i}
-                        node={file}
-                        editing={renamingNode === file}
-                        onClick={() => openDirectory(file)}
-                        onPreview={() => setPreviewNode(file)}
-                        onShowInfo={() => setInfoNode(file)}
-                        onDownload={() => downloadFile(file)}
-                        onRename={() => renameFile(file)}
-                        onValidation={(newFile) =>
-                            renameFileCallback(file, newFile)
+                        node={node}
+                        editing={renamingNode === node}
+                        onClick={() => openDirectory(node)}
+                        onPreview={() => setPreviewNode(node)}
+                        onShowInfo={() => setInfoNode(node)}
+                        onDownload={() => downloadNode(node)}
+                        onRename={() => renameNode(node)}
+                        onValidation={(newNode) =>
+                            renameNodeCallback(node, newNode)
                         }
-                        onDelete={() => onDelete(file)}
+                        onDelete={() => onDelete(node)}
                     />
                 ))}
             </List>
