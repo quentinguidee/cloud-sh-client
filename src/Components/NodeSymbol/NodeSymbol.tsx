@@ -75,44 +75,27 @@ function NodeSymbol(props: Props) {
     }
 
     // Material symbols
-    switch (node.type) {
-        case "directory":
-            return (
-                <Symbol
-                    symbol="folder"
-                    style={{ color: "var(--text-secondary)" }}
-                    size={24}
-                />
-            );
-        case "image":
-            return (
-                <Symbol symbol="image" style={{ color: "#3e6a99" }} size={24} />
-            );
-        case "video":
-            return (
-                <Symbol
-                    symbol="play_arrow"
-                    style={{ color: "#3e6a99" }}
-                    size={24}
-                />
-            );
-        case "audio":
-            return (
-                <Symbol
-                    symbol="music_note"
-                    style={{ color: "#3e6a99" }}
-                    size={24}
-                />
-            );
-        default:
-            return (
-                <Symbol
-                    symbol="article"
-                    style={{ color: "#3e6a99" }}
-                    size={24}
-                />
-            );
+    if (node.mime.includes("image/")) {
+        const color = "#2476e0";
+        return <Symbol symbol="image" style={{ color }} size={24} />;
     }
+
+    if (node.mime.includes("video/")) {
+        const color = "#eb5b34";
+        return <Symbol symbol="movie" style={{ color }} size={24} />;
+    }
+
+    if (node.mime.includes("audio/")) {
+        const color = "#3e6a99";
+        return <Symbol symbol="music_note" style={{ color }} size={24} />;
+    }
+
+    if (node.type === "directory") {
+        const color = "var(--text-secondary)";
+        return <Symbol symbol="folder" style={{ color }} size={24} />;
+    }
+
+    return <Symbol symbol="article" style={{ color: "#3e6a99" }} size={24} />;
 }
 
 export default NodeSymbol;
