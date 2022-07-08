@@ -93,7 +93,6 @@ function NodeSymbol(props: Props) {
                     size={24}
                 />
             );
-
     }
 }
 
