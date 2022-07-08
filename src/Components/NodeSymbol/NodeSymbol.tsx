@@ -1,7 +1,29 @@
 import React from "react";
 import { Node } from "Models/Node";
 import Symbol from "Components/Symbol/Symbol";
-import { siBabel, siC, siCplusplus, siCss3, siGit, siGnubash, siGo, siHtml5, siJavascript, siJson, siKotlin, siMarkdown, siOcaml, siPhp, siPython, siReact, siRuby, siSass, siScala, siTypescript, siYarn } from "simple-icons/icons";
+import {
+    siBabel,
+    siC,
+    siCplusplus,
+    siCss3,
+    siGit,
+    siGnubash,
+    siGo,
+    siHtml5,
+    siJavascript,
+    siJson,
+    siKotlin,
+    siMarkdown,
+    siOcaml,
+    siPhp,
+    siPython,
+    siReact,
+    siRuby,
+    siSass,
+    siScala,
+    siTypescript,
+    siYarn,
+} from "simple-icons/icons";
 import { SimpleIcon } from "simple-icons";
 
 const icons: { [index: string]: SimpleIcon } = {
@@ -64,11 +86,7 @@ function NodeSymbol(props: Props) {
             );
         case "image":
             return (
-                <Symbol
-                    symbol="image"
-                    style={{ color: "#3e6a99" }}
-                    size={24}
-                />
+                <Symbol symbol="image" style={{ color: "#3e6a99" }} size={24} />
             );
         case "video":
             return (
