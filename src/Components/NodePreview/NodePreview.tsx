@@ -43,8 +43,7 @@ function NodePreview(props: Props) {
     };
 
     useEffect(() => {
-        // TODO: Change type to mime
-        if (node?.type === "image") {
+        if (node?.mime.includes("image/")) {
             downloadNode(node);
         }
     }, [node]);

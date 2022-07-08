@@ -153,6 +153,7 @@ function FileListItem(props: Props) {
             onValidation({
                 name: inputValue,
                 type: node.type,
+                mime: node.mime,
             });
         }
     };

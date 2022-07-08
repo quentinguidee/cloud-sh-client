@@ -55,7 +55,7 @@ function FileExplorer() {
     };
 
     const createFile = (type: string) => {
-        setNewNode({ name: "", type });
+        setNewNode({ name: "", type, mime: "text/plain" });
     };
 
     const importFile = () => {
@@ -66,6 +66,7 @@ function FileExplorer() {
         const node: NodeUpload = {
             name: file.name,
             type: "file",
+            mime: file.type,
             percentage: 0,
         };
 

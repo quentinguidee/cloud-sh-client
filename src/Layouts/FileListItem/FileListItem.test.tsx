@@ -9,6 +9,7 @@ import fn = jest.fn;
 const node: Node = {
     name: "Fichier.txt",
     type: "file",
+    mime: "text/plain",
 };
 
 it("renders", async () => {
