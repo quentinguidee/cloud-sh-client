@@ -1,11 +1,11 @@
 import React from "react";
 import { Node } from "Models/Node";
 import Symbol from "Components/Symbol/Symbol";
-import { siBabel,siC,siCplusplus,siCss3,siGit,siGnubash,siGo,siHtml5,siJavascript,siJson,siKotlin,siMarkdown,siOcaml,siPhp,siPython,siReact,siRuby,siSass,siScala,siTypescript,siYarn  } from "simple-icons/icons";
+import { siBabel, siC, siCplusplus, siCss3, siGit, siGnubash, siGo, siHtml5, siJavascript, siJson, siKotlin, siMarkdown, siOcaml, siPhp, siPython, siReact, siRuby, siSass, siScala, siTypescript, siYarn } from "simple-icons/icons";
 import { SimpleIcon } from "simple-icons";
 
 const icons: { [index: string]: SimpleIcon } = {
-    babel : siBabel,
+    babel: siBabel,
     c: siC,
     cpp: siCplusplus,
     css: siCss3,
