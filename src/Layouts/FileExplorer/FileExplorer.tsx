@@ -77,10 +77,21 @@ function FileExplorer() {
                 Authorization: session.token,
                 "Content-Type": "multipart/form-data",
             },
+            onUploadProgress: (progress) => {
+                const percentage = Math.ceil(
+                    (progress.loaded / progress.total) * 100,
+                );
+                dispatch(updateUpload({ node, changes: { percentage } }));
+            },
         })
             .then(() => {
                 loadFiles();
-                dispatch(updateUpload({ node, changes: { percentage: 100 } }));
+                dispatch(
+                    updateUpload({
+                        node,
+                        changes: { percentage: 100, status: "done" },
+                    }),
+                );
             })
             .catch((e) => {
                 api.error(e);

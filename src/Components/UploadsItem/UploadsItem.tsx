@@ -20,7 +20,22 @@ function UploadsItem(props: Props) {
         width: percentage ? `${percentage}%` : undefined,
     };
 
-    const finished = percentage === 100;
+    let symbol;
+    let color;
+    switch (node.status) {
+        case "done":
+            symbol = "check_circle";
+            color = "var(--text-green)";
+            break;
+        case "error":
+            symbol = "error";
+            color = "var(--text-red)";
+            break;
+        default:
+            symbol = "sync";
+            color = "var(--text-primary)";
+            break;
+    }
 
     return (
         <Layout horizontal center gap={14} className={styles.item}>
@@ -28,15 +43,11 @@ function UploadsItem(props: Props) {
             <NodeSymbol node={node} />
             <Text>{node.name}</Text>
             <Spacer />
-            {!finished && <Text>{percentage ?? 0}%</Text>}
+            {symbol === "sync" && <Text>{percentage ?? 0}%</Text>}
             <Symbol
-                style={{
-                    color: finished
-                        ? "var(--text-green)"
-                        : "var(--text-primary)",
-                }}
-                spinning={!finished}
-                symbol={finished ? "check_circle" : "sync"}
+                style={{ color }}
+                spinning={symbol === "sync"}
+                symbol={symbol}
             />
         </Layout>
     );
