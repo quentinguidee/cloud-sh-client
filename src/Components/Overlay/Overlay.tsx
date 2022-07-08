@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import classNames from "classnames";
 
 import styles from "./Overlay.module.sass";
@@ -15,6 +15,22 @@ function Overlay(props: Props) {
         e.preventDefault();
         if (onClick) onClick();
     };
+
+    const dismiss = () => {
+        if (onClick) onClick();
+    };
+
+    const onKeyDown = (e) => {
+        if (e.key === "Escape") {
+            dismiss();
+        }
+    };
+
+    useEffect(() => {
+        props.show
+            ? document.addEventListener("keydown", onKeyDown)
+            : document.removeEventListener("keydown", onKeyDown);
+    }, [props.show]);
 
     return (
         <div
