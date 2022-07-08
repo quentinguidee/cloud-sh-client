@@ -95,6 +95,12 @@ function FileExplorer() {
             })
             .catch((e) => {
                 api.error(e);
+                dispatch(
+                    updateUpload({
+                        node,
+                        changes: { percentage: 100, status: "error" },
+                    }),
+                );
             });
     };
 
