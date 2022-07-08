@@ -11,15 +11,6 @@
 
 <img width="990" alt="image" src="https://user-images.githubusercontent.com/12123721/175908490-7008e118-26db-454a-b50d-b4d692e028c9.png">
 
-## Roadmap
-
-- [ ] Storage
-- [ ] Contacts
-- [ ] Mails
-- [ ] To-Do
-- [ ] Settings
-- [ ] ...
-
 ## Start coding
 
 ```bash
