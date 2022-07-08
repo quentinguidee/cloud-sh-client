@@ -3,6 +3,7 @@ module.exports = {
     moduleNameMapper: {
         "\\.(sass)$": "<rootDir>/identity-obj-proxy.js",
         "\\.(png)$": "<rootDir>/src/Mocks/fileMock.js",
+        "pretty-bytes": "<rootDir>/src/Mocks/prettyBytes.js",
         "^Assets(.*)$": "<rootDir>/src/Assets$1",
         "^Backend(.*)$": "<rootDir>/src/Backend$1",
         "^Components(.*)$": "<rootDir>/src/Components$1",

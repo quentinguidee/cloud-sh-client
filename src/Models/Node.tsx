@@ -1,7 +1,7 @@
 export type Node = {
     uuid?: string;
     name: string;
-    size?: string;
+    size?: number;
     type: string;
 };
 

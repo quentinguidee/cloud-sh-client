@@ -13,6 +13,7 @@ import Button from "Components/Button/Button";
 import PopoverSeparator from "Components/PopoverSeparator/PopoverSeparator";
 import NodeSymbol from "Components/NodeSymbol/NodeSymbol";
 import Layout from "Components/Layout/Layout";
+import prettyBytes from "pretty-bytes";
 
 type Props = React.HTMLProps<HTMLDivElement> & {
     node: Node;
@@ -202,7 +203,7 @@ function FileListItem(props: Props) {
                 <Spacer width={14} />
                 <Text>{node.name}</Text>
                 <Spacer />
-                {node.size && <Caption>{node.size} B</Caption>}
+                {node.size && <Caption>{prettyBytes(node.size)}</Caption>}
             </React.Fragment>
         );
     }
