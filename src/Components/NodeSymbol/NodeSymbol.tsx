@@ -75,17 +75,17 @@ function NodeSymbol(props: Props) {
     }
 
     // Material symbols
-    if (node.mime.includes("image/")) {
+    if (node.mime?.includes("image/")) {
         const color = "#2476e0";
         return <Symbol symbol="image" style={{ color }} size={24} />;
     }
 
-    if (node.mime.includes("video/")) {
+    if (node.mime?.includes("video/")) {
         const color = "#eb5b34";
         return <Symbol symbol="movie" style={{ color }} size={24} />;
     }
 
-    if (node.mime.includes("audio/")) {
+    if (node.mime?.includes("audio/")) {
         const color = "#3e6a99";
         return <Symbol symbol="music_note" style={{ color }} size={24} />;
     }
