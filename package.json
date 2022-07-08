@@ -1,5 +1,5 @@
 {
-    "name": "self-hosted-cloud-client",
+    "name": "cloud-sh-client",
     "version": "0.0.0",
     "main": "index.js",
     "author": "Quentin Guidée <quentin.guidee@gmail.com>",

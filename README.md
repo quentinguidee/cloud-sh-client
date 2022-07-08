@@ -19,15 +19,15 @@ The storage could be corrupted when upgrading from one version to another and th
 ## Start coding
 
 ```bash
-git clone https://github.com/quentinguidee/sh-cloud-client.git
+git clone https://github.com/quentinguidee/cloud-sh-client.git
 yarn install
 yarn start
 ```
 
-You also need to start a [sh-cloud-server](https://github.com/quentinguidee/sh-cloud-server) instance:
+You also need to start a [cloud-sh-server](https://github.com/quentinguidee/cloud-sh-server) instance:
 
 ```bash
-git clone https://github.com/quentinguidee/sh-cloud-server.git
+git clone https://github.com/quentinguidee/cloud-sh-server.git
 ```
 
 On GitHub, create an oauth application (user settings > developer settings > OAuth Apps > New) with these settings:
