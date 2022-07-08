@@ -1,7 +1,7 @@
 import React from "react";
 import { Node } from "Models/Node";
 import Symbol from "Components/Symbol/Symbol";
-import { siC, siCplusplus, siPython, siGo, siJavascript, siHtml5, siCss3, siJson, siMarkdown, siTypescript, siReact, siGnubash, siKotlin, siSass, siYarn, siBabel, siGit, siPhp, siRuby, siScala  } from "simple-icons/icons";
+import { siBabel,siC,siCplusplus,siCss3,siGit,siGnubash,siGo,siHtml5,siJavascript,siJson,siKotlin,siMarkdown,siOcaml,siPhp,siPython,siReact,siRuby,siSass,siScala,siTypescript,siYarn  } from "simple-icons/icons";
 import { SimpleIcon } from "simple-icons";
 
 const icons: { [index: string]: SimpleIcon } = {
@@ -16,6 +16,7 @@ const icons: { [index: string]: SimpleIcon } = {
     json: siJson,
     kotlin: siKotlin,
     markdown: siMarkdown,
+    ocaml: siOcaml,
     php: siPhp,
     python: siPython,
     react: siReact,
