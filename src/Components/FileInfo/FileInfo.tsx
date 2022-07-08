@@ -14,7 +14,6 @@ import Overlay from "Components/Overlay/Overlay";
 
 type Props = {
     node?: Node;
-
     onClose?: () => void;
 };
 
@@ -35,11 +34,11 @@ function FileInfo(props: Props) {
             >
                 <Layout horizontal center gap={12}>
                     <NodeSymbol node={node} />
-                    <Layout vertical left>
+                    <Layout vertical gap={2}>
                         <Subtitle className={styles.title}>
                             {node?.name}
                         </Subtitle>
-                        <Caption>{size}</Caption>
+                        {size && <Caption>{size}</Caption>}
                     </Layout>
                     <Spacer />
                     <Close onClick={onClose} />
