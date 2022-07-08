@@ -17,16 +17,23 @@ type Props = {
 function NodeSymbol(props: Props) {
     const { node } = props;
 
+    // SimpleIcons
+    const symbol: SimpleIcon = icons[node.type];
+    if (symbol) {
+        const src = `data:image/svg+xml;utf8,<svg role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path fill="%23${symbol.hex}" d="${symbol.path}" /></svg>`;
+        return (
+            <img
+                height={20}
+                width={20}
+                alt={symbol.title}
+                style={{ margin: "2px" }}
+                src={src}
+            />
+        );
+    }
+
     // Material symbols
     switch (node.type) {
-        case "file":
-            return (
-                <Symbol
-                    symbol="article"
-                    style={{ color: "#3e6a99" }}
-                    size={24}
-                />
-            );
         case "directory":
             return (
                 <Symbol
@@ -35,22 +42,15 @@ function NodeSymbol(props: Props) {
                     size={24}
                 />
             );
+        default:
+            return (
+                <Symbol
+                    symbol="article"
+                    style={{ color: "#3e6a99" }}
+                    size={24}
+                />
+            );
     }
-
-    // SimpleIcons
-    const symbol: SimpleIcon = icons[node.type];
-
-    const src = `data:image/svg+xml;utf8,<svg role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path fill="%23${symbol.hex}" d="${symbol.path}" /></svg>`;
-
-    return (
-        <img
-            height={20}
-            width={20}
-            alt={symbol.title}
-            style={{ margin: "2px" }}
-            src={src}
-        />
-    );
 }
 
 export default NodeSymbol;
