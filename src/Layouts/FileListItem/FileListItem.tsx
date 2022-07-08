@@ -173,9 +173,9 @@ function FileListItem(props: Props) {
         if (onClick) onClick(e);
     };
 
-    let nodeName;
+    let content;
     if (editing) {
-        nodeName = (
+        content = (
             <React.Fragment>
                 <Spacer width={6} />
                 <Input
@@ -197,10 +197,12 @@ function FileListItem(props: Props) {
             </React.Fragment>
         );
     } else {
-        nodeName = (
+        content = (
             <React.Fragment>
                 <Spacer width={14} />
                 <Text>{node.name}</Text>
+                <Spacer />
+                {node.size && <Text>{node.size} B</Text>}
             </React.Fragment>
         );
     }
@@ -221,7 +223,7 @@ function FileListItem(props: Props) {
             >
                 <Layout horizontal center>
                     <NodeSymbol node={node} />
-                    {nodeName}
+                    {content}
                 </Layout>
             </div>
         </div>
