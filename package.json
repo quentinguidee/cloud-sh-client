@@ -20,6 +20,7 @@
         "react-router-dom": "^6.3.0",
         "redux": "^4.2.0",
         "redux-persist": "^6.0.0",
+        "simple-icons": "^7.4.0",
         "use-file-picker": "^1.4.2"
     },
     "devDependencies": {

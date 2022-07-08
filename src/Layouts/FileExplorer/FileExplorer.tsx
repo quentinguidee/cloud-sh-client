@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import List from "Components/List/List";
 import FileListItem from "Layouts/FileListItem/FileListItem";
-import { Node, NodeType, NodeUpload } from "Models/Node";
+import { Node, NodeUpload } from "Models/Node";
 import { api, route } from "Backend/api";
 import { useSession } from "Store/Hooks/useSession";
 import axios from "axios";
@@ -49,7 +49,7 @@ function FileExplorer() {
             .catch(api.error);
     };
 
-    const createFile = (type: NodeType) => {
+    const createFile = (type: string) => {
         setNewNode({ name: "", type });
     };
 
