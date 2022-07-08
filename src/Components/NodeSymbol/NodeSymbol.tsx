@@ -1,13 +1,31 @@
 import React from "react";
 import { Node } from "Models/Node";
 import Symbol from "Components/Symbol/Symbol";
-import { siC, siCplusplus, siPython } from "simple-icons/icons";
+import { siBabel, siC, siCplusplus, siCss3, siGit, siGnubash, siGo, siHtml5, siJavascript, siJson, siKotlin, siMarkdown, siOcaml, siPhp, siPython, siReact, siRuby, siSass, siScala, siTypescript, siYarn } from "simple-icons/icons";
 import { SimpleIcon } from "simple-icons";
 
 const icons: { [index: string]: SimpleIcon } = {
+    babel: siBabel,
     c: siC,
     cpp: siCplusplus,
+    css: siCss3,
+    git: siGit,
+    go: siGo,
+    html: siHtml5,
+    javascript: siJavascript,
+    json: siJson,
+    kotlin: siKotlin,
+    markdown: siMarkdown,
+    ocaml: siOcaml,
+    php: siPhp,
     python: siPython,
+    react: siReact,
+    ruby: siRuby,
+    sass: siSass,
+    scala: siScala,
+    shell: siGnubash,
+    typescript: siTypescript,
+    yarn: siYarn,
 };
 
 type Props = {
@@ -41,6 +59,30 @@ function NodeSymbol(props: Props) {
                 <Symbol
                     symbol="folder"
                     style={{ color: "var(--text-secondary)" }}
+                    size={24}
+                />
+            );
+        case "image":
+            return (
+                <Symbol
+                    symbol="image"
+                    style={{ color: "#3e6a99" }}
+                    size={24}
+                />
+            );
+        case "video":
+            return (
+                <Symbol
+                    symbol="play_arrow"
+                    style={{ color: "#3e6a99" }}
+                    size={24}
+                />
+            );
+        case "audio":
+            return (
+                <Symbol
+                    symbol="music_note"
+                    style={{ color: "#3e6a99" }}
                     size={24}
                 />
             );
