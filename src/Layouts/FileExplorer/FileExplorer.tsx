@@ -17,7 +17,7 @@ import { useDispatch } from "react-redux";
 import { useFilePicker } from "use-file-picker";
 import classNames from "classnames";
 import { pushUpload, updateUpload } from "Store/Slices/UploadsSlice";
-import FileInfo from "Components/FileInfo/FileInfo";
+import NodeInfo from "Components/NodeInfo/NodeInfo";
 import NodePreview from "Components/NodePreview/NodePreview";
 
 function FileExplorer() {
@@ -311,7 +311,7 @@ function FileExplorer() {
                     />
                 ))}
             </List>
-            <FileInfo node={infoNode} onClose={() => setInfoNode(undefined)} />
+            <NodeInfo node={infoNode} onClose={() => setInfoNode(undefined)} />
             <NodePreview
                 node={previewNode}
                 onClose={() => setPreviewNode(undefined)}

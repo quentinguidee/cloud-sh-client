@@ -2,7 +2,7 @@ import React from "react";
 import Layout from "Components/Layout/Layout";
 import { Subtitle } from "Components/Title/Title";
 
-import styles from "./FileInfo.module.sass";
+import styles from "./NodeInfo.module.sass";
 import { Node } from "Models/Node";
 import NodeSymbol from "Components/NodeSymbol/NodeSymbol";
 import Spacer from "Components/Spacer/Spacer";
@@ -17,7 +17,7 @@ type Props = {
     onClose?: () => void;
 };
 
-function FileInfo(props: Props) {
+function NodeInfo(props: Props) {
     const { node, onClose } = props;
 
     const size = node?.size ? prettyBytes(node?.size) : undefined;
@@ -48,4 +48,4 @@ function FileInfo(props: Props) {
     );
 }
 
-export default FileInfo;
+export default NodeInfo;
