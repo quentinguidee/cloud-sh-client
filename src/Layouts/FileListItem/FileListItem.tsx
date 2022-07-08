@@ -18,6 +18,7 @@ import prettyBytes from "pretty-bytes";
 type Props = React.HTMLProps<HTMLDivElement> & {
     node: Node;
     editing?: boolean;
+    onPreview?: () => void;
     onDelete?: () => void;
     onDownload?: () => void;
     onRename?: () => void;
@@ -30,6 +31,7 @@ function FileListItem(props: Props) {
         className,
         children,
         node,
+        onPreview,
         onRename,
         onShowInfo,
         onDelete,
@@ -71,6 +73,11 @@ function FileListItem(props: Props) {
 
     let contextMenu;
     if (showContextMenu) {
+        const onPreview = () => {
+            if (props.onPreview) props.onPreview();
+            closeContextMenu();
+        };
+
         const onRename = () => {
             if (props.onRename) props.onRename();
             closeContextMenu();
@@ -98,6 +105,10 @@ function FileListItem(props: Props) {
                 style={popoverStyle}
                 animateFrom="top left"
             >
+                <PopoverItemWithSymbol symbol="preview" onClick={onPreview}>
+                    Preview
+                </PopoverItemWithSymbol>
+                <PopoverSeparator />
                 <PopoverItemWithSymbol symbol="edit" onClick={onRename}>
                     Rename
                 </PopoverItemWithSymbol>

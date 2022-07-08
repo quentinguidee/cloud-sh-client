@@ -18,6 +18,7 @@ import { useFilePicker } from "use-file-picker";
 import classNames from "classnames";
 import { pushUpload, updateUpload } from "Store/Slices/UploadsSlice";
 import FileInfo from "Components/FileInfo/FileInfo";
+import NodePreview from "Components/NodePreview/NodePreview";
 
 function FileExplorer() {
     const session = useSession();
@@ -36,6 +37,7 @@ function FileExplorer() {
     });
 
     const [infoNode, setInfoNode] = useState<Node>(undefined);
+    const [previewNode, setPreviewNode] = useState<Node>(undefined);
 
     const loadFiles = () => {
         axios({
@@ -298,6 +300,7 @@ function FileExplorer() {
                         node={file}
                         editing={renamingNode === file}
                         onClick={() => openDirectory(file)}
+                        onPreview={() => setPreviewNode(file)}
                         onShowInfo={() => setInfoNode(file)}
                         onDownload={() => downloadFile(file)}
                         onRename={() => renameFile(file)}
@@ -309,6 +312,10 @@ function FileExplorer() {
                 ))}
             </List>
             <FileInfo node={infoNode} onClose={() => setInfoNode(undefined)} />
+            <NodePreview
+                node={previewNode}
+                onClose={() => setPreviewNode(undefined)}
+            />
         </React.Fragment>
     );
 }

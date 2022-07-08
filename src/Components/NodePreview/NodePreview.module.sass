@@ -1,0 +1,27 @@
+@use "Assets/colors.sass"
+@use "Assets/dimensions.sass"
+@use "Assets/shadows.sass"
+@use "Assets/transitions.sass"
+
+$width: 480px
+$height: 300px
+
+.window
+    position: fixed
+    top: 50%
+    left: 50%
+    z-index: 30
+    transform: translate(-50%, -50%)
+    background-color: colors.$background-primary
+    border-radius: dimensions.$border-radius-large
+    height: $height
+    width: $width
+    max-height: 0
+    max-width: 0
+    transition: max-width transitions.$speed-default ease-in-out 0.02s, max-height transitions.$speed-default ease-in-out, box-shadow transitions.$speed-default ease-in-out
+
+    &Show
+        max-height: $height
+        max-width: $width
+        transition: max-width transitions.$speed-default ease-in-out, max-height transitions.$speed-default ease-in-out 0.02s, box-shadow transitions.$speed-default ease-in-out
+        @include shadows.default-shadow()
