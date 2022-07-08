@@ -122,6 +122,7 @@ function FileExplorer() {
             headers: {
                 Authorization: session.token,
             },
+            responseType: "blob",
         })
             .then((res) => api.download(res, node.name))
             .catch(api.error);
