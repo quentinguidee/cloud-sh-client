@@ -7,6 +7,7 @@ import { useSession } from "Store/Hooks/useSession";
 import classNames from "classnames";
 import Layout from "Components/Layout/Layout";
 import ProgressBar from "Components/ProgressBar/ProgressBar";
+import CodeBlock from "Components/CodeBlock/CodeBlock";
 
 type Props = {
     node?: Node;
@@ -20,7 +21,8 @@ function NodePreview(props: Props) {
 
     const session = useSession();
 
-    const [src, setSrc] = useState<string>(undefined);
+    const [data, setData] = useState<Blob>(undefined);
+    const [content, setContent] = useState(undefined);
     const [loadingPercentage, setLoadingPercentage] =
         useState<number>(undefined);
 
@@ -44,41 +46,66 @@ function NodePreview(props: Props) {
             },
         })
             .then((res) => {
-                setSrc(URL.createObjectURL(res.data));
+                setData(res.data);
                 setLoadingPercentage(undefined);
             })
             .catch(api.error);
     };
 
     useEffect(() => {
-        if (
-            node?.mime?.includes("image/") ||
-            node?.mime?.includes("video/") ||
-            node?.mime?.includes("audio/")
-        ) {
-            downloadNode(node);
-        }
+        downloadNode(node);
     }, [node]);
 
-    if (loadingPercentage !== undefined && !src) {
+    useEffect(() => {
+        if (!data) return;
+
+        const contentProps = {
+            className: classNames(styles.content, className),
+            src: URL.createObjectURL(data),
+        };
+
+        if (node?.mime?.includes("image/")) {
+            setContent(<img alt={node?.name} {...contentProps} />);
+            return;
+        }
+
+        if (node?.mime?.includes("video/")) {
+            setContent(
+                <video {...contentProps} datatype={node?.mime} controls />,
+            );
+            return;
+        }
+
+        if (node?.mime?.includes("audio/")) {
+            setContent(<audio {...contentProps} controls />);
+            return;
+        }
+
+        // Only for languages where the Syntax-Highlighter name is different
+        // from the cloud.sh filetype.
+        //
+        // File type => Syntax Highlighter Language
+        const languages = {
+            file: "text",
+        };
+
+        data.text().then((text) => {
+            setContent(
+                <CodeBlock
+                    language={languages[node?.type] || node?.type}
+                    {...contentProps}
+                >
+                    {text}
+                </CodeBlock>,
+            );
+        });
+    }, [data]);
+
+    if (loadingPercentage !== undefined && !data) {
         return <ProgressBar percentage={loadingPercentage} />;
     }
 
-    const contentProps = {
-        className: classNames(styles.content, className),
-        src,
-    };
-
-    let content;
-    if (node?.mime?.includes("image/")) {
-        content = <img alt={node?.name} {...contentProps} />;
-    } else if (node?.mime?.includes("video/")) {
-        content = <video {...contentProps} datatype={node?.mime} controls />;
-    } else if (node?.mime?.includes("audio/")) {
-        content = <audio {...contentProps} controls />;
-    }
-
-    if (src) {
+    if (data) {
         return (
             <Layout middle className={styles.wrapper}>
                 {content}
