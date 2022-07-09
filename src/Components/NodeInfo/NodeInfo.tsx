@@ -11,6 +11,7 @@ import { Caption } from "Components/Text/Text";
 import prettyBytes from "pretty-bytes";
 import classNames from "classnames";
 import Overlay from "Components/Overlay/Overlay";
+import NodePreview from "Components/NodePreview/NodePreview";
 
 type Props = {
     node?: Node;
@@ -32,7 +33,8 @@ function NodeInfo(props: Props) {
                     [styles.infoShown]: node,
                 })}
             >
-                <Layout horizontal center gap={12}>
+                <NodePreview className={styles.preview} node={node} />
+                <Layout horizontal center gap={12} className={styles.titleBar}>
                     <NodeSymbol node={node} />
                     <Layout vertical gap={2}>
                         <Subtitle className={styles.title}>

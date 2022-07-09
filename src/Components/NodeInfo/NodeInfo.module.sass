@@ -12,21 +12,27 @@ $width: 300px
     right: - $width - 32px
     margin-left: 0
     width: $width
-    padding: 16px
     background-color: colors.$background-primary
     border-radius: dimensions.$border-radius-large
     overflow-x: hidden
     z-index: 30
     transition: transitions.$default
     box-shadow: rgba(0, 0, 0, 0.10) 0 3px 8px
+    padding: 0
 
     &Shown
         top: $margins
         bottom: $margins
         right: $margins
 
+.titleBar
+    padding: 16px
+
 .title
     white-space: nowrap
-    max-width: $width - 100px
+    max-width: $width - 120px
     overflow: hidden
     text-overflow: ellipsis
+
+.preview
+    max-height: 220px

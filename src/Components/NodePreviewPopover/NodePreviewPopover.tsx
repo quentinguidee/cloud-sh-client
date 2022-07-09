@@ -50,7 +50,7 @@ function NodePreviewPopover(props: Props) {
             >
                 <NodePreviewPopoverTitle node={node} onClose={onClose} />
                 <Layout middle className={styles.content}>
-                    <NodePreview node={node} />
+                    <NodePreview node={node} className={styles.preview} />
                 </Layout>
             </Layout>
         </React.Fragment>

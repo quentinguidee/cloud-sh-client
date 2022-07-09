@@ -4,13 +4,16 @@ import { Node } from "Models/Node";
 import axios from "axios";
 import { api, route } from "Backend/api";
 import { useSession } from "Store/Hooks/useSession";
+import classNames from "classnames";
+import Layout from "Components/Layout/Layout";
 
 type Props = {
     node?: Node;
+    className?: string;
 };
 
 function NodePreview(props: Props) {
-    const { node } = props;
+    const { node, className } = props;
 
     if (!node) return null;
 
@@ -43,7 +46,15 @@ function NodePreview(props: Props) {
     }, [node]);
 
     if (image)
-        return <img alt={node?.name} src={image} className={styles.content} />;
+        return (
+            <Layout middle className={styles.wrapper}>
+                <img
+                    alt={node?.name}
+                    src={image}
+                    className={classNames(styles.content, className)}
+                />
+            </Layout>
+        );
 
     return null;
 }
