@@ -12,10 +12,11 @@ import CodeBlock from "Components/CodeBlock/CodeBlock";
 type Props = {
     node?: Node;
     className?: string;
+    maximize?: boolean;
 };
 
 function NodePreview(props: Props) {
-    const { node, className } = props;
+    const { node, className, maximize } = props;
 
     if (!node) return null;
 
@@ -107,7 +108,7 @@ function NodePreview(props: Props) {
 
     if (data) {
         return (
-            <Layout middle className={styles.wrapper}>
+            <Layout middle maximize={maximize} className={styles.wrapper}>
                 {content}
             </Layout>
         );

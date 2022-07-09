@@ -53,7 +53,11 @@ function NodePreviewPopover(props: Props) {
             >
                 <NodePreviewPopoverTitle node={node} onClose={onClose} />
                 <Layout middle className={styles.content}>
-                    <NodePreview node={node} className={styles.preview} />
+                    <NodePreview
+                        node={node}
+                        maximize
+                        className={styles.preview}
+                    />
                 </Layout>
             </Layout>
         </React.Fragment>

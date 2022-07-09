@@ -16,7 +16,7 @@ function CodeBlock(props: Props) {
                 fontFamily: "var(--font-family-code)",
                 fontSize: "var(--size-caption)",
                 lineHeight: 1.3,
-                minWidth: "500px",
+                minWidth: "100%",
             }}
             {...others}
         />
