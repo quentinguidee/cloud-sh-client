@@ -12,6 +12,7 @@ function Page(props: Props) {
         <Layout
             vertical
             stretch
+            maximize
             className={classNames(styles.page, className)}
             {...others}
         >

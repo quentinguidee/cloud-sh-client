@@ -6,6 +6,6 @@ import NavBar from "./NavBar";
 
 it("renders", async () => {
     const content = "Text";
-    const { getByText } = render(<NavBar>{content}</NavBar>);
+    const { getByText } = render(<NavBar title="Title">{content}</NavBar>);
     expect(getByText(content)).toBeInTheDocument();
 });

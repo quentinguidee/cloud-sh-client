@@ -1,15 +1,19 @@
 import React from "react";
 import Page from "Layouts/Page/Page";
-import TitleBar from "Layouts/TitleBar/TitleBar";
 import FileExplorer from "Layouts/FileExplorer/FileExplorer";
 import Uploads from "Components/Uploads/Uploads";
+import StorageNavBar from "Layouts/StorageNavBar/StorageNavBar";
+import { Navigate, Route, Routes } from "react-router-dom";
 
 function Storage() {
     return (
         <React.Fragment>
+            <StorageNavBar />
             <Page>
-                <TitleBar title="Storage" />
-                <FileExplorer />
+                <Routes>
+                    <Route path="bucket/*" element={<FileExplorer />} />
+                    <Route path="*" element={<Navigate to="bucket" />} />
+                </Routes>
             </Page>
             <Uploads />
         </React.Fragment>

@@ -1,10 +1,8 @@
 import React, { useEffect } from "react";
-import NavigationBar from "Layouts/NavigationBar/NavigationBar";
 import Storage from "Pages/Storage/Storage";
 import { Route, Routes, useNavigate } from "react-router-dom";
 import Layout from "Components/Layout/Layout";
 
-import styles from "./Dashboard.module.sass";
 import { useMessages } from "Store/Hooks/useMessages";
 import MessageBoxStack from "Components/MessageBoxStack/MessageBoxStack";
 import CommandPrompt from "Components/CommandPrompt/CommandPrompt";
@@ -13,6 +11,8 @@ import { Command } from "Models/Command";
 import { pushCommand, removeCommand } from "Store/Slices/CommandsSlice";
 import { useSession } from "Store/Hooks/useSession";
 import Admin from "Pages/Admin/Admin";
+import Apps from "Components/Apps/Apps";
+import Welcome from "Pages/Welcome/Welcome";
 
 function Dashboard() {
     const navigate = useNavigate();
@@ -47,15 +47,12 @@ function Dashboard() {
     return (
         <React.Fragment>
             <Layout horizontal stretch>
-                <div>
-                    <NavigationBar />
-                </div>
-                <div className={styles.content}>
-                    <Routes>
-                        <Route path="storage/*" element={<Storage />} />
-                        <Route path="admin/*" element={<Admin />} />
-                    </Routes>
-                </div>
+                <Apps />
+                <Routes>
+                    <Route path="storage/*" element={<Storage />} />
+                    <Route path="admin/*" element={<Admin />} />
+                    <Route path="*" element={<Welcome />} />
+                </Routes>
             </Layout>
             <MessageBoxStack messages={messages} />
             <CommandPrompt />

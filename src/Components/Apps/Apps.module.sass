@@ -1,0 +1,48 @@
+@use "Assets/colors.sass"
+@use "Assets/dimensions.sass"
+@use "Assets/transitions.sass"
+
+.apps
+    padding: 8px
+    border-right: 1px solid colors.$background-secondary
+    transition: transitions.$default
+
+.logo
+    border-radius: dimensions.$border-radius
+    transition: transitions.$default
+    height: 64px
+    width: 52px
+    cursor: pointer
+
+.app
+    border-radius: dimensions.$border-radius
+    transition: transitions.$default
+    height: 44px
+    width: 44px
+    cursor: pointer
+    text-decoration: none
+    position: relative
+    color: colors.$text-primary
+
+    &Selected
+        background-color: colors.$background-secondary
+
+    &:hover
+        background-color: colors.$background-hover
+
+    &Tooltip
+        position: absolute
+        left: 50px
+        font-size: 14px
+        padding: 5px 8px
+        border-radius: dimensions.$border-radius
+        background-color: colors.$background-hover
+        color: colors.$text-primary
+        visibility: hidden
+        opacity: 0
+        transition: transitions.$default
+        pointer-events: none
+
+    &:hover &Tooltip
+        visibility: visible
+        opacity: 1

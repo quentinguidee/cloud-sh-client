@@ -29,7 +29,7 @@ function NavBarItem(props: Props) {
             <Layout
                 horizontal
                 center
-                gap={12}
+                gap={10}
                 className={classNames(styles.content, className)}
                 {...others}
             >

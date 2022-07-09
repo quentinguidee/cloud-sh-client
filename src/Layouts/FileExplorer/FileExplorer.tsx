@@ -19,6 +19,7 @@ import classNames from "classnames";
 import { pushUpload, updateUpload } from "Store/Slices/UploadsSlice";
 import NodeInfo from "Components/NodeInfo/NodeInfo";
 import NodePreviewPopover from "Components/NodePreviewPopover/NodePreviewPopover";
+import TitleBar from "Layouts/TitleBar/TitleBar";
 
 function FileExplorer() {
     const session = useSession();
@@ -269,6 +270,7 @@ function FileExplorer() {
 
     return (
         <React.Fragment>
+            <TitleBar title="My bucket" />
             <Layout horizontal center gap={12}>
                 <NewButton
                     createFile={() => createFile("file")}
