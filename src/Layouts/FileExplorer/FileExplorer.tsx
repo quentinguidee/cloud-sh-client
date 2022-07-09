@@ -18,7 +18,7 @@ import { useFilePicker } from "use-file-picker";
 import classNames from "classnames";
 import { pushUpload, updateUpload } from "Store/Slices/UploadsSlice";
 import NodeInfo from "Components/NodeInfo/NodeInfo";
-import NodePreview from "Components/NodePreview/NodePreview";
+import NodePreviewPopover from "Components/NodePreviewPopover/NodePreviewPopover";
 
 function FileExplorer() {
     const session = useSession();
@@ -313,7 +313,7 @@ function FileExplorer() {
                 ))}
             </List>
             <NodeInfo node={infoNode} onClose={() => setInfoNode(undefined)} />
-            <NodePreview
+            <NodePreviewPopover
                 node={previewNode}
                 onClose={() => setPreviewNode(undefined)}
             />

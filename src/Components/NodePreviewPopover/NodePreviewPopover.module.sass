@@ -1,0 +1,32 @@
+@use "Assets/colors.sass"
+@use "Assets/dimensions.sass"
+@use "Assets/shadows.sass"
+@use "Assets/transitions.sass"
+
+.window
+    position: fixed
+    display: inline-flex
+    top: 50%
+    left: 50%
+    z-index: 30
+    border-radius: dimensions.$border-radius-large
+    transform: translate(-50%, -50%) scale(0.85, 0)
+    opacity: 0
+    transform-origin: center
+    background-color: colors.$background-primary
+    transition: all transitions.$speed-slow ease-in-out
+    overflow: hidden
+    padding: 0
+
+    &Show
+        opacity: 1
+        transform: translate(-50%, -50%) scale(1, 1)
+        @include shadows.default-shadow()
+
+.titleBar
+    padding: 14px 18px
+
+.content
+    min-width: 0
+    min-height: 0
+    background-color: colors.$background-tertiary
