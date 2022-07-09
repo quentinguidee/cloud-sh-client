@@ -9,6 +9,7 @@ import Close from "Components/Close/Close";
 import { Caption } from "Components/Text/Text";
 import { Subtitle } from "Components/Title/Title";
 import NodePreview from "Components/NodePreview/NodePreview";
+import NodeSymbol from "Components/NodeSymbol/NodeSymbol";
 
 type Props = {
     node?: Node;
@@ -20,6 +21,8 @@ function NodePreviewPopoverTitle(props: Props) {
 
     return (
         <Layout horizontal center className={styles.titleBar}>
+            <NodeSymbol node={node} />
+            <Spacer width={12} />
             <Layout vertical left gap={2}>
                 <Subtitle>Preview</Subtitle>
                 <Caption>{node?.name}</Caption>
