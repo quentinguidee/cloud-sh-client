@@ -14,7 +14,7 @@ The storage could be corrupted when upgrading from one version to another and th
 
 ## Screenshot
 
-<img width="990" alt="image" src="https://user-images.githubusercontent.com/12123721/175908490-7008e118-26db-454a-b50d-b4d692e028c9.png">
+![screenshot](https://user-images.githubusercontent.com/12123721/178097933-976ea161-614f-48c8-bb9e-1644f3d2a23b.png)
 
 ## Start coding
 
