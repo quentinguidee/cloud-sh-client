@@ -5,6 +5,7 @@ import User from "Models/User";
 import Popover from "Components/Popover/Popover";
 import Layout from "Components/Layout/Layout";
 import PopoverItemWithSymbol from "Components/PopoverItemWithSymbol/PopoverItemWithSymbol";
+import ProfilePicture from "Components/ProfilePicture/ProfilePicture";
 
 type Props = {
     user?: User;
@@ -26,11 +27,10 @@ function Account(props: Props) {
 
     return (
         <div className={styles.account}>
-            <img
+            <ProfilePicture
+                src={user?.profile_picture}
                 onClick={togglePopover}
                 className={styles.picture}
-                alt="Profile picture"
-                src={user?.profile_picture}
             />
             <Popover
                 show={show}
