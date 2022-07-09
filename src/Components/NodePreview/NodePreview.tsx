@@ -19,7 +19,7 @@ function NodePreview(props: Props) {
 
     const session = useSession();
 
-    const [image, setImage] = useState(undefined);
+    const [src, setSrc] = useState<string>(undefined);
 
     const downloadNode = (node: Node) => {
         axios({
@@ -34,27 +34,40 @@ function NodePreview(props: Props) {
             responseType: "blob",
         })
             .then((res) => {
-                setImage(URL.createObjectURL(res.data));
+                setSrc(URL.createObjectURL(res.data));
             })
             .catch(api.error);
     };
 
     useEffect(() => {
-        if (node?.mime?.includes("image/")) {
+        if (node?.mime?.includes("image/") || node?.mime?.includes("video/")) {
             downloadNode(node);
         }
     }, [node]);
 
-    if (image)
+    if (node?.mime?.includes("image/"))
         return (
             <Layout middle className={styles.wrapper}>
                 <img
                     alt={node?.name}
-                    src={image}
+                    src={src}
                     className={classNames(styles.content, className)}
                 />
             </Layout>
         );
+
+    if (node?.mime?.includes("video/")) {
+        return (
+            <Layout middle className={styles.wrapper}>
+                <video
+                    src={src}
+                    datatype={node?.mime}
+                    className={classNames(styles.content, className)}
+                    controls
+                />
+            </Layout>
+        );
+    }
 
     return null;
 }
