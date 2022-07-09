@@ -12,6 +12,7 @@ import { useDispatch } from "react-redux";
 import { Command } from "Models/Command";
 import { pushCommand, removeCommand } from "Store/Slices/CommandsSlice";
 import { useSession } from "Store/Hooks/useSession";
+import Admin from "Pages/Admin/Admin";
 
 function Dashboard() {
     const navigate = useNavigate();
@@ -52,6 +53,7 @@ function Dashboard() {
                 <div className={styles.content}>
                     <Routes>
                         <Route path="storage/*" element={<Storage />} />
+                        <Route path="admin/*" element={<Admin />} />
                     </Routes>
                 </div>
             </Layout>

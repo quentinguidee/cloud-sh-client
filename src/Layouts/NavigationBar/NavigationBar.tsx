@@ -25,18 +25,11 @@ function NavigationBar() {
                 tooltip: "Open your storage.",
             },
             {
-                id: "go_to_contacts",
-                icon: "contacts",
-                name: "Jump to contacts",
-                callback: () => navigate("/contacts"),
-                tooltip: "Open your contacts.",
-            },
-            {
-                id: "go_to_mails",
-                icon: "email",
-                name: "Jump to mails",
-                callback: () => navigate("/mails"),
-                tooltip: "Open your mails.",
+                id: "go_to_admin",
+                icon: "admin_panel_settings",
+                name: "Jump to admin panel",
+                callback: () => navigate("/admin"),
+                tooltip: "Open your admin panel.",
             },
         ];
 
@@ -51,11 +44,8 @@ function NavigationBar() {
                 <NavBarItem to="/storage" icon="storage">
                     Storage
                 </NavBarItem>
-                <NavBarItem to="/contacts" icon="contacts">
-                    Contacts
-                </NavBarItem>
-                <NavBarItem to="/mails" icon="email">
-                    Mails
+                <NavBarItem to="/admin" icon="admin_panel_settings">
+                    Admin panel
                 </NavBarItem>
             </Layout>
         </NavBar>
