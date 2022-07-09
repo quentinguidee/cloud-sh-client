@@ -9,7 +9,7 @@ function StorageNavBar() {
         <NavBar title="Storage">
             <Layout vertical stretch gap={4}>
                 <NavBarItem to="/storage/bucket" icon="storage">
-                    My bucket
+                    My storage
                 </NavBarItem>
                 <NavBarItem to="/storage/recent" icon="schedule">
                     Recent

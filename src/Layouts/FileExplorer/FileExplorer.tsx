@@ -270,7 +270,7 @@ function FileExplorer() {
 
     return (
         <React.Fragment>
-            <TitleBar title="My bucket" />
+            <TitleBar title="My storage" />
             <Layout horizontal center gap={12}>
                 <NewButton
                     createFile={() => createFile("file")}
