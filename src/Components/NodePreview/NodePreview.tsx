@@ -43,7 +43,7 @@ function NodePreview(props: Props) {
     };
 
     useEffect(() => {
-        if (node?.mime.includes("image/")) {
+        if (node?.mime?.includes("image/")) {
             downloadNode(node);
         }
     }, [node]);
