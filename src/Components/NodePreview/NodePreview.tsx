@@ -40,31 +40,33 @@ function NodePreview(props: Props) {
     };
 
     useEffect(() => {
-        if (node?.mime?.includes("image/") || node?.mime?.includes("video/")) {
+        if (
+            node?.mime?.includes("image/") ||
+            node?.mime?.includes("video/") ||
+            node?.mime?.includes("audio/")
+        ) {
             downloadNode(node);
         }
     }, [node]);
 
-    if (node?.mime?.includes("image/"))
-        return (
-            <Layout middle className={styles.wrapper}>
-                <img
-                    alt={node?.name}
-                    src={src}
-                    className={classNames(styles.content, className)}
-                />
-            </Layout>
-        );
+    const contentProps = {
+        className: classNames(styles.content, className),
+        src,
+    };
 
-    if (node?.mime?.includes("video/")) {
+    let content;
+    if (node?.mime?.includes("image/")) {
+        content = <img alt={node?.name} {...contentProps} />;
+    } else if (node?.mime?.includes("video/")) {
+        content = <video {...contentProps} datatype={node?.mime} controls />;
+    } else if (node?.mime?.includes("audio/")) {
+        content = <audio {...contentProps} controls />;
+    }
+
+    if (src) {
         return (
             <Layout middle className={styles.wrapper}>
-                <video
-                    src={src}
-                    datatype={node?.mime}
-                    className={classNames(styles.content, className)}
-                    controls
-                />
+                {content}
             </Layout>
         );
     }
