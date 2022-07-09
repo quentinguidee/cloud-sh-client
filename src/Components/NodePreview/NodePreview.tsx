@@ -6,6 +6,7 @@ import { api, route } from "Backend/api";
 import { useSession } from "Store/Hooks/useSession";
 import classNames from "classnames";
 import Layout from "Components/Layout/Layout";
+import ProgressBar from "Components/ProgressBar/ProgressBar";
 
 type Props = {
     node?: Node;
@@ -19,9 +20,11 @@ function NodePreview(props: Props) {
 
     const session = useSession();
 
+    const [loadingPercentage, setLoadingPercentage] = useState<number>(0);
     const [src, setSrc] = useState<string>(undefined);
 
     const downloadNode = (node: Node) => {
+        setLoadingPercentage(0);
         axios({
             method: "GET",
             url: route("/storage/download"),
@@ -32,9 +35,16 @@ function NodePreview(props: Props) {
                 Authorization: session.token,
             },
             responseType: "blob",
+            onDownloadProgress: (progress) => {
+                const percentage = Math.ceil(
+                    (progress.loaded / progress.total) * 100,
+                );
+                setLoadingPercentage(percentage);
+            },
         })
             .then((res) => {
                 setSrc(URL.createObjectURL(res.data));
+                setLoadingPercentage(undefined);
             })
             .catch(api.error);
     };
@@ -48,6 +58,10 @@ function NodePreview(props: Props) {
             downloadNode(node);
         }
     }, [node]);
+
+    if (loadingPercentage !== undefined && !src) {
+        return <ProgressBar percentage={loadingPercentage} />;
+    }
 
     const contentProps = {
         className: classNames(styles.content, className),
