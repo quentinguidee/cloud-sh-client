@@ -172,8 +172,9 @@ function FileExplorer() {
             .catch(api.error);
     };
 
-    const openDirectory = (node: Node) => {
+    const open = (node: Node) => {
         if (node.type !== "directory") {
+            setPreviewNode(node);
             return;
         }
         navigate(node.uuid);
@@ -300,7 +301,7 @@ function FileExplorer() {
                         key={i}
                         node={node}
                         editing={renamingNode === node}
-                        onClick={() => openDirectory(node)}
+                        onClick={() => open(node)}
                         onPreview={() => setPreviewNode(node)}
                         onShowInfo={() => setInfoNode(node)}
                         onDownload={() => downloadNode(node)}
