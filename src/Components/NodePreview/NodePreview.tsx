@@ -20,8 +20,9 @@ function NodePreview(props: Props) {
 
     const session = useSession();
 
-    const [loadingPercentage, setLoadingPercentage] = useState<number>(0);
     const [src, setSrc] = useState<string>(undefined);
+    const [loadingPercentage, setLoadingPercentage] =
+        useState<number>(undefined);
 
     const downloadNode = (node: Node) => {
         setLoadingPercentage(0);
