@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import TitleBar from "Layouts/TitleBar/TitleBar";
 import Paragraph from "Components/Paragraph/Paragraph";
 import Layout from "Components/Layout/Layout";
@@ -12,7 +12,18 @@ import { api, route } from "Backend/api";
 import { useSession } from "Store/Hooks/useSession";
 import { useNavigate } from "react-router-dom";
 
-function AdminDemoMode() {
+function AdminDemoModeLoading() {
+    return (
+        <Box>
+            <Layout horizontal center gap={8}>
+                <Symbol symbol="info" />
+                <Text>Loading...</Text>
+            </Layout>
+        </Box>
+    );
+}
+
+function AdminDemoModeDisabled() {
     const session = useSession();
 
     const navigate = useNavigate();
@@ -39,6 +50,63 @@ function AdminDemoMode() {
 
     return (
         <React.Fragment>
+            <Box type="warning">
+                <Layout horizontal center gap={8}>
+                    <Symbol symbol="warning" />
+                    <Text>All data will be destroyed.</Text>
+                </Layout>
+            </Box>
+            <Checkbox onChange={(c) => setFirstCheck(c)}>
+                I understand that all data will be destroyed.
+            </Checkbox>
+            <Checkbox onChange={(c) => setSecondCheck(c)}>
+                I understand that, in the demo mode, all files are deleted
+                periodically.
+            </Checkbox>
+            <Button disabled={!canBeEnabled()} onClick={enable}>
+                <Text>Enable and logout</Text>
+            </Button>
+        </React.Fragment>
+    );
+}
+
+function AdminDemoModeEnabled() {
+    return (
+        <Box type="info">
+            <Layout horizontal center gap={8}>
+                <Symbol symbol="info" />
+                <Text>This mode is already enabled.</Text>
+            </Layout>
+        </Box>
+    );
+}
+
+function AdminDemoMode() {
+    const session = useSession();
+
+    const [content, setContent] = useState(<AdminDemoModeLoading />);
+
+    useEffect(() => {
+        axios({
+            method: "GET",
+            url: route("/admin/demo"),
+            headers: {
+                Authorization: session.token,
+            },
+        })
+            .then((res) => {
+                console.log(res.data);
+                if (res?.data?.demo_mode?.enabled === false) {
+                    setContent(<AdminDemoModeDisabled />);
+                } else {
+                    setContent(<AdminDemoModeEnabled />);
+                }
+            })
+            .catch(api.error);
+    }, []);
+
+    return (
+        <React.Fragment>
             <TitleBar title="Demo mode" />
             <Layout left vertical gap={18}>
                 <Paragraph>
@@ -47,22 +115,7 @@ function AdminDemoMode() {
                     reset, and new users will get placeholder files to try some
                     cloud.sh features.
                 </Paragraph>
-                <Box type="warning">
-                    <Layout horizontal center gap={8}>
-                        <Symbol symbol="warning" />
-                        <Text>All data will be destroyed.</Text>
-                    </Layout>
-                </Box>
-                <Checkbox onChange={(c) => setFirstCheck(c)}>
-                    I understand that all data will be destroyed.
-                </Checkbox>
-                <Checkbox onChange={(c) => setSecondCheck(c)}>
-                    I understand that, in the demo mode, all files are deleted
-                    periodically.
-                </Checkbox>
-                <Button disabled={!canBeEnabled()} onClick={enable}>
-                    <Text>Enable and logout</Text>
-                </Button>
+                {content}
             </Layout>
         </React.Fragment>
     );
