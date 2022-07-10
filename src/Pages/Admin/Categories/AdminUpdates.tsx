@@ -6,7 +6,7 @@ function AdminUpdates() {
     return (
         <React.Fragment>
             <TitleBar title="Updates" />
-            <Text>No available.</Text>
+            <Text>Not available.</Text>
         </React.Fragment>
     );
 }
