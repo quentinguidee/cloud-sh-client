@@ -5,7 +5,9 @@ import React, { useState } from "react";
 import styles from "./Checkbox.module.sass";
 import Layout from "Components/Layout/Layout";
 
-type Props = React.HTMLProps<HTMLInputElement>;
+type Props = React.HTMLProps<HTMLInputElement> & {
+    onChange?: (checked: boolean) => void;
+};
 
 function Checkbox(props: Props) {
     const { checked: value, children, ...others } = props;
@@ -13,6 +15,7 @@ function Checkbox(props: Props) {
     const [checked, setChecked] = useState<boolean>(value);
 
     const onClick = () => {
+        if (props.onChange) props.onChange(!checked);
         setChecked(!checked);
     };
 
