@@ -11,6 +11,9 @@ function AdminNavBar() {
                 <NavBarItem to="/admin/demo" icon="science">
                     Demo mode
                 </NavBarItem>
+                <NavBarItem to="/admin/reset" icon="restart_alt">
+                    Reset
+                </NavBarItem>
             </Layout>
         </NavBar>
     );

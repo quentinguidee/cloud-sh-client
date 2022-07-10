@@ -12,40 +12,36 @@ import { api, route } from "Backend/api";
 import { useSession } from "Store/Hooks/useSession";
 import { useNavigate } from "react-router-dom";
 
-function AdminDemoMode() {
+function AdminReset() {
     const session = useSession();
 
     const navigate = useNavigate();
 
-    const [firstCheck, setFirstCheck] = useState<boolean>(false);
-    const [secondCheck, setSecondCheck] = useState<boolean>(false);
+    const [check, setCheck] = useState<boolean>(false);
 
-    const canBeEnabled = () => {
-        return firstCheck && secondCheck;
+    const canBeReset = () => {
+        return check;
     };
 
-    const enable = () => {
-        if (!canBeEnabled()) return;
+    const reset = () => {
+        if (!canBeReset()) return;
         axios({
             method: "POST",
-            url: route("/admin/demo"),
+            url: route("/admin/reset"),
             headers: {
                 Authorization: session.token,
             },
         })
-            .then(() => navigate("/login"))
+            .then(() => navigate("/logout"))
             .catch(api.error);
     };
 
     return (
         <React.Fragment>
-            <TitleBar title="Demo mode" />
+            <TitleBar title="Reset" />
             <Layout left vertical gap={18}>
                 <Paragraph>
-                    Enable the Demo mode allows you to turn your cloud server
-                    into a demo server. Every 24 hours, the entire storage is
-                    reset, and new users will get placeholder files to try some
-                    cloud.sh features.
+                    Reset will delete everything stored in your cloud.sh server.
                 </Paragraph>
                 <Box type="warning">
                     <Layout horizontal center gap={8}>
@@ -53,19 +49,15 @@ function AdminDemoMode() {
                         <Text>All data will be destroyed.</Text>
                     </Layout>
                 </Box>
-                <Checkbox onChange={(c) => setFirstCheck(c)}>
+                <Checkbox onChange={(c) => setCheck(c)}>
                     I understand that all data will be destroyed.
                 </Checkbox>
-                <Checkbox onChange={(c) => setSecondCheck(c)}>
-                    I understand that, in the demo mode, all files are deleted
-                    periodically.
-                </Checkbox>
-                <Button disabled={!canBeEnabled()} onClick={enable}>
-                    <Text>Enable and logout</Text>
+                <Button disabled={!canBeReset()} onClick={reset}>
+                    <Text>Reset and logout</Text>
                 </Button>
             </Layout>
         </React.Fragment>
     );
 }
 
-export default AdminDemoMode;
+export default AdminReset;
