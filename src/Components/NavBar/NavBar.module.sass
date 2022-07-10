@@ -11,6 +11,18 @@
     transition: transitions.$default
     border-right: 1px solid colors.$background-secondary
 
+    animation: appear transitions.$speed-default ease-in-out
+
 .title
     padding: 11px
     margin-bottom: 14px
+
+@keyframes appear
+    from
+        opacity: 0
+        margin-left: -10px
+        margin-right: 10px
+    to
+        opacity: 1
+        margin-left: 0
+        margin-right: 0
