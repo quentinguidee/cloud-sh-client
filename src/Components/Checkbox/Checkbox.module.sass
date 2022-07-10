@@ -3,9 +3,7 @@
 @use "Assets/transitions.sass"
 
 .wrapper
-    position: relative
-    width: 22px
-    height: 22px
+    cursor: pointer
 
 .input
     position: absolute
@@ -23,11 +21,9 @@
     transform: translate(-50%, -50%) scale(0)
 
 .checkbox
-    position: absolute
-    top: 0
-    left: 0
-    bottom: 0
-    right: 0
+    position: relative
+    width: 22px
+    height: 22px
     border-radius: dimensions.$border-radius
     background-color: transparent
     border: 1px solid colors.$background-tertiary

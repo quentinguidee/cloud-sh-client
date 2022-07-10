@@ -3,11 +3,12 @@ import Symbol from "Components/Symbol/Symbol";
 import React, { useState } from "react";
 
 import styles from "./Checkbox.module.sass";
+import Layout from "Components/Layout/Layout";
 
 type Props = React.HTMLProps<HTMLInputElement>;
 
 function Checkbox(props: Props) {
-    const { checked: value, ...others } = props;
+    const { checked: value, children, ...others } = props;
 
     const [checked, setChecked] = useState<boolean>(value);
 
@@ -16,7 +17,13 @@ function Checkbox(props: Props) {
     };
 
     return (
-        <div className={styles.wrapper}>
+        <Layout
+            horizontal
+            center
+            className={styles.wrapper}
+            onClick={onClick}
+            gap={8}
+        >
             <input
                 {...others}
                 className={styles.input}
@@ -28,7 +35,6 @@ function Checkbox(props: Props) {
                     [styles.checkbox]: true,
                     [styles.checkboxChecked]: checked,
                 })}
-                onClick={onClick}
             >
                 <Symbol
                     className={classNames(styles.icon)}
@@ -36,7 +42,8 @@ function Checkbox(props: Props) {
                     size={16}
                 />
             </span>
-        </div>
+            {children}
+        </Layout>
     );
 }
 
