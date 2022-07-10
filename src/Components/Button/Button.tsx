@@ -23,8 +23,10 @@ function Button(props: Props) {
     } = props;
 
     return (
-        <div
-            {...others}
+        <Layout
+            horizontal
+            center
+            gap={6}
             className={classNames({
                 [styles.button]: true,
                 [styles.buttonSecondary]: secondary,
@@ -33,11 +35,10 @@ function Button(props: Props) {
                 [styles.buttonSharp]: sharp,
                 [className]: true,
             })}
+            {...others}
         >
-            <Layout horizontal center gap={6}>
-                {children}
-            </Layout>
-        </div>
+            {children}
+        </Layout>
     );
 }
 
