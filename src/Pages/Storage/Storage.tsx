@@ -2,7 +2,7 @@ import React from "react";
 import Page from "Layouts/Page/Page";
 import FileExplorer from "Layouts/FileExplorer/FileExplorer";
 import Uploads from "Components/Uploads/Uploads";
-import StorageNavBar from "Layouts/StorageNavBar/StorageNavBar";
+import StorageNavBar from "Pages/Storage/StorageNavBar";
 import { Navigate, Route, Routes } from "react-router-dom";
 
 function Storage() {
