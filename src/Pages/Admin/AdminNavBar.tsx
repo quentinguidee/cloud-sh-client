@@ -11,6 +11,12 @@ function AdminNavBar() {
         <NavBar title="Admin panel">
             <Layout vertical stretch gap={4}>
                 <NavBarSection title="General">
+                    <NavBarItem to="/admin/auth" icon="key">
+                        Authentication
+                    </NavBarItem>
+                    <NavBarItem to="/admin/users" icon="people">
+                        Users
+                    </NavBarItem>
                     <NavBarItem to="/admin/updates" icon="update">
                         Updates
                     </NavBarItem>
