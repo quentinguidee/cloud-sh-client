@@ -11,6 +11,8 @@ import axios from "axios";
 import { api, route } from "Backend/api";
 import { useSession } from "Store/Hooks/useSession";
 import { useNavigate } from "react-router-dom";
+import { pushMessage } from "Store/Slices/MessagesSlice";
+import { useDispatch } from "react-redux";
 
 function AdminDemoModeLoading() {
     return (
@@ -24,6 +26,8 @@ function AdminDemoModeLoading() {
 }
 
 function AdminDemoModeDisabled() {
+    const dispatch = useDispatch();
+
     const session = useSession();
 
     const navigate = useNavigate();
@@ -44,7 +48,15 @@ function AdminDemoModeDisabled() {
                 Authorization: session.token,
             },
         })
-            .then(() => navigate("/login"))
+            .then(() => {
+                dispatch(
+                    pushMessage({
+                        type: "info",
+                        message: "Demo mode enabled successfully.",
+                    }),
+                );
+                navigate("/login");
+            })
             .catch(api.error);
     };
 

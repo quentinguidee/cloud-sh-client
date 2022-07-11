@@ -8,6 +8,8 @@ import { Provider } from "react-redux";
 import store, { persistor } from "Store/Store";
 import { PersistGate } from "redux-persist/integration/react";
 import { useTheme } from "Store/Hooks/useTheme";
+import MessageBoxStack from "Components/MessageBoxStack/MessageBoxStack";
+import { useMessages } from "Store/Hooks/useMessages";
 
 function App() {
     return (
@@ -20,11 +22,14 @@ function App() {
 }
 
 function Container() {
+    const messages = useMessages();
+
     const theme = useTheme();
 
     return (
         <div className={classNames(theme)}>
             <Router />
+            <MessageBoxStack messages={messages} />
         </div>
     );
 }

@@ -3,8 +3,6 @@ import Storage from "Pages/Storage/Storage";
 import { Route, Routes, useNavigate } from "react-router-dom";
 import Layout from "Components/Layout/Layout";
 
-import { useMessages } from "Store/Hooks/useMessages";
-import MessageBoxStack from "Components/MessageBoxStack/MessageBoxStack";
 import CommandPrompt from "Components/CommandPrompt/CommandPrompt";
 import { useDispatch } from "react-redux";
 import { Command } from "Models/Command";
@@ -19,7 +17,6 @@ function Dashboard() {
 
     const dispatch = useDispatch();
 
-    const messages = useMessages();
     const session = useSession();
 
     useEffect(() => {
@@ -54,7 +51,6 @@ function Dashboard() {
                     <Route path="*" element={<Welcome />} />
                 </Routes>
             </Layout>
-            <MessageBoxStack messages={messages} />
             <CommandPrompt />
         </React.Fragment>
     );

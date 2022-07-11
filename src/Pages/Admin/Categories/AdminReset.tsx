@@ -11,8 +11,11 @@ import axios from "axios";
 import { api, route } from "Backend/api";
 import { useSession } from "Store/Hooks/useSession";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { pushMessage } from "Store/Slices/MessagesSlice";
 
 function AdminReset() {
+    const dispatch = useDispatch();
     const session = useSession();
 
     const navigate = useNavigate();
@@ -32,7 +35,15 @@ function AdminReset() {
                 Authorization: session.token,
             },
         })
-            .then(() => navigate("/logout"))
+            .then(() => {
+                dispatch(
+                    pushMessage({
+                        type: "info",
+                        message: "The server has been reset successfully.",
+                    }),
+                );
+                navigate("/logout");
+            })
             .catch(api.error);
     };
 
