@@ -13,8 +13,8 @@ function MessageBoxStack(props: Props) {
     const { messages } = props;
     return (
         <Layout vertical center gap={18} className={styles.stack}>
-            {messages?.map((message) => (
-                <MessageBox className={styles.box} message={message} />
+            {messages?.map((message, i) => (
+                <MessageBox key={i} className={styles.box} message={message} />
             ))}
         </Layout>
     );
