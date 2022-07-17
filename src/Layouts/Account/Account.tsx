@@ -40,10 +40,10 @@ function Account(props: Props) {
                 animateFrom="top right"
             >
                 <Layout vertical gap={4}>
-                    <PopoverItemWithSymbol symbol="person">
+                    <PopoverItemWithSymbol symbol="person" to="/settings/me">
                         {user?.name}
                     </PopoverItemWithSymbol>
-                    <PopoverItemWithSymbol to="/logout" symbol="logout" red>
+                    <PopoverItemWithSymbol symbol="logout" to="/logout" red>
                         Logout
                     </PopoverItemWithSymbol>
                 </Layout>

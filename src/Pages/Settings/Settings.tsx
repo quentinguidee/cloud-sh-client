@@ -11,7 +11,7 @@ function Settings() {
             <SettingsNavBar />
             <Page>
                 <Routes>
-                    <Route path="profile/*" element={<SettingsProfile />} />
+                    <Route path="me/*" element={<SettingsProfile />} />
                     <Route
                         path="appearance/*"
                         element={<SettingsAppearance />}

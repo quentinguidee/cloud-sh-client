@@ -8,7 +8,7 @@ function SettingsNavBar() {
     return (
         <NavBar title="Settings">
             <Layout vertical stretch gap={4}>
-                <NavBarItem to="/settings/profile" icon="person">
+                <NavBarItem to="/settings/me" icon="person">
                     My info
                 </NavBarItem>
                 <NavBarItem to="/settings/appearance" icon="palette">
