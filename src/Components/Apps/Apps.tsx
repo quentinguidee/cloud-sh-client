@@ -10,6 +10,7 @@ import { Command } from "Models/Command";
 import { pushCommand, removeCommand } from "Store/Slices/CommandsSlice";
 import { useDispatch } from "react-redux";
 import { Text } from "Components/Text/Text";
+import { useUser } from "Store/Hooks/useUser";
 
 type AppProps = {
     name: string;
@@ -45,6 +46,8 @@ function Apps() {
 
     const dispatch = useDispatch();
 
+    const user = useUser();
+
     useEffect(() => {
         const commands: Command[] = [
             {
@@ -71,7 +74,9 @@ function Apps() {
         <Layout vertical center gap={3} className={styles.apps}>
             <Logo onClick={() => navigate("/")} small className={styles.logo} />
             <App name="Storage" icon="cloud" to="/storage" />
-            <App name="Admin" icon="admin_panel_settings" to="/admin" />
+            {user.role === "admin" && (
+                <App name="Admin" icon="admin_panel_settings" to="/admin" />
+            )}
         </Layout>
     );
 }

@@ -11,6 +11,7 @@ import { useSession } from "Store/Hooks/useSession";
 import Admin from "Pages/Admin/Admin";
 import Apps from "Components/Apps/Apps";
 import Welcome from "Pages/Welcome/Welcome";
+import { useUser } from "Store/Hooks/useUser";
 
 function Dashboard() {
     const navigate = useNavigate();
@@ -18,6 +19,7 @@ function Dashboard() {
     const dispatch = useDispatch();
 
     const session = useSession();
+    const user = useUser();
 
     useEffect(() => {
         const commands: Command[] = [
@@ -47,7 +49,9 @@ function Dashboard() {
                 <Apps />
                 <Routes>
                     <Route path="storage/*" element={<Storage />} />
-                    <Route path="admin/*" element={<Admin />} />
+                    {user.role === "admin" && (
+                        <Route path="admin/*" element={<Admin />} />
+                    )}
                     <Route path="*" element={<Welcome />} />
                 </Routes>
             </Layout>
