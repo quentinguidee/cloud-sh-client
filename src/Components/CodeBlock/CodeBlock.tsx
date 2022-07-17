@@ -10,7 +10,7 @@ function CodeBlock(props: Props) {
 
     return (
         <SyntaxHighlighter
-            showLineNumbers={props.language !== "text"}
+            showLineNumbers={true}
             style={atomOneDark}
             customStyle={{
                 fontFamily: "var(--font-family-code)",
