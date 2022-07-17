@@ -7,11 +7,7 @@ import { Title } from "Components/Title/Title";
 import Spacer from "Components/Spacer/Spacer";
 import Account from "Layouts/Account/Account";
 import { useUser } from "Store/Hooks/useUser";
-import Button from "Components/Button/Button";
-import Symbol from "Components/Symbol/Symbol";
-import { setTheme } from "Store/Slices/ThemeSlice";
-import { useTheme } from "Store/Hooks/useTheme";
-import { useDispatch } from "react-redux";
+import ThemeToggle from "Components/ThemeToggle/ThemeToggle";
 
 type Props = {
     title: string;
@@ -20,25 +16,13 @@ type Props = {
 function TitleBar(props: Props) {
     const { title } = props;
 
-    const dispatch = useDispatch();
-
     const user = useUser();
-    const theme = useTheme();
-
-    const toggleTheme = () => {
-        const newTheme = theme === "dark" ? "light" : "dark";
-        dispatch(setTheme(newTheme));
-    };
 
     return (
         <Layout horizontal center className={styles.bar}>
             <Title className={styles.title}>{title}</Title>
             <Spacer />
-            <Button onlySymbol onClick={toggleTheme}>
-                <Symbol
-                    symbol={theme === "dark" ? "dark_mode" : "light_mode"}
-                />
-            </Button>
+            <ThemeToggle />
             <Spacer width={12} />
             <Account user={user} />
         </Layout>

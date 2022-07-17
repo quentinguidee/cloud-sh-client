@@ -3,7 +3,7 @@
 @use "Assets/transitions.sass"
 
 .apps
-    padding: 8px
+    padding: 8px 8px 12px
     border-right: 1px solid colors.$background-secondary
     transition: transitions.$default
 
@@ -42,6 +42,7 @@
         opacity: 0
         transition: transitions.$default
         pointer-events: none
+        white-space: nowrap
 
     &:hover &Tooltip
         visibility: visible

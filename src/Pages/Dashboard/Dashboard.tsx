@@ -12,6 +12,7 @@ import Admin from "Pages/Admin/Admin";
 import Apps from "Components/Apps/Apps";
 import Welcome from "Pages/Welcome/Welcome";
 import { useUser } from "Store/Hooks/useUser";
+import Settings from "Pages/Settings/Settings";
 
 function Dashboard() {
     const navigate = useNavigate();
@@ -49,6 +50,7 @@ function Dashboard() {
                 <Apps />
                 <Routes>
                     <Route path="storage/*" element={<Storage />} />
+                    <Route path="settings/*" element={<Settings />} />
                     {user.role === "admin" && (
                         <Route path="admin/*" element={<Admin />} />
                     )}

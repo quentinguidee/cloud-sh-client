@@ -11,6 +11,7 @@ import { pushCommand, removeCommand } from "Store/Slices/CommandsSlice";
 import { useDispatch } from "react-redux";
 import { Text } from "Components/Text/Text";
 import { useUser } from "Store/Hooks/useUser";
+import Spacer from "Components/Spacer/Spacer";
 
 type AppProps = {
     name: string;
@@ -74,9 +75,15 @@ function Apps() {
         <Layout vertical center gap={3} className={styles.apps}>
             <Logo onClick={() => navigate("/")} small className={styles.logo} />
             <App name="Storage" icon="cloud" to="/storage" />
+            <Spacer />
             {user.role === "admin" && (
-                <App name="Admin" icon="admin_panel_settings" to="/admin" />
+                <App
+                    name="Admin panel"
+                    icon="admin_panel_settings"
+                    to="/admin"
+                />
             )}
+            <App name="Settings" icon="settings" to="/settings" />
         </Layout>
     );
 }
