@@ -14,7 +14,7 @@ The storage could be corrupted when upgrading from one version to another and th
 
 ## Screenshot
 
-![screenshot](https://user-images.githubusercontent.com/12123721/178097933-976ea161-614f-48c8-bb9e-1644f3d2a23b.png)
+<img width="1304" alt="screen" src="https://user-images.githubusercontent.com/12123721/179521827-fc21d6a4-61ff-4357-81d1-a1c14b74062e.png">
 
 ## Start coding
 
@@ -36,6 +36,7 @@ On GitHub, create an oauth application (user settings > developer settings > OAu
 * **Authorization callback URL**: http://localhost:3000/login
 
 In the server code, copy/paste the `.env.example` to `.env`, and put the Client ID and Client Secret given by GitHub.
+You also need to start a PostgreSQL instance (you can use the `docker-compose.yml` file on the server if you want).
 Then:
 
 ```bash
