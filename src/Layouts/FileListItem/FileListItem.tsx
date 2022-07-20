@@ -225,7 +225,9 @@ function FileListItem(props: Props) {
                 <Spacer width={14} />
                 <Text>{node.name}</Text>
                 <Spacer />
-                {node.size && <Caption>{prettyBytes(node.size)}</Caption>}
+                {node?.size !== null && (
+                    <Caption>{prettyBytes(node.size)}</Caption>
+                )}
             </React.Fragment>
         );
     }
