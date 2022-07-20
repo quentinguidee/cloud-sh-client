@@ -107,7 +107,6 @@ function AdminDemoMode() {
             },
         })
             .then((res) => {
-                console.log(res.data);
                 if (res?.data?.demo_mode?.enabled === false) {
                     setContent(<AdminDemoModeDisabled />);
                 } else {
