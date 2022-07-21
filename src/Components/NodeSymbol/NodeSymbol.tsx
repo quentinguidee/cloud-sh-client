@@ -75,6 +75,21 @@ function NodeSymbol(props: Props) {
     }
 
     // Material symbols
+    if (node.type === "document") {
+        const color = "#3e6a99";
+        return <Symbol symbol="description" style={{ color }} size={24} />;
+    }
+
+    if (node.type === "spreadsheet") {
+        const color = "#47af37";
+        return <Symbol symbol="table_view" style={{ color }} size={24} />;
+    }
+
+    if (node.type === "presentation") {
+        const color = "#c9502f";
+        return <Symbol symbol="slideshow" style={{ color }} size={24} />;
+    }
+
     if (node.mime?.includes("image/")) {
         const color = "#2476e0";
         return <Symbol symbol="image" style={{ color }} size={24} />;
