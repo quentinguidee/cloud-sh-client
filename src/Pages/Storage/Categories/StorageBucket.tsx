@@ -207,7 +207,6 @@ function StorageBucket() {
                         onClick={() => importFile()}
                     />
                 </Toolbar>
-                <Spacer height={20} />
                 {newNode && (
                     <React.Fragment>
                         <FileListItem
@@ -218,6 +217,7 @@ function StorageBucket() {
                         />
                     </React.Fragment>
                 )}
+                <Spacer height={20} />
             </Layout>
             <FileExplorer nodes={nodes} onReload={reload} onDrop={onDrop} />
         </Fragment>
