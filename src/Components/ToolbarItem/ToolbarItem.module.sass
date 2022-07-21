@@ -1,0 +1,14 @@
+@use "Assets/colors.sass"
+@use "Assets/dimensions.sass"
+@use "Assets/transitions.sass"
+
+.item
+    padding: 7px 14px 7px 12px
+    border-radius: dimensions.$border-radius
+    background-color: colors.$background-secondary
+    cursor: pointer
+    user-select: none
+    transition: transitions.$default
+
+    &:hover
+        background-color: colors.$background-hover

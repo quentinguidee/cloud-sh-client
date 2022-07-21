@@ -2,7 +2,6 @@ import React, { Fragment, useEffect, useState } from "react";
 import FileExplorer from "Layouts/FileExplorer/FileExplorer";
 import TitleBar from "Layouts/TitleBar/TitleBar";
 import Layout from "Components/Layout/Layout";
-import NewButton from "Layouts/NewButton/NewButton";
 import { Command } from "Models/Command";
 import { pushCommand, removeCommand } from "Store/Slices/CommandsSlice";
 import { useFilePicker } from "use-file-picker";
@@ -14,6 +13,8 @@ import { useDispatch } from "react-redux";
 import FileListItem from "Layouts/FileListItem/FileListItem";
 import { useSession } from "Store/Hooks/useSession";
 import { useNavigate, useParams } from "react-router-dom";
+import Toolbar from "Components/Toolbar/Toolbar";
+import ToolbarItem from "Components/ToolbarItem/ToolbarItem";
 
 function StorageBucket() {
     const { "*": uuid } = useParams();
@@ -188,13 +189,23 @@ function StorageBucket() {
         <Fragment>
             <TitleBar title="My storage" />
             <Layout vertical gap={20}>
-                <Layout horizontal center gap={12}>
-                    <NewButton
-                        createFile={() => createFile("file")}
-                        createFolder={() => createFile("directory")}
-                        importFile={() => importFile()}
+                <Toolbar>
+                    <ToolbarItem
+                        symbol="add"
+                        text="New file"
+                        onClick={() => createFile("file")}
                     />
-                </Layout>
+                    <ToolbarItem
+                        symbol="create_new_folder"
+                        text="New folder"
+                        onClick={() => createFile("directory")}
+                    />
+                    <ToolbarItem
+                        symbol="file_upload"
+                        text="Upload"
+                        onClick={() => importFile()}
+                    />
+                </Toolbar>
                 {newNode && (
                     <React.Fragment>
                         <FileListItem
