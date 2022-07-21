@@ -9,6 +9,7 @@
     transition: background-color transitions.$speed-default ease-in-out
     cursor: pointer
     user-select: none
+    animation: appear 0.05s ease-in-out
 
     &Selected
         background-color: colors.$background-hover
@@ -24,3 +25,11 @@
         &:hover
             border: 1px solid colors.$background-secondary
             background-color: inherit
+
+
+@keyframes appear
+    from
+        opacity: 0
+
+    to
+        opacity: 1
