@@ -110,7 +110,8 @@ function NodeSymbol(props: Props) {
         return <Symbol symbol="folder" style={{ color }} size={24} />;
     }
 
-    return <Symbol symbol="article" style={{ color: "#3e6a99" }} size={24} />;
+    const color = "var(--text-secondary)";
+    return <Symbol symbol="draft" style={{ color }} size={24} />;
 }
 
 export default NodeSymbol;
