@@ -15,6 +15,7 @@ import { useSession } from "Store/Hooks/useSession";
 import { useNavigate, useParams } from "react-router-dom";
 import Toolbar from "Components/Toolbar/Toolbar";
 import ToolbarItem from "Components/ToolbarItem/ToolbarItem";
+import Spacer from "Components/Spacer/Spacer";
 
 function StorageBucket() {
     const { "*": uuid } = useParams();
@@ -206,6 +207,7 @@ function StorageBucket() {
                         onClick={() => importFile()}
                     />
                 </Toolbar>
+                <Spacer height={20} />
                 {newNode && (
                     <React.Fragment>
                         <FileListItem
