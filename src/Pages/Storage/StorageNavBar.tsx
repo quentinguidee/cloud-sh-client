@@ -27,9 +27,9 @@ function StorageSize() {
             },
         })
             .then((res) => {
-                const { size, max_size } = res.data;
+                const { size, bucket } = res.data;
                 setBucketSize(size);
-                setBucketLimit(max_size);
+                setBucketLimit(bucket?.max_size);
             })
             .catch(api.error);
     }, []);
