@@ -92,7 +92,7 @@ function FileExplorer(props: Props) {
     };
 
     const onDragOver = (e) => {
-        if (!onDrop) return;
+        if (!props.onDrop) return;
 
         e.preventDefault();
         e.stopPropagation();
@@ -100,7 +100,7 @@ function FileExplorer(props: Props) {
     };
 
     const onDragExit = (e) => {
-        if (!onDrop) return;
+        if (!props.onDrop) return;
 
         e.preventDefault();
         e.stopPropagation();
@@ -108,6 +108,8 @@ function FileExplorer(props: Props) {
     };
 
     const onDrop = (e: React.DragEvent<HTMLDivElement>) => {
+        if (!props.onDrop) return;
+
         e.preventDefault();
         e.stopPropagation();
         setDragAndDrop(false);
