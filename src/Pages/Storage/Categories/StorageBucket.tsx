@@ -51,8 +51,8 @@ function StorageBucket() {
             },
         })
             .then((res) => {
-                const { root_node } = res.data;
-                navigate(root_node.uuid);
+                const { root_node_uuid } = res.data;
+                navigate(root_node_uuid);
             })
             .catch(api.error);
     }, [uuid]);
