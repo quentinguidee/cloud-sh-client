@@ -26,8 +26,8 @@ function SettingsProfile() {
     const user = useUser();
 
     let creation_date;
-    if (user?.creation_date) {
-        const date = new Date(user?.creation_date);
+    if (user?.created_at) {
+        const date = new Date(user?.created_at);
         creation_date = date.toLocaleString();
     }
 
