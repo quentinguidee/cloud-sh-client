@@ -51,7 +51,7 @@ function Dashboard() {
                 <Routes>
                     <Route path="storage/*" element={<Storage />} />
                     <Route path="settings/*" element={<Settings />} />
-                    {user.role === "admin" && (
+                    {user?.role === "admin" && (
                         <Route path="admin/*" element={<Admin />} />
                     )}
                     <Route path="*" element={<Welcome />} />

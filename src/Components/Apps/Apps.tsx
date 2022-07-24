@@ -76,7 +76,7 @@ function Apps() {
             <Logo onClick={() => navigate("/")} small className={styles.logo} />
             <App name="Storage" icon="cloud" to="/storage" />
             <Spacer />
-            {user.role === "admin" && (
+            {user?.role === "admin" && (
                 <App
                     name="Admin panel"
                     icon="admin_panel_settings"
