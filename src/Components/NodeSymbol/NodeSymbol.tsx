@@ -105,6 +105,11 @@ function NodeSymbol(props: Props) {
         return <Symbol symbol="music_note" style={{ color }} size={24} />;
     }
 
+    if (node.type === "pdf" || node.mime === "application/pdf") {
+        const color = "#eb5b34";
+        return <Symbol symbol="description" style={{ color }} size={24} />;
+    }
+
     if (node.type === "directory") {
         const color = "var(--text-secondary)";
         return <Symbol symbol="folder" style={{ color }} size={24} />;
