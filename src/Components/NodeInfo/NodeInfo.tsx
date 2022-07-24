@@ -69,7 +69,6 @@ function NodeInfo(props: Props) {
                     <Close onClick={onClose} />
                 </Layout>
                 <Layout vertical gap={16} className={styles.content}>
-                    <Subtitle>Info</Subtitle>
                     {fields}
                 </Layout>
             </Layout>
