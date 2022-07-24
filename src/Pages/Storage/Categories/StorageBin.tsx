@@ -37,6 +37,7 @@ function StorageBin() {
                 onReload={reload}
                 hardDelete
                 disableNavigation
+                ifEmptyMessage="The bin is empty."
             />
         </Fragment>
     );

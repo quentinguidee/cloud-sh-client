@@ -219,7 +219,12 @@ function StorageBucket() {
                 )}
                 <Spacer height={20} />
             </Layout>
-            <FileExplorer nodes={nodes} onReload={reload} onDrop={onDrop} />
+            <FileExplorer
+                nodes={nodes}
+                onReload={reload}
+                onDrop={onDrop}
+                ifEmptyMessage="This bucket is empty."
+            />
         </Fragment>
     );
 }

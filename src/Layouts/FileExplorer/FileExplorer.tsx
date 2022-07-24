@@ -11,9 +11,12 @@ import styles from "./FileExplorer.module.sass";
 import classNames from "classnames";
 import NodeInfo from "Components/NodeInfo/NodeInfo";
 import NodePreviewPopover from "Components/NodePreviewPopover/NodePreviewPopover";
+import { Text } from "Components/Text/Text";
 
 type Props = {
     nodes?: Node[];
+
+    ifEmptyMessage: string;
 
     onReload: () => void;
     onDrop?: (e) => void;
@@ -25,7 +28,8 @@ type Props = {
 };
 
 function FileExplorer(props: Props) {
-    const { nodes, onReload, hardDelete, disableNavigation } = props;
+    const { nodes, ifEmptyMessage, onReload, hardDelete, disableNavigation } =
+        props;
 
     const session = useSession();
 
@@ -126,6 +130,26 @@ function FileExplorer(props: Props) {
         props.onDrop(e);
     };
 
+    let items;
+    if (nodes?.length === 0) {
+        items = <Text>{ifEmptyMessage}</Text>;
+    } else {
+        items = nodes?.map((node, i) => (
+            <FileListItem
+                key={i}
+                node={node}
+                editing={renamingNode === node}
+                onClick={() => open(node)}
+                onPreview={() => setPreviewNode(node)}
+                onShowInfo={() => setInfoNode(node)}
+                onDownload={() => downloadNode(node)}
+                onRename={() => renameNode(node)}
+                onValidation={(newNode) => renameNodeCallback(node, newNode)}
+                onDelete={() => onDelete(node)}
+            />
+        ));
+    }
+
     return (
         <React.Fragment>
             <List
@@ -137,22 +161,7 @@ function FileExplorer(props: Props) {
                     [styles.dragAndDrop]: dragAndDrop,
                 })}
             >
-                {nodes?.map((node, i) => (
-                    <FileListItem
-                        key={i}
-                        node={node}
-                        editing={renamingNode === node}
-                        onClick={() => open(node)}
-                        onPreview={() => setPreviewNode(node)}
-                        onShowInfo={() => setInfoNode(node)}
-                        onDownload={() => downloadNode(node)}
-                        onRename={() => renameNode(node)}
-                        onValidation={(newNode) =>
-                            renameNodeCallback(node, newNode)
-                        }
-                        onDelete={() => onDelete(node)}
-                    />
-                ))}
+                {items}
             </List>
             <NodeInfo node={infoNode} onClose={() => setInfoNode(undefined)} />
             <NodePreviewPopover

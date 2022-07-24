@@ -32,7 +32,11 @@ function StorageRecent() {
     return (
         <Fragment>
             <TitleBar title="Recent" />
-            <FileExplorer nodes={nodes} onReload={reload} />
+            <FileExplorer
+                nodes={nodes}
+                onReload={reload}
+                ifEmptyMessage="No recent files found."
+            />
         </Fragment>
     );
 }
