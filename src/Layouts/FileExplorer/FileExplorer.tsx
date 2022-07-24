@@ -17,10 +17,15 @@ type Props = {
 
     onReload: () => void;
     onDrop?: (e) => void;
+
+    // When false/undefined, deleting a node only moves it to the bin.
+    hardDelete?: boolean;
+
+    disableNavigation?: boolean;
 };
 
 function FileExplorer(props: Props) {
-    const { nodes, onReload } = props;
+    const { nodes, onReload, hardDelete, disableNavigation } = props;
 
     const session = useSession();
 
@@ -34,6 +39,7 @@ function FileExplorer(props: Props) {
     const [previewNode, setPreviewNode] = useState<Node>(undefined);
 
     const downloadNode = (node: Node) => {
+        if (disableNavigation) return;
         axios({
             method: "GET",
             url: route("/storage/download"),
@@ -71,6 +77,7 @@ function FileExplorer(props: Props) {
     };
 
     const open = (node: Node) => {
+        if (disableNavigation) return;
         if (node.type !== "directory") {
             setPreviewNode(node);
             return;
@@ -82,7 +89,10 @@ function FileExplorer(props: Props) {
         axios({
             method: "DELETE",
             url: route("/storage"),
-            params: { node_uuid: node.uuid },
+            params: {
+                node_uuid: node.uuid,
+                soft_delete: hardDelete !== undefined ? !hardDelete : true,
+            },
             headers: {
                 Authorization: session.token,
             },
