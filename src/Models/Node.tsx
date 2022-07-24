@@ -4,6 +4,8 @@ export type Node = {
     size?: number;
     type: string;
     mime: string;
+    created_at?: string;
+    updated_at?: string;
 };
 
 export type NodeUpload = Node & {

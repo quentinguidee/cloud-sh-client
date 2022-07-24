@@ -1,26 +1,11 @@
 import React from "react";
-import { Caption, Text } from "Components/Text/Text";
+import { Text } from "Components/Text/Text";
 import TitleBar from "Layouts/TitleBar/TitleBar";
 import Layout from "Components/Layout/Layout";
 import ProfilePicture from "Components/ProfilePicture/ProfilePicture";
 import { useUser } from "Store/Hooks/useUser";
 import AccountRole from "Components/AccountRole/AccountRole";
-
-type InfoProps = React.PropsWithChildren<{
-    title: string;
-}>;
-
-function Info(props: InfoProps) {
-    const { title, children } = props;
-    if (children === undefined) return;
-
-    return (
-        <Layout vertical gap={8}>
-            <Caption>{title}</Caption>
-            <Text>{children}</Text>
-        </Layout>
-    );
-}
+import Info from "Components/Info/Info";
 
 function SettingsProfile() {
     const user = useUser();

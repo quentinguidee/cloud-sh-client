@@ -12,6 +12,7 @@ import prettyBytes from "pretty-bytes";
 import classNames from "classnames";
 import Overlay from "Components/Overlay/Overlay";
 import NodePreview from "Components/NodePreview/NodePreview";
+import Info from "Components/Info/Info";
 
 type Props = {
     node?: Node;
@@ -22,6 +23,28 @@ function NodeInfo(props: Props) {
     const { node, onClose } = props;
 
     const size = node?.size ? prettyBytes(node?.size) : undefined;
+
+    let fields = [];
+
+    if (node?.created_at) {
+        fields.push(
+            <Info title="Created at">
+                {new Date(node?.created_at).toLocaleString()}
+            </Info>,
+        );
+    }
+
+    if (node?.updated_at) {
+        fields.push(
+            <Info title="Last update">
+                {new Date(node?.updated_at).toLocaleString()}
+            </Info>,
+        );
+    }
+
+    if (node?.mime) {
+        fields.push(<Info title="MIME">{node?.mime}</Info>);
+    }
 
     return (
         <React.Fragment>
@@ -44,6 +67,10 @@ function NodeInfo(props: Props) {
                     </Layout>
                     <Spacer />
                     <Close onClick={onClose} />
+                </Layout>
+                <Layout vertical gap={16} className={styles.content}>
+                    <Subtitle>Info</Subtitle>
+                    {fields}
                 </Layout>
             </Layout>
         </React.Fragment>
