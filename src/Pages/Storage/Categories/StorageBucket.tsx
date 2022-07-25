@@ -223,7 +223,7 @@ function StorageBucket(props: Props) {
                 nodes={nodes}
                 onReload={reload}
                 onDrop={onDrop}
-                ifEmptyMessage="This bucket is empty."
+                ifEmptyMessage="This folder is empty."
             />
         </Fragment>
     );

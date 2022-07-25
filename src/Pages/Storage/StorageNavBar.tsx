@@ -49,7 +49,10 @@ function StorageNavBar(props: Props) {
     return (
         <NavBar title="Storage">
             <Layout vertical stretch gap={4}>
-                <NavBarItem to="/storage/bucket" icon="storage">
+                <NavBarItem
+                    to={`/storage/bucket/${props.bucket.root_node.uuid}`}
+                    icon="storage"
+                >
                     My storage
                 </NavBarItem>
                 <NavBarItem to="/storage/recent" icon="schedule">
