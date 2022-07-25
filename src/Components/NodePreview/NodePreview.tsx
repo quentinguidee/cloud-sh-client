@@ -93,6 +93,8 @@ function NodePreview(props: Props) {
         };
 
         data.text().then((text) => {
+            if (text === "") return null;
+
             setContent(
                 <CodeBlock
                     language={languages[node?.type] || node?.type}
