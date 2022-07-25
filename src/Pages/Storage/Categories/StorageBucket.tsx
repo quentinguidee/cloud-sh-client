@@ -45,12 +45,15 @@ function StorageBucket(props: Props) {
     }, [plainFiles]);
 
     useEffect(() => {
+        navigate(bucket.root_node?.uuid);
+    }, [props.bucket]);
+
+    useEffect(() => {
         if (uuid && uuid.length > 0) {
             reload();
             return;
         }
-        navigate(bucket.root_node?.uuid);
-    }, [props.bucket]);
+    }, [uuid]);
 
     const reload = () => {
         axios({
