@@ -213,7 +213,7 @@ function StorageBucket(props: Props) {
                         />
                     </React.Fragment>
                 )}
-                <Spacer height={20} />
+                <Spacer />
             </Layout>
             <FileExplorer
                 bucket={bucket}

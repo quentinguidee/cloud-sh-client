@@ -13,6 +13,8 @@ import Apps from "Components/Apps/Apps";
 import Welcome from "Pages/Welcome/Welcome";
 import { useUser } from "Store/Hooks/useUser";
 import Settings from "Pages/Settings/Settings";
+import { App } from "Models/App";
+import { pushApp, removeApp } from "Store/Slices/AppsSlice";
 
 function Dashboard() {
     const navigate = useNavigate();
@@ -36,6 +38,38 @@ function Dashboard() {
         commands.forEach((c) => dispatch(pushCommand(c)));
         return () => commands.forEach((c) => dispatch(removeCommand(c)));
     }, []);
+
+    useEffect(() => {
+        const apps: App[] = [
+            {
+                id: "storage",
+                name: "Storage",
+                symbol: "cloud",
+            },
+            {
+                id: "settings",
+                name: "Settings",
+                symbol: "settings",
+                position: "settings",
+            },
+        ];
+
+        apps?.forEach((app) => dispatch(pushApp(app)));
+        return () => apps?.forEach((app) => dispatch(removeApp(app)));
+    }, []);
+
+    useEffect(() => {
+        if (user?.role !== "admin") return () => {};
+
+        const app: App = {
+            id: "admin",
+            name: "Admin panel",
+            symbol: "admin_panel_settings",
+            position: "settings",
+        };
+        dispatch(pushApp(app));
+        return () => dispatch(removeApp(app));
+    }, [user]);
 
     useEffect(() => {
         if (!session) {

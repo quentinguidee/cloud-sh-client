@@ -1,0 +1,15 @@
+@use "Assets/colors.sass"
+@use "Assets/dimensions.sass"
+@use "Assets/transitions.sass"
+
+.card
+    padding: 12px 20px
+    border-radius: dimensions.$border-radius
+    background-color: colors.$background-secondary
+    transition: transitions.$default
+    width: 150px
+    text-decoration: none
+    color: colors.$text-primary
+
+    &:hover
+        background-color: colors.$background-hover

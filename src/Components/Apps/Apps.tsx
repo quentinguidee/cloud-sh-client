@@ -10,21 +10,20 @@ import { Command } from "Models/Command";
 import { pushCommand, removeCommand } from "Store/Slices/CommandsSlice";
 import { useDispatch } from "react-redux";
 import { Text } from "Components/Text/Text";
-import { useUser } from "Store/Hooks/useUser";
 import Spacer from "Components/Spacer/Spacer";
+import { useApps } from "Store/Hooks/useApps";
+import { App as AppModel } from "Models/App";
 
 type AppProps = {
-    name: string;
-    icon: string;
-    to: string;
+    app: AppModel;
 };
 
 function App(props: AppProps) {
-    const { name, icon, to } = props;
+    const { name, symbol, id } = props.app;
 
     return (
         <NavLink
-            to={to}
+            to={id}
             className={({ isActive }) =>
                 classNames({
                     [styles.app]: true,
@@ -33,7 +32,7 @@ function App(props: AppProps) {
             }
         >
             <Layout vertical center middle maximize gap={6}>
-                <Symbol symbol={icon} />
+                <Symbol symbol={symbol} />
                 <Layout className={styles.appTooltip}>
                     <Text>{name}</Text>
                 </Layout>
@@ -47,43 +46,39 @@ function Apps() {
 
     const dispatch = useDispatch();
 
-    const user = useUser();
+    const apps = useApps();
 
     useEffect(() => {
-        const commands: Command[] = [
-            {
-                id: "go_to_storage",
-                icon: "storage",
-                name: "Jump to storage",
-                callback: () => navigate("/storage"),
-                tooltip: "Open your storage.",
-            },
-            {
-                id: "go_to_admin",
-                icon: "admin_panel_settings",
-                name: "Jump to admin panel",
-                callback: () => navigate("/admin"),
-                tooltip: "Open your admin panel.",
-            },
-        ];
+        const commands: Command[] = apps?.map((app: AppModel): Command => {
+            return {
+                id: app.id,
+                icon: app.symbol,
+                name: `Jump to ${app.name}`,
+                callback: () => navigate(`/${app.id}`),
+                tooltip: `Open ${app.name}`,
+            };
+        });
 
-        commands.forEach((c) => dispatch(pushCommand(c)));
-        return () => commands.forEach((c) => dispatch(removeCommand(c)));
-    }, []);
+        commands?.forEach((c) => dispatch(pushCommand(c)));
+        return () => commands?.forEach((c) => dispatch(removeCommand(c)));
+    }, [apps]);
+
+    const normalApps = apps
+        ?.filter(
+            (app) => app.position === undefined || app.position === "normal",
+        )
+        .map((app) => <App app={app} />);
+
+    const bottomApps = apps
+        ?.filter((app) => app.position === "settings")
+        .map((app) => <App app={app} />);
 
     return (
         <Layout vertical center gap={3} className={styles.apps}>
             <Logo onClick={() => navigate("/")} small className={styles.logo} />
-            <App name="Storage" icon="cloud" to="/storage" />
+            {normalApps}
             <Spacer />
-            {user?.role === "admin" && (
-                <App
-                    name="Admin panel"
-                    icon="admin_panel_settings"
-                    to="/admin"
-                />
-            )}
-            <App name="Settings" icon="settings" to="/settings" />
+            {bottomApps}
         </Layout>
     );
 }
