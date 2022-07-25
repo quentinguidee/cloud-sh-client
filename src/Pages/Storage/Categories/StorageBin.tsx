@@ -52,9 +52,9 @@ function StorageBin(props: Props) {
             .catch(api.error);
     };
 
-    return (
-        <Fragment>
-            <TitleBar title="Bin" />
+    let emptyBinButton;
+    if (nodes && nodes.length > 0) {
+        emptyBinButton = (
             <Layout vertical gap={20}>
                 <Toolbar>
                     <ToolbarItem
@@ -65,6 +65,13 @@ function StorageBin(props: Props) {
                 </Toolbar>
                 <Spacer />
             </Layout>
+        );
+    }
+
+    return (
+        <Fragment>
+            <TitleBar title="Bin" />
+            {emptyBinButton}
             <FileExplorer
                 bucket={bucket}
                 nodes={nodes}
