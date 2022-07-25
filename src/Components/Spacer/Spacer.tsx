@@ -15,7 +15,7 @@ function Spacer(props: Props) {
     }
 
     if (height) {
-        return <div style={{ width }} />;
+        return <div style={{ height }} />;
     }
 
     return <div className={styles.spacer} />;
