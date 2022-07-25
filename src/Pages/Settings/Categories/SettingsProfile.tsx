@@ -28,6 +28,7 @@ function SettingsProfile() {
                     </Layout>
                 </Layout>
                 <Info title="Username">{user.username}</Info>
+                <Info title="E-mail">{user.email}</Info>
                 <Info title="Creation date">{creation_date}</Info>
             </Layout>
         </React.Fragment>
