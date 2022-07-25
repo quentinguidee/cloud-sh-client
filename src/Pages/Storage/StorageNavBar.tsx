@@ -11,7 +11,7 @@ import prettyBytes from "pretty-bytes";
 import { Bucket } from "Models/Bucket";
 
 type Props = {
-    bucket?: Bucket;
+    bucket: Bucket;
 };
 
 function StorageSize(props: Props) {
