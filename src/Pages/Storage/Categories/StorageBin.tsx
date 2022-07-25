@@ -5,9 +5,16 @@ import axios from "axios";
 import { api, route } from "Backend/api";
 import TitleBar from "Layouts/TitleBar/TitleBar";
 import FileExplorer from "Layouts/FileExplorer/FileExplorer";
+import { Bucket } from "Models/Bucket";
 
-function StorageBin() {
+type Props = {
+    bucket: Bucket;
+};
+
+function StorageBin(props: Props) {
     const session = useSession();
+
+    const { bucket } = props;
 
     const [nodes, setNodes] = useState<Node[]>([]);
 
@@ -17,7 +24,7 @@ function StorageBin() {
 
     const reload = () => {
         axios({
-            url: route("/storage/bin"),
+            url: route(`/storage/${bucket.uuid}/bin`),
             headers: {
                 Authorization: session.token,
             },
@@ -33,6 +40,7 @@ function StorageBin() {
         <Fragment>
             <TitleBar title="Bin" />
             <FileExplorer
+                bucket={bucket}
                 nodes={nodes}
                 onReload={reload}
                 hardDelete

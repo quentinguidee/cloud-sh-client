@@ -8,15 +8,17 @@ import classNames from "classnames";
 import Layout from "Components/Layout/Layout";
 import ProgressBar from "Components/ProgressBar/ProgressBar";
 import CodeBlock from "Components/CodeBlock/CodeBlock";
+import { Bucket } from "Models/Bucket";
 
 type Props = {
+    bucket: Bucket;
     node?: Node;
     className?: string;
     maximize?: boolean;
 };
 
 function NodePreview(props: Props) {
-    const { node, className, maximize } = props;
+    const { node, bucket, className, maximize } = props;
 
     if (!node) return null;
 
@@ -31,7 +33,7 @@ function NodePreview(props: Props) {
         setLoadingPercentage(0);
         axios({
             method: "GET",
-            url: route("/storage/download"),
+            url: route(`/storage/${bucket.uuid}/download`),
             params: {
                 node_uuid: node.uuid,
             },

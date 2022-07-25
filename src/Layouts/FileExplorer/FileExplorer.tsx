@@ -12,8 +12,10 @@ import classNames from "classnames";
 import NodeInfo from "Components/NodeInfo/NodeInfo";
 import NodePreviewPopover from "Components/NodePreviewPopover/NodePreviewPopover";
 import { Text } from "Components/Text/Text";
+import { Bucket } from "Models/Bucket";
 
 type Props = {
+    bucket: Bucket;
     nodes?: Node[];
 
     ifEmptyMessage: string;
@@ -28,8 +30,14 @@ type Props = {
 };
 
 function FileExplorer(props: Props) {
-    const { nodes, ifEmptyMessage, onReload, hardDelete, disableNavigation } =
-        props;
+    const {
+        nodes,
+        bucket,
+        ifEmptyMessage,
+        onReload,
+        hardDelete,
+        disableNavigation,
+    } = props;
 
     const session = useSession();
 
@@ -92,7 +100,7 @@ function FileExplorer(props: Props) {
     const onDelete = (node: Node) => {
         axios({
             method: "DELETE",
-            url: route("/storage"),
+            url: route(`/storage/${bucket.uuid}`),
             params: {
                 node_uuid: node.uuid,
                 soft_delete: hardDelete !== undefined ? !hardDelete : true,
@@ -163,8 +171,13 @@ function FileExplorer(props: Props) {
             >
                 {items}
             </List>
-            <NodeInfo node={infoNode} onClose={() => setInfoNode(undefined)} />
+            <NodeInfo
+                node={infoNode}
+                onClose={() => setInfoNode(undefined)}
+                bucket={bucket}
+            />
             <NodePreviewPopover
+                bucket={bucket}
                 node={previewNode}
                 onClose={() => setPreviewNode(undefined)}
             />

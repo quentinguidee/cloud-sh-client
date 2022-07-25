@@ -16,9 +16,16 @@ import { useNavigate, useParams } from "react-router-dom";
 import Toolbar from "Components/Toolbar/Toolbar";
 import ToolbarItem from "Components/ToolbarItem/ToolbarItem";
 import Spacer from "Components/Spacer/Spacer";
+import { Bucket } from "Models/Bucket";
 
-function StorageBucket() {
+type Props = {
+    bucket: Bucket;
+};
+
+function StorageBucket(props: Props) {
     const { "*": uuid } = useParams();
+
+    const { bucket } = props;
 
     const dispatch = useDispatch();
 
@@ -42,24 +49,12 @@ function StorageBucket() {
             reload();
             return;
         }
-
-        axios({
-            method: "GET",
-            url: route("/storage/bucket"),
-            headers: {
-                Authorization: session.token,
-            },
-        })
-            .then((res) => {
-                const { root_node } = res.data;
-                navigate(root_node?.uuid);
-            })
-            .catch(api.error);
-    }, [uuid]);
+        navigate(bucket.root_node?.uuid);
+    }, [props.bucket]);
 
     const reload = () => {
         axios({
-            url: route("/storage"),
+            url: route(`/storage/${bucket.uuid}`),
             params: { parent_uuid: uuid },
             headers: {
                 Authorization: session.token,
@@ -92,9 +87,10 @@ function StorageBucket() {
 
         const data = new FormData();
         data.append("file", file);
+
         axios({
             method: "POST",
-            url: route("/storage/upload"),
+            url: route(`/storage/${bucket.uuid}/upload`),
             params: { parent_uuid: uuid },
             data: data,
             headers: {
@@ -165,7 +161,7 @@ function StorageBucket() {
 
         axios({
             method: "PUT",
-            url: route("/storage"),
+            url: route(`/storage/${bucket.uuid}`),
             data: {
                 type: node.type,
                 name: node.name,
@@ -220,6 +216,7 @@ function StorageBucket() {
                 <Spacer height={20} />
             </Layout>
             <FileExplorer
+                bucket={bucket}
                 nodes={nodes}
                 onReload={reload}
                 onDrop={onDrop}

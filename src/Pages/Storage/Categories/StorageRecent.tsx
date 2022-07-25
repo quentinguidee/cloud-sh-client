@@ -5,8 +5,15 @@ import axios from "axios";
 import { api, route } from "Backend/api";
 import { useSession } from "Store/Hooks/useSession";
 import { Node } from "Models/Node";
+import { Bucket } from "Models/Bucket";
 
-function StorageRecent() {
+type Props = {
+    bucket: Bucket;
+};
+
+function StorageRecent(props: Props) {
+    const { bucket } = props;
+
     const session = useSession();
 
     const [nodes, setNodes] = useState<Node[]>([]);
@@ -17,7 +24,7 @@ function StorageRecent() {
 
     const reload = () => {
         axios({
-            url: route("/storage/recent"),
+            url: route(`/storage/${bucket.uuid}/recent`),
             headers: {
                 Authorization: session.token,
             },
@@ -33,6 +40,7 @@ function StorageRecent() {
         <Fragment>
             <TitleBar title="Recent" />
             <FileExplorer
+                bucket={bucket}
                 nodes={nodes}
                 onReload={reload}
                 ifEmptyMessage="No recent files found."
