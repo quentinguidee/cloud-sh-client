@@ -75,7 +75,7 @@ function FileExplorer(props: Props) {
         setRenamingNode(undefined);
         axios({
             method: "PATCH",
-            url: route("/storage"),
+            url: route(`/storage/${bucket.uuid}`),
             params: {
                 node_uuid: node.uuid,
                 new_name: newNode.name,
