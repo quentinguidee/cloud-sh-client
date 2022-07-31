@@ -35,13 +35,10 @@ On GitHub, create an oauth application (user settings > developer settings > OAu
 * **Homepage URL**: http://localhost:3000
 * **Authorization callback URL**: http://localhost:3000/login
 
-In the server code, copy/paste the `.env.example` to `.env`, and put the Client ID and Client Secret given by GitHub.
+In the server code, find the file `src/main/resources/application.example.conf`, rename it to `application.conf`, and put your Client ID and Client Secret given by GitHub.
 You also need to start a PostgreSQL instance (you can use the `docker-compose.yml` file on the server if you want).
-Then:
 
-```bash
-go run .
-```
+Then, run the server with Gradle.
 
 ## License
 

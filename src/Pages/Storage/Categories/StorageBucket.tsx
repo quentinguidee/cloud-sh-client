@@ -11,7 +11,7 @@ import axios from "axios";
 import { api, route } from "Backend/api";
 import { useDispatch } from "react-redux";
 import FileListItem from "Layouts/FileListItem/FileListItem";
-import { useSession } from "Store/Hooks/useSession";
+import { useToken } from "Store/Hooks/useToken";
 import { useNavigate, useParams } from "react-router-dom";
 import Toolbar from "Components/Toolbar/Toolbar";
 import ToolbarItem from "Components/ToolbarItem/ToolbarItem";
@@ -31,7 +31,7 @@ function StorageBucket(props: Props) {
 
     const navigate = useNavigate();
 
-    const session = useSession();
+    const token = useToken();
 
     const [nodes, setNodes] = useState<Node[]>([]);
     const [newNode, setNewNode] = useState<Node | undefined>();
@@ -57,15 +57,17 @@ function StorageBucket(props: Props) {
 
     const reload = () => {
         axios({
-            url: route(`/storage/${bucket.uuid}`),
-            params: { parent_uuid: uuid },
+            url: route(`/storage/nodes`),
+            params: {
+                parent_uuid: uuid,
+            },
             headers: {
-                Authorization: session.token,
+                Authorization: token,
             },
         })
             .then((res) => {
-                console.table(res.data.nodes);
-                setNodes(res.data.nodes);
+                console.table(res.data);
+                setNodes(res.data);
             })
             .catch(api.error);
     };
@@ -93,11 +95,13 @@ function StorageBucket(props: Props) {
 
         axios({
             method: "POST",
-            url: route(`/storage/${bucket.uuid}/upload`),
-            params: { parent_uuid: uuid },
+            url: route(`/storage/nodes/upload`),
+            params: {
+                parent_uuid: uuid,
+            },
             data: data,
             headers: {
-                Authorization: session.token,
+                Authorization: token,
                 "Content-Type": "multipart/form-data",
             },
             onUploadProgress: (progress) => {
@@ -164,14 +168,14 @@ function StorageBucket(props: Props) {
 
         axios({
             method: "PUT",
-            url: route(`/storage/${bucket.uuid}`),
-            data: {
+            url: route(`/storage/nodes`),
+            params: {
+                parent_uuid: uuid,
                 type: node.type,
                 name: node.name,
             },
-            params: { parent_uuid: uuid },
             headers: {
-                Authorization: session.token,
+                Authorization: token,
             },
         })
             .then(() => reload())
@@ -219,7 +223,6 @@ function StorageBucket(props: Props) {
                 <Spacer />
             </Layout>
             <FileExplorer
-                bucket={bucket}
                 nodes={nodes}
                 onReload={reload}
                 onDrop={onDrop}

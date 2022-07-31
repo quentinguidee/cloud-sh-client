@@ -9,14 +9,14 @@ import Button from "Components/Button/Button";
 import Checkbox from "Components/Checkbox/Checkbox";
 import axios from "axios";
 import { api, route } from "Backend/api";
-import { useSession } from "Store/Hooks/useSession";
+import { useToken } from "Store/Hooks/useToken";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { pushMessage } from "Store/Slices/MessagesSlice";
 
 function AdminReset() {
     const dispatch = useDispatch();
-    const session = useSession();
+    const token = useToken();
 
     const navigate = useNavigate();
 
@@ -32,7 +32,7 @@ function AdminReset() {
             method: "POST",
             url: route("/admin/reset"),
             headers: {
-                Authorization: session.token,
+                Authorization: token,
             },
         })
             .then(() => {
@@ -42,7 +42,7 @@ function AdminReset() {
                         message: "The server has been reset successfully.",
                     }),
                 );
-                navigate("/logout");
+                navigate("/login");
             })
             .catch(api.error);
     };

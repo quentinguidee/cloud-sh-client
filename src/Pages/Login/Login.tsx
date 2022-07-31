@@ -8,7 +8,7 @@ import { Subtitle, Title } from "Components/Title/Title";
 import styles from "./Login.module.sass";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { setSession, setUser } from "Store/Slices/AuthSlice";
+import { setToken, setUser } from "Store/Slices/AuthSlice";
 import Box from "Components/Box/Box";
 import axios from "axios";
 import { route } from "Backend/api";
@@ -53,7 +53,7 @@ function Login() {
             .post(route("/auth/github/callback"), { code, state })
             .then((res) => {
                 dispatch(setUser(res.data.user));
-                dispatch(setSession(res.data.session));
+                dispatch(setToken(res.data.token));
 
                 console.log("Logged in successfully");
                 navigate("/");

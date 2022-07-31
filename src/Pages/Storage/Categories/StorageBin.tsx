@@ -1,5 +1,5 @@
 import React, { Fragment, useEffect, useState } from "react";
-import { useSession } from "Store/Hooks/useSession";
+import { useToken } from "Store/Hooks/useToken";
 import { Node } from "Models/Node";
 import axios from "axios";
 import { api, route } from "Backend/api";
@@ -16,7 +16,7 @@ type Props = {
 };
 
 function StorageBin(props: Props) {
-    const session = useSession();
+    const token = useToken();
 
     const { bucket } = props;
 
@@ -28,14 +28,17 @@ function StorageBin(props: Props) {
 
     const reload = () => {
         axios({
-            url: route(`/storage/${bucket.uuid}/bin`),
+            url: route(`/storage/bin`),
+            params: {
+                bucket_uuid: bucket.uuid,
+            },
             headers: {
-                Authorization: session.token,
+                Authorization: token,
             },
         })
             .then((res) => {
-                console.table(res.data.nodes);
-                setNodes(res.data.nodes);
+                console.table(res.data);
+                setNodes(res.data);
             })
             .catch(api.error);
     };
@@ -43,9 +46,12 @@ function StorageBin(props: Props) {
     const emptyBin = () => {
         axios({
             method: "DELETE",
-            url: route(`/storage/${bucket.uuid}/bin`),
+            url: route(`/storage/bin`),
+            params: {
+                bucket_uuid: bucket.uuid,
+            },
             headers: {
-                Authorization: session.token,
+                Authorization: token,
             },
         })
             .then(() => reload())
@@ -73,7 +79,6 @@ function StorageBin(props: Props) {
             <TitleBar title="Bin" />
             {emptyBinButton}
             <FileExplorer
-                bucket={bucket}
                 nodes={nodes}
                 onReload={reload}
                 hardDelete

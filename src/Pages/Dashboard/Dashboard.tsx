@@ -7,7 +7,7 @@ import CommandPrompt from "Components/CommandPrompt/CommandPrompt";
 import { useDispatch } from "react-redux";
 import { Command } from "Models/Command";
 import { pushCommand, removeCommand } from "Store/Slices/CommandsSlice";
-import { useSession } from "Store/Hooks/useSession";
+import { useToken } from "Store/Hooks/useToken";
 import Admin from "Pages/Admin/Admin";
 import Apps from "Components/Apps/Apps";
 import Welcome from "Pages/Welcome/Welcome";
@@ -21,7 +21,7 @@ function Dashboard() {
 
     const dispatch = useDispatch();
 
-    const session = useSession();
+    const token = useToken();
     const user = useUser();
 
     useEffect(() => {
@@ -72,7 +72,7 @@ function Dashboard() {
     }, [user]);
 
     useEffect(() => {
-        if (!session) {
+        if (!token) {
             navigate("/login");
             window.location.reload();
         }

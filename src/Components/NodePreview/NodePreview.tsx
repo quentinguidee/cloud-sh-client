@@ -3,26 +3,24 @@ import styles from "./NodePreview.module.sass";
 import { Node } from "Models/Node";
 import axios from "axios";
 import { api, route } from "Backend/api";
-import { useSession } from "Store/Hooks/useSession";
+import { useToken } from "Store/Hooks/useToken";
 import classNames from "classnames";
 import Layout from "Components/Layout/Layout";
 import ProgressBar from "Components/ProgressBar/ProgressBar";
 import CodeBlock from "Components/CodeBlock/CodeBlock";
-import { Bucket } from "Models/Bucket";
 
 type Props = {
-    bucket: Bucket;
     node?: Node;
     className?: string;
     maximize?: boolean;
 };
 
 function NodePreview(props: Props) {
-    const { node, bucket, className, maximize } = props;
+    const { node, className, maximize } = props;
 
     if (!node) return null;
 
-    const session = useSession();
+    const token = useToken();
 
     const [data, setData] = useState<Blob>(undefined);
     const [content, setContent] = useState(undefined);
@@ -33,12 +31,12 @@ function NodePreview(props: Props) {
         setLoadingPercentage(0);
         axios({
             method: "GET",
-            url: route(`/storage/${bucket.uuid}/download`),
+            url: route(`/storage/nodes/download`),
             params: {
                 node_uuid: node.uuid,
             },
             headers: {
-                Authorization: session.token,
+                Authorization: token,
             },
             responseType: "blob",
             onDownloadProgress: (progress) => {

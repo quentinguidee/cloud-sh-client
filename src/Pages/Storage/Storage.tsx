@@ -8,11 +8,11 @@ import StorageRecent from "Pages/Storage/Categories/StorageRecent";
 import StorageBin from "Pages/Storage/Categories/StorageBin";
 import axios from "axios";
 import { api, route } from "Backend/api";
-import { useSession } from "Store/Hooks/useSession";
+import { useToken } from "Store/Hooks/useToken";
 import { Bucket } from "Models/Bucket";
 
 function Storage() {
-    const session = useSession();
+    const token = useToken();
 
     const [bucket, setBucket] = useState<Bucket>();
 
@@ -21,7 +21,7 @@ function Storage() {
             method: "GET",
             url: route("/storage/bucket"),
             headers: {
-                Authorization: session.token,
+                Authorization: token,
             },
         })
             .then((res) => {

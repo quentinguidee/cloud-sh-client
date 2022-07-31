@@ -112,14 +112,9 @@ function FileListItem(props: Props) {
                 <PopoverItemWithSymbol symbol="edit" onClick={onRename}>
                     Rename
                 </PopoverItemWithSymbol>
-                {node.type !== "directory" && (
-                    <PopoverItemWithSymbol
-                        symbol="download"
-                        onClick={onDownload}
-                    >
-                        Download
-                    </PopoverItemWithSymbol>
-                )}
+                <PopoverItemWithSymbol symbol="download" onClick={onDownload}>
+                    Download
+                </PopoverItemWithSymbol>
                 <PopoverSeparator />
                 <PopoverItemWithSymbol symbol="info" onClick={onShowInfo}>
                     Info

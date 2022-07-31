@@ -3,7 +3,7 @@ import List from "Components/List/List";
 import FileListItem from "Layouts/FileListItem/FileListItem";
 import { Node } from "Models/Node";
 import { api, route } from "Backend/api";
-import { useSession } from "Store/Hooks/useSession";
+import { useToken } from "Store/Hooks/useToken";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
@@ -12,10 +12,8 @@ import classNames from "classnames";
 import NodeInfo from "Components/NodeInfo/NodeInfo";
 import NodePreviewPopover from "Components/NodePreviewPopover/NodePreviewPopover";
 import { Text } from "Components/Text/Text";
-import { Bucket } from "Models/Bucket";
 
 type Props = {
-    bucket: Bucket;
     nodes?: Node[];
 
     ifEmptyMessage: string;
@@ -30,16 +28,10 @@ type Props = {
 };
 
 function FileExplorer(props: Props) {
-    const {
-        nodes,
-        bucket,
-        ifEmptyMessage,
-        onReload,
-        hardDelete,
-        disableNavigation,
-    } = props;
+    const { nodes, ifEmptyMessage, onReload, hardDelete, disableNavigation } =
+        props;
 
-    const session = useSession();
+    const token = useToken();
 
     const navigate = useNavigate();
 
@@ -54,12 +46,12 @@ function FileExplorer(props: Props) {
         if (disableNavigation) return;
         axios({
             method: "GET",
-            url: route("/storage/download"),
+            url: route("/storage/nodes/download"),
             params: {
                 node_uuid: node.uuid,
             },
             headers: {
-                Authorization: session.token,
+                Authorization: token,
             },
             responseType: "blob",
         })
@@ -75,13 +67,13 @@ function FileExplorer(props: Props) {
         setRenamingNode(undefined);
         axios({
             method: "PATCH",
-            url: route(`/storage/${bucket.uuid}`),
+            url: route(`/storage/nodes`),
             params: {
                 node_uuid: node.uuid,
                 new_name: newNode.name,
             },
             headers: {
-                Authorization: session.token,
+                Authorization: token,
             },
         })
             .then(() => onReload())
@@ -100,13 +92,13 @@ function FileExplorer(props: Props) {
     const onDelete = (node: Node) => {
         axios({
             method: "DELETE",
-            url: route(`/storage/${bucket.uuid}`),
+            url: route(`/storage/nodes`),
             params: {
                 node_uuid: node.uuid,
                 soft_delete: hardDelete !== undefined ? !hardDelete : true,
             },
             headers: {
-                Authorization: session.token,
+                Authorization: token,
             },
         })
             .then(() => onReload())
@@ -171,13 +163,8 @@ function FileExplorer(props: Props) {
             >
                 {items}
             </List>
-            <NodeInfo
-                node={infoNode}
-                onClose={() => setInfoNode(undefined)}
-                bucket={bucket}
-            />
+            <NodeInfo node={infoNode} onClose={() => setInfoNode(undefined)} />
             <NodePreviewPopover
-                bucket={bucket}
                 node={previewNode}
                 onClose={() => setPreviewNode(undefined)}
             />

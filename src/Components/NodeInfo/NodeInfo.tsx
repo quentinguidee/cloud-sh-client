@@ -13,16 +13,14 @@ import classNames from "classnames";
 import Overlay from "Components/Overlay/Overlay";
 import NodePreview from "Components/NodePreview/NodePreview";
 import Info from "Components/Info/Info";
-import { Bucket } from "Models/Bucket";
 
 type Props = {
-    bucket: Bucket;
     node?: Node;
     onClose?: () => void;
 };
 
 function NodeInfo(props: Props) {
-    const { bucket, node, onClose } = props;
+    const { node, onClose } = props;
 
     const size = node?.size ? prettyBytes(node?.size) : undefined;
 
@@ -58,11 +56,7 @@ function NodeInfo(props: Props) {
                     [styles.infoShown]: node,
                 })}
             >
-                <NodePreview
-                    className={styles.preview}
-                    node={node}
-                    bucket={bucket}
-                />
+                <NodePreview className={styles.preview} node={node} />
                 <Layout horizontal center gap={12} className={styles.titleBar}>
                     <NodeSymbol node={node} />
                     <Layout vertical gap={2}>

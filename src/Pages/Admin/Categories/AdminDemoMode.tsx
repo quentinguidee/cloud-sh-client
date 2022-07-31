@@ -9,7 +9,7 @@ import Button from "Components/Button/Button";
 import Checkbox from "Components/Checkbox/Checkbox";
 import axios from "axios";
 import { api, route } from "Backend/api";
-import { useSession } from "Store/Hooks/useSession";
+import { useToken } from "Store/Hooks/useToken";
 import { useNavigate } from "react-router-dom";
 import { pushMessage } from "Store/Slices/MessagesSlice";
 import { useDispatch } from "react-redux";
@@ -28,7 +28,7 @@ function AdminDemoModeLoading() {
 function AdminDemoModeDisabled() {
     const dispatch = useDispatch();
 
-    const session = useSession();
+    const token = useToken();
 
     const navigate = useNavigate();
 
@@ -45,7 +45,7 @@ function AdminDemoModeDisabled() {
             method: "POST",
             url: route("/admin/demo"),
             headers: {
-                Authorization: session.token,
+                Authorization: token,
             },
         })
             .then(() => {
@@ -94,7 +94,7 @@ function AdminDemoModeEnabled() {
 }
 
 function AdminDemoMode() {
-    const session = useSession();
+    const token = useToken();
 
     const [content, setContent] = useState(<AdminDemoModeLoading />);
 
@@ -103,7 +103,7 @@ function AdminDemoMode() {
             method: "GET",
             url: route("/admin/demo"),
             headers: {
-                Authorization: session.token,
+                Authorization: token,
             },
         })
             .then((res) => {

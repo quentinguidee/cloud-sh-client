@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import User from "Models/User";
-import { Session } from "Models/Session";
+import { Token } from "Models/Token";
 import { StoreState } from "Store/Store";
 
 function setUserReducer(state, action: PayloadAction<{ user: User }>) {
@@ -8,14 +8,14 @@ function setUserReducer(state, action: PayloadAction<{ user: User }>) {
     state.user = user;
 }
 
-function setSessionReducer(state, action: PayloadAction<{ session: Session }>) {
-    const { payload: session } = action;
-    state.session = session;
+function setTokenReducer(state, action: PayloadAction<{ token: Token }>) {
+    const { payload: token } = action;
+    state.token = token;
 }
 
 type AuthState = {
     user?: User;
-    session?: Session;
+    token?: Token;
 };
 
 const authSlice = createSlice({
@@ -23,13 +23,13 @@ const authSlice = createSlice({
     initialState: {} as AuthState,
     reducers: {
         setUser: setUserReducer,
-        setSession: setSessionReducer,
+        setToken: setTokenReducer,
     },
 });
 
-export const { setUser, setSession } = authSlice.actions;
+export const { setUser, setToken } = authSlice.actions;
 
 export const getUser = (state: StoreState) => state.auth.user;
-export const getSession = (state: StoreState) => state.auth.session;
+export const getToken = (state: StoreState) => state.auth.token;
 
 export default authSlice.reducer;

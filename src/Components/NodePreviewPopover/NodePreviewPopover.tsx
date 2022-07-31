@@ -10,10 +10,8 @@ import { Caption } from "Components/Text/Text";
 import { Subtitle } from "Components/Title/Title";
 import NodePreview from "Components/NodePreview/NodePreview";
 import NodeSymbol from "Components/NodeSymbol/NodeSymbol";
-import { Bucket } from "Models/Bucket";
 
 type Props = {
-    bucket: Bucket;
     node?: Node;
     onClose?: () => void;
 };
@@ -37,7 +35,7 @@ function NodePreviewPopoverTitle(props: Props) {
 }
 
 function NodePreviewPopover(props: Props) {
-    const { bucket, node } = props;
+    const { node } = props;
 
     const onClose = () => {
         if (props.onClose) props.onClose();
@@ -53,14 +51,9 @@ function NodePreviewPopover(props: Props) {
                     [styles.windowShow]: node !== undefined,
                 })}
             >
-                <NodePreviewPopoverTitle
-                    bucket={bucket}
-                    node={node}
-                    onClose={onClose}
-                />
+                <NodePreviewPopoverTitle node={node} onClose={onClose} />
                 <Layout middle className={styles.content}>
                     <NodePreview
-                        bucket={bucket}
                         node={node}
                         maximize
                         className={styles.preview}

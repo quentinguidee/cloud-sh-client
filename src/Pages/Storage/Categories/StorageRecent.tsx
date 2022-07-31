@@ -3,7 +3,7 @@ import FileExplorer from "Layouts/FileExplorer/FileExplorer";
 import TitleBar from "Layouts/TitleBar/TitleBar";
 import axios from "axios";
 import { api, route } from "Backend/api";
-import { useSession } from "Store/Hooks/useSession";
+import { useToken } from "Store/Hooks/useToken";
 import { Node } from "Models/Node";
 import { Bucket } from "Models/Bucket";
 
@@ -14,7 +14,7 @@ type Props = {
 function StorageRecent(props: Props) {
     const { bucket } = props;
 
-    const session = useSession();
+    const token = useToken();
 
     const [nodes, setNodes] = useState<Node[]>([]);
 
@@ -24,14 +24,17 @@ function StorageRecent(props: Props) {
 
     const reload = () => {
         axios({
-            url: route(`/storage/${bucket.uuid}/recent`),
+            url: route(`/storage/recent`),
+            params: {
+                bucket_uuid: bucket.uuid,
+            },
             headers: {
-                Authorization: session.token,
+                Authorization: token,
             },
         })
             .then((res) => {
-                console.table(res.data.nodes);
-                setNodes(res.data.nodes);
+                console.table(res.data);
+                setNodes(res.data);
             })
             .catch(api.error);
     };
@@ -40,7 +43,6 @@ function StorageRecent(props: Props) {
         <Fragment>
             <TitleBar title="Recent" />
             <FileExplorer
-                bucket={bucket}
                 nodes={nodes}
                 onReload={reload}
                 ifEmptyMessage="No recent files found."
