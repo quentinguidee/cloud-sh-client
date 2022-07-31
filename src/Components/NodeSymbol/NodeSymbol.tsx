@@ -2,6 +2,9 @@ import React from "react";
 import { Node } from "Models/Node";
 import Symbol from "Components/Symbol/Symbol";
 import {
+    siAffinitydesigner,
+    siAffinityphoto,
+    siAffinitypublisher,
     siBabel,
     siC,
     siCplusplus,
@@ -27,6 +30,9 @@ import {
 import { SimpleIcon } from "simple-icons";
 
 const icons: { [index: string]: SimpleIcon } = {
+    afdesign: siAffinitydesigner,
+    afphoto: siAffinityphoto,
+    afpub: siAffinitypublisher,
     babel: siBabel,
     c: siC,
     cpp: siCplusplus,
