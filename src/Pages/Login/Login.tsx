@@ -11,27 +11,53 @@ import { useDispatch } from "react-redux";
 import { setToken, setUser } from "Store/Slices/AuthSlice";
 import Box from "Components/Box/Box";
 import axios from "axios";
-import { route } from "Backend/api";
+import { api, route } from "Backend/api";
+import { AuthMethod } from "Models/AuthMethod";
+
+type LoginButtonProps = {
+    method: AuthMethod;
+    onClick: () => void;
+};
+
+function LoginButton(props: LoginButtonProps) {
+    const { method, onClick } = props;
+    const { name, color: backgroundColor } = method;
+
+    return (
+        <Button
+            onClick={onClick}
+            style={{ backgroundColor }}
+            className={styles.github}
+        >
+            <Symbol symbol="login" />
+            Login with {name}
+        </Button>
+    );
+}
 
 function Login() {
     const [params] = useSearchParams();
 
     const dispatch = useDispatch();
 
+    const [methods, setMethods] = useState<AuthMethod[]>();
+
     const [code, setCode] = useState<string | undefined>();
     const [state, setState] = useState<string | undefined>();
 
     const [error, setError] = useState<string | undefined>();
-    const [loading, setLoading] = useState<string | undefined>();
+    const [loading, setLoading] = useState<string | undefined>(
+        "Loading login methods...",
+    );
 
     const navigate = useNavigate();
 
-    const loginWithGithub = () => {
-        setLoading("Redirecting to Github...");
+    const login = (method: AuthMethod) => {
+        setLoading(`Redirecting to ${method.name}...`);
         setError(undefined);
 
         axios
-            .get(route("/auth/github/login"))
+            .get(route(`/auth/${method.name}/login`))
             .then((res) => {
                 window.location = res.data.url;
             })
@@ -70,8 +96,21 @@ function Login() {
     };
 
     useEffect(() => {
-        setCode(params.get("code"));
-        setState(params.get("state"));
+        // TODO: Don't execute this request on /callback.
+        axios
+            .get(route("/auth"))
+            .then((res) => {
+                setMethods(res.data.methods);
+                setLoading(undefined);
+            })
+            .catch(api.error);
+    }, []);
+
+    useEffect(() => {
+        const code = params.get("code");
+        const state = params.get("state");
+        setCode(code);
+        setState(state);
     }, [params]);
 
     useEffect(() => {
@@ -86,13 +125,13 @@ function Login() {
                     <Box>
                         <Layout vertical gap={24}>
                             <Title>Login</Title>
-                            <Button
-                                onClick={loginWithGithub}
-                                className={styles.github}
-                            >
-                                <Symbol symbol="login" />
-                                Login with GitHub
-                            </Button>
+                            {methods?.map((method) => (
+                                <LoginButton
+                                    key={method.name}
+                                    method={method}
+                                    onClick={() => login(method)}
+                                />
+                            ))}
                         </Layout>
                     </Box>
                 )}
