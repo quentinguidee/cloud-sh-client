@@ -15,31 +15,10 @@ type StepProps = {
 };
 
 function DatabaseConfig(props: StepProps) {
-    const [loading, setLoading] = useState<boolean>(true);
-
     const [host, setHost] = useState<string>();
     const [name, setName] = useState<string>();
     const [user, setUser] = useState<string>();
     const [password, setPassword] = useState<string>();
-
-    const load = () => {
-        axios({
-            method: "GET",
-            url: route("/config/database"),
-        })
-            .then((res) => {
-                if (res.data.already_done) {
-                    props.onDone();
-                } else {
-                    setLoading(false);
-                }
-            })
-            .catch(api.error);
-    };
-
-    useEffect(() => load(), []);
-
-    if (loading) return null;
 
     const save = () => {
         axios({
@@ -159,7 +138,9 @@ function OAuthConfig(props: StepProps) {
     return (
         <div className={styles.content}>
             <Layout vertical left gap={32}>
-                <Subtitle style={{ marginLeft: 12 }}>Database setup</Subtitle>
+                <Subtitle style={{ marginLeft: 12 }}>
+                    Authentication setup
+                </Subtitle>
                 <Layout right vertical gap={32}>
                     <Layout stretch vertical gap={20} className={styles.fields}>
                         <Input
@@ -230,6 +211,7 @@ function OAuthConfig(props: StepProps) {
 type Step = "database" | "oauth";
 
 function ServerConfig() {
+    const [loading, setLoading] = useState<boolean>(true);
     const [step, setStep] = useState<Step>("database");
 
     const navigate = useNavigate();
@@ -241,6 +223,24 @@ function ServerConfig() {
         }
         navigate("/login");
     };
+
+    const load = () => {
+        axios({
+            method: "GET",
+            url: route(`/config/${step}`),
+        })
+            .then((res) => {
+                if (res.data.already_done) {
+                    next();
+                } else {
+                    setLoading(false);
+                }
+            })
+            .catch(api.error);
+    };
+
+    useEffect(() => load(), [step]);
+    if (loading) return <Text>Loading...</Text>;
 
     switch (step) {
         case "database":
