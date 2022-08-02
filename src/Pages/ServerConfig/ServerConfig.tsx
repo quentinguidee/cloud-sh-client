@@ -38,9 +38,7 @@ function DatabaseConfig(props: StepProps) {
     return (
         <div className={styles.content}>
             <Layout vertical left gap={32}>
-                <Subtitle style={{ marginLeft: 12 }}>
-                    Authentication setup
-                </Subtitle>
+                <Subtitle style={{ marginLeft: 12 }}>Database setup</Subtitle>
                 <Layout right vertical gap={32}>
                     <Layout stretch vertical gap={20} className={styles.fields}>
                         <Input
