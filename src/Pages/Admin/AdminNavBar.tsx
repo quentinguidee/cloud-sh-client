@@ -14,6 +14,9 @@ function AdminNavBar() {
                     <NavBarItem to="/admin/auth" icon="key">
                         Authentication
                     </NavBarItem>
+                    <NavBarItem to="/admin/database" icon="database">
+                        Database
+                    </NavBarItem>
                     <NavBarItem to="/admin/users" icon="people">
                         Users
                     </NavBarItem>

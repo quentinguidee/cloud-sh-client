@@ -7,6 +7,7 @@ import AdminReset from "Pages/Admin/Categories/AdminReset";
 import AdminUpdates from "Pages/Admin/Categories/AdminUpdates";
 import AdminUsers from "Pages/Admin/Categories/AdminUsers";
 import AdminAuth from "Pages/Admin/Categories/AdminAuth";
+import AdminDatabase from "Pages/Admin/Categories/AdminDatabase";
 
 function Admin() {
     return (
@@ -15,6 +16,7 @@ function Admin() {
             <Page>
                 <Routes>
                     <Route path="auth/*" element={<AdminAuth />} />
+                    <Route path="database/*" element={<AdminDatabase />} />
                     <Route path="users/*" element={<AdminUsers />} />
                     <Route path="updates/*" element={<AdminUpdates />} />
                     <Route path="demo/*" element={<AdminDemoMode />} />
