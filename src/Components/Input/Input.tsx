@@ -2,23 +2,33 @@ import React, { Ref } from "react";
 
 import styles from "./Input.module.sass";
 import classNames from "classnames";
+import Layout from "Components/Layout/Layout";
 
 type Props = React.HTMLProps<HTMLInputElement> & {
     small?: boolean;
+    label?: string;
 };
 
 function Input(props: Props, ref: Ref<HTMLInputElement>) {
-    const { className, small, ...others } = props;
+    const { className, small, label, name, ...others } = props;
     return (
-        <input
-            ref={ref}
-            className={classNames({
-                [styles.input]: true,
-                [styles.inputSmall]: small,
-                [className]: true,
-            })}
-            {...others}
-        />
+        <Layout vertical stretch gap={8}>
+            {label && (
+                <label className={styles.label} htmlFor={name}>
+                    {label}
+                </label>
+            )}
+            <input
+                ref={ref}
+                name={name}
+                className={classNames({
+                    [styles.input]: true,
+                    [styles.inputSmall]: small,
+                    [className]: true,
+                })}
+                {...others}
+            />
+        </Layout>
     );
 }
 
