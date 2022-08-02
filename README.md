@@ -30,15 +30,8 @@ You also need to start a [cloud-sh-server](https://github.com/quentinguidee/clou
 git clone https://github.com/quentinguidee/cloud-sh-server.git
 ```
 
-On GitHub, create an oauth application (user settings > developer settings > OAuth Apps > New) with these settings:
+Then, follow the "first setup" instructions [here (Wiki)](https://github.com/quentinguidee/cloud-sh-client/wiki/First-setup).
 
-* **Homepage URL**: http://localhost:3000
-* **Authorization callback URL**: http://localhost:3000/login
-
-In the server code, find the file `src/main/resources/application.example.conf`, rename it to `application.conf`, and put your Client ID and Client Secret given by GitHub.
-You also need to start a PostgreSQL instance (you can use the `docker-compose.yml` file on the server if you want).
-
-Then, run the server with Gradle.
 
 ## License
 
