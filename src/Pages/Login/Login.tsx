@@ -21,7 +21,7 @@ type LoginButtonProps = {
 
 function LoginButton(props: LoginButtonProps) {
     const { method, onClick } = props;
-    const { name, color: backgroundColor } = method;
+    const { display_name, color: backgroundColor } = method;
 
     return (
         <Button
@@ -30,7 +30,7 @@ function LoginButton(props: LoginButtonProps) {
             className={styles.github}
         >
             <Symbol symbol="login" />
-            Login with {name}
+            Login with {display_name}
         </Button>
     );
 }
